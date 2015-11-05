@@ -6,6 +6,10 @@ nav {
   background-color: #d14414;
 }
 
+.registration {
+  margin-top: 100px;
+}
+
 input[type=text]:focus:not([readonly]),
 input[type=password]:focus:not([readonly]),
 input[type=email]:focus:not([readonly]),
