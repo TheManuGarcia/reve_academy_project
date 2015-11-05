@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <%include partials/head%>
-  </head>
-  <body class = "container">
-  <header class = "main_header">
-    <%include partials/header_main %>
-  </header>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+<head>
+    <% include partials/head %>
+</head>
+<body>
+<%include partials/header_main%>
+<header>
+    <% include partials/slideout_menu %>
+</header>
+<div class="container">
 
-  </body>
+    <h1><%= title %></h1>
+
+    <p>Welcome to <%= title %></p>
+</div>
+<% include partials/footer %>
+</body>
 </html>
