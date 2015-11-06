@@ -1,54 +1,56 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var flash = require('connect-flash');
+
 var username = 'Lauren';
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Rêve Academy Application', username:username});
+    if (req.user) {
+        res.redirect('/home');
+    } else {
+        res.render('index', { title: 'Rêve Academy Application' });
+    }
 });
+
+router.get('/home', function (req, res, next) {
+    res.render('home', {title: 'Home', user: req.user});
+});
+
 
 //SKILLS ROUTES
 router.get('/communication', function (req, res, next) {
-    res.render('communication', {title: 'Communication page'});
-
+    res.render('communication', {title: 'Communication'});
 });
 router.get('/equitable', function (req, res, next) {
-    res.render('equitable', {title: 'equitable page'});
+    res.render('equitable', {title: 'Equitable'});
 });
 router.get('/progress_monitoring', function (req, res, next) {
-    res.render('progress_monitoring', {title: 'progress monitoring'});
+    res.render('progress_monitoring', {title: 'Progress Monitoring'});
 });
 router.get('/enthusiasm', function (req, res, next) {
-    res.render('enthusiasm', {title: 'enthusiasm'});
+    res.render('enthusiasm', {title: 'Enthusiasm'});
 });
 router.get('/teamwork', function (req, res, next) {
-    res.render('teamwork', {title: 'teamwork page'});
+    res.render('teamwork', {title: 'Teamwork'});
 });
 router.get('/problem_solving', function (req, res, next) {
-    res.render('problem_solving', {title: 'problem solving'});
+    res.render('problem_solving', {title: 'Problem Solving'});
 });
 router.get('/professionalism', function (req, res, next) {
-    res.render('professionalism', {title: 'professionalism'});
+    res.render('professionalism', {title: 'Professionalism'});
 });
 router.get('/engagement', function (req, res, next) {
-    res.render('engagement', {title: 'engagement'});
+    res.render('engagement', {title: 'Engagement'});
 });
 router.get('/supportive_learning', function (req, res, next) {
-    res.render('supportive_learning', {title: 'supportive learning'});
+    res.render('supportive_learning', {title: 'Supportive Learning'});
 });
 router.get('/responsibility', function (req, res, next) {
-    res.render('responsibility', {title: 'responsibility'});
+    res.render('responsibility', {title: 'Responsibility'});
 });
-
 router.get('/observation', function (req, res, next) {
     res.render('observation', {title: 'Observation'});
-});
-
-router.get('/login', function (req, res, next) {
-    res.render('login', {title: 'Login Page'});
-});
-
-router.get('/register', function (req, res, next) {
-    res.render('register', {title: 'Register'});
 });
 
 
@@ -60,10 +62,6 @@ router.get('/add_intern', function (req, res, next) {
 
 router.get('/add_teacher', function (req, res, next) {
     res.render('admin/add_teacher', {title: 'Add Teacher'});
-});
-
-router.get('/admin_home', function (req, res, next) {
-    res.render('admin/admin_home', {title: 'Admin Home'});
 });
 
 router.get('/admin_view_data', function (req, res, next) {
@@ -78,6 +76,41 @@ router.get('/add_class', function (req, res, next) {
 
 router.get('/teacher_view_data', function (req, res, next) {
     res.render('teacher/teacher_view_data', {title: 'Teacher View Data'});
+});
+
+// AUTH ROUTES
+router.get('/login', function (req, res, next) {
+    res.render('login', {title: 'Login Page', message: req.flash('loginMessage') });
+});
+
+router.get('/register', function (req, res, next) {
+    res.render('register', {title: 'Register', message: req.flash('registerMessage') });
+});
+
+router.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/home', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the login page if there is an error
+        failureFlash : true // allow flash messages
+    }), function(req, res) {
+        console.log("logged in!");
+
+        if (req.body.remember) {
+            req.session.cookie.maxAge = 1000 * 60 * 3;
+        } else {
+            req.session.cookie.expires = false;
+        }
+        res.redirect('/');
+});
+
+router.post('/register', passport.authenticate('local-signup', {
+    successRedirect : '/home', // redirect to the secure profile section
+    failureRedirect : '/register', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+}));
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
 });
 
 module.exports = router;
