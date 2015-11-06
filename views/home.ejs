@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+</head>
+<body>
+<%include partials/admin_header%>
+
+<div class="container">
+    <main>
+        <% if (user) { %>
+            Welcome, <%= user.Username %>
+        <% } %>
+
+    </main>
+
+</div>
+<% include partials/footer %>
+</body>
+</html>
