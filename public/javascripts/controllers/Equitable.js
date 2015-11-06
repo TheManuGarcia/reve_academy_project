@@ -1,5 +1,5 @@
-app.controller('EquitableController', ['$http', function($http) {
+app.controller('EquitableController', function($http) {
     console.log("Equitable Controller");
 
 
-}]);
+});

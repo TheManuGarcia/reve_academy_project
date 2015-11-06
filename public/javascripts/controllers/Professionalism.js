@@ -1,5 +1,5 @@
-app.controller('ProfessionalismController', ['$http', function($http) {
+app.controller('ProfessionalismController', function($http) {
     console.log("Professionalism Controller");
 
 
-}]);
+});

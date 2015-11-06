@@ -1,5 +1,5 @@
-app.controller('CommunicationController', ['$http', function($http) {
+app.controller('CommunicationController', function($http) {
     console.log("Communication Controller");
 
 
-}]);
+});

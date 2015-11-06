@@ -1,5 +1,5 @@
-app.controller('AddInternController', ['$http', function($http) {
+app.controller('AddInternController', function($http) {
     console.log("AddIntern Controller");
 
 
-}]);
+});

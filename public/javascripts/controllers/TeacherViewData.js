@@ -1,5 +1,5 @@
-app.controller('TeacherViewDataController', ['$http', function($http) {
+app.controller('TeacherViewDataController', function($http) {
     console.log("TeacherViewData Controller");
 
 
-}]);
+});

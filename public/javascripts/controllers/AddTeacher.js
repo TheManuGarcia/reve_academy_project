@@ -1,5 +1,5 @@
-app.controller('AddTeacherController', ['$http', function($http) {
+app.controller('AddTeacherController', function($http) {
     console.log("AddTeacher Controller");
 
 
-}]);
+});
