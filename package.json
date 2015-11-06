@@ -13,10 +13,16 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "express-session": "^1.12.1",
     "jquery": "^2.1.4",
     "materialize-css": "^0.97.1",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
+    "mysql": "^2.9.0",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0"
   },
   "description": "Reve Academy group project",
   "main": "app.js",
