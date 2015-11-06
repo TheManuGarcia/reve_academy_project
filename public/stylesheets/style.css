@@ -110,6 +110,11 @@ h4 {
   text-align: left;
 }
 
+#registerMessage {
+  padding-left: 20px;
+  color: #F00;
+}
+
 footer {
   background-color: #707372 ;
   height:50px;
