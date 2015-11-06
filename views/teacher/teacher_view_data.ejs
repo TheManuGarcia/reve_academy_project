@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" ng-app="MainApp">
 <head>
     <% include ../partials/head %>
 </head>
@@ -9,7 +9,7 @@
     <% include ../partials/slideout_menu %>
 </header>
 <div class="container">
-    <main>
+    <main ng-controller="TeacherViewDataController as teacherview">
         <div class="row">
             <ul id="teacher_options" class="dropdown-content">
                 <li><a href="#!" class="blue-grey-text text-darken-4">Whole Class</a></li>

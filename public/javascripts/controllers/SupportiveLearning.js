@@ -1,4 +1,4 @@
-app.controller('SupportiveLearning', ['$http', function($http) {
+app.controller('SupportiveLearningController', ['$http', function($http) {
     console.log("SupportiveLearning Controller");
 
 

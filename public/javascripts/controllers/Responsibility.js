@@ -1,4 +1,4 @@
-app.controller('Responsibility', ['$http', function($http) {
+app.controller('ResponsibilityController', ['$http', function($http) {
     console.log("Responsibility Controller");
 
 
