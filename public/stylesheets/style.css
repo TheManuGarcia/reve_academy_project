@@ -103,6 +103,13 @@ header, main, footer {
   color: white;
 }
 
+h4 {
+  border-bottom: 1px solid #707372;
+  color:#707372;
+  margin-top: 100px;
+  text-align: left;
+}
+
 footer {
   background-color: #707372 ;
   height:50px;

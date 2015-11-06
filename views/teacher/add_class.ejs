@@ -5,11 +5,9 @@
 </head>
 <body>
 <%include ../partials/header_main%>
-<header>
-    <% include ../partials/slideout_menu %>
-</header>
 <div class="container">
     <main>
+
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s6">
@@ -29,6 +27,11 @@
                 <div class="input-field col s4">
                     <input type="date" class="datepicker" name="startdate">
                     <label for="startdate">Start Date</label>
+                </div>
+                <div class="input-field col s4 offset-s8">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
 
             </div>
