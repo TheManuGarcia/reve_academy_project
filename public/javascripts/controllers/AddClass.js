@@ -1,4 +1,4 @@
-app.controller('AddClass', ['$http', function($http) {
+app.controller('AddClassController', ['$http', function($http) {
     console.log("AddClass Controller");
 
 

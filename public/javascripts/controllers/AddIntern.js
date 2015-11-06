@@ -1,4 +1,4 @@
-app.controller('AddIntern', ['$http', function($http) {
+app.controller('AddInternController', ['$http', function($http) {
     console.log("AddIntern Controller");
 
 

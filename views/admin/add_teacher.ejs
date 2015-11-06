@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="MainApp">
 <head>
     <% include ../partials/head %>
+    <script src="/javascripts/controllers/AddTeacher.js" type="text/javascript"></script>
 </head>
 <body>
 <% include ../partials/admin_header %>
 
 <div class="container">
-    <main>
+    <main ng-controller="AddTeacherController as teacher">
         <div class="row">
             <h4 class="col s12">Add A Teacher</h4>
 
