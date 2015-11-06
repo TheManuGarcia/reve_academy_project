@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+<%include ../partials/header_main%>
+<header>
+    <% include ../partials/slideout_menu %>
+</header>
+<div class="container">
+    <main>
+        <div class="row">
+            <ul id="teacher_options" class="dropdown-content">
+                <li><a href="#!" class="blue-grey-text text-darken-4">Whole Class</a></li>
+                <li><a href="#!" class="blue-grey-text text-darken-4">Student#1</a></li>
+                <li><a href="#!" class="blue-grey-text text-darken-4">Student#2</a></li>
+            </ul>
+            <a class="btn dropdown-button blue-grey lighten-1" href="#!" data-activates="teacher_options">Select<i class="mdi-navigation-arrow-drop-down right"></i></a>
+            <button class="btn waves-effect waves-light yellow darken-4" type="submit" name="getdata">Get Data
+                <i class="material-icons right">view_list</i>
+            </button>
+
+        </div>
+    </main>
+
+</div>
+<% include ../partials/footer %>
+</body>
+</html>

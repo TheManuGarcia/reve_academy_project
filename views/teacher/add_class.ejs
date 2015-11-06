@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+<%include ../partials/header_main%>
+<header>
+    <% include ../partials/slideout_menu %>
+</header>
+<div class="container">
+    <main>
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input type="text" class="validate" name="classname">
+                    <label for="classname">Class Name</label>
+                </div>
+
+
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">playlist_add</i>
+                    <input type="text" class="validate" name="studentname">
+                    <label for="student_name">Student First Name</label>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="input-field col s4">
+                    <input type="date" class="datepicker" name="startdate">
+                    <label for="startdate">Start Date</label>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+</div>
+<% include ../partials/footer %>
+</body>
+</html>

@@ -55,30 +55,29 @@ router.get('/register', function (req, res, next) {
 //ADMIN ROUTES
 
 router.get('/add_intern', function (req, res, next) {
-    res.render('/admin/add_intern', {title: 'Add Intern'});
+    res.render('admin/add_intern', {title: 'Add Intern'});
 });
 
 router.get('/add_teacher', function (req, res, next) {
-    res.render('/admin/add_teacher', {title: 'Add Teacher'});
+    res.render('admin/add_teacher', {title: 'Add Teacher'});
 });
 
 router.get('/admin_home', function (req, res, next) {
-    res.render('/admin/admin_home', {title: 'Admin Home'});
+    res.render('admin/admin_home', {title: 'Admin Home'});
 });
 
 router.get('/admin_view_data', function (req, res, next) {
-    res.render('/admin/admin_view_data', {title: 'Admin View Data'});
+    res.render('admin/admin_view_data', {title: 'Admin View Data'});
 });
 
 //TEACHER'S ROUTES
 
 router.get('/add_class', function (req, res, next) {
-    res.render('/teacher/add_class', {title: 'Add Class'});
+    res.render('teacher/add_class', {title: 'Add Class'});
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
-    res.render('/teacher/teacher_view_data', {title: 'Teacher View Data'});
+    res.render('teacher/teacher_view_data', {title: 'Teacher View Data'});
 });
-
 
 module.exports = router;
