@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="MainApp">
 <head>
     <% include partials/head %>
 </head>
 <body>
 <%include partials/header_main%>
+<script src="/javascripts/controllers/Teamwork.js" type="text/javascript"></script>
 <header>
     <% include partials/slideout_menu %>
 </header>
 <div class="container">
-    <main>
-
+    <main ng-controller="TeamworkController as teamwork">
+        <div class="row">
+            <h4 class="col s12">Teamwork</h4>
+        </div>
 
     </main>
 

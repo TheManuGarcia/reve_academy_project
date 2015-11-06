@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="MainApp">
 <head>
     <% include ../partials/head %>
+    <script src="/javascripts/controllers/AddIntern.js" type="text/javascript"></script>
 </head>
 <body>
-<%include ../partials/header_main%>
-<header>
-    <% include ../partials/slideout_menu %>
-</header>
+<% include ../partials/header_main %>
 <div class="container">
-    <main>
+    <main ng-controller="AddInternController as intern">
+        <div class="row">
+            <h4 class="col s12">Add An Intern</h4>
 
+            <div class="addAnIntern">
+                <div class="row">
+                    <form class="col s12" method="post">
+                        <div class="input-field col s12">
+                            <input id="first_name" type="text" class="validate">
+                            <label for="first_name">First Name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select>
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="1">Rêve Dev</option>
+                                <option value="2">Rêve Retail</option>
+                            </select>
+                            <label>Choose Internship</label>
+                        </div>
 
+                        <div class="input-field col s4">
+                            <input type="date" class="datepicker" name="startdate">
+                            <label for="startdate">Start Date</label>
+                        </div>
+                        <div class="input-field col s4 offset-s8">
+                            <button class="btn waves-effect waves-light deep-orange accent-4" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
 </div>

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="MainApp">
 <head>
     <% include partials/head %>
+    <script src="/javascripts/controllers/ProblemSolving.js" type="text/javascript"></script>
 </head>
-<body>
+<body ng-controller="ProblemSolvingController as problem">
 <%include partials/header_main%>
 <header>
     <% include partials/slideout_menu %>
 </header>
 <div class="container">
     <main>
-
+        <div class="row">
+            <h4 class="col s12">Problem Solving</h4>
+        </div>
 
     </main>
 

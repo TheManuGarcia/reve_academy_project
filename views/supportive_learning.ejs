@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="MainApp">
 <head>
     <% include partials/head %>
+    <script src="/javascripts/controllers/SupportiveLearning.js" type="text/javascript"></script>
 </head>
-<body>
+<body ng-controller="SupportiveLearningController as supportive">
 <%include partials/header_main%>
 <header>
     <% include partials/slideout_menu %>
 </header>
 <div class="container">
     <main>
-
+        <div class="row">
+            <h4 class="col s12">Supportive Learning</h4>
+        </div>
 
     </main>
 

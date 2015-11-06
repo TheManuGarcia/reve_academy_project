@@ -115,6 +115,18 @@ header, main, footer {
     color: #F00;
 }
 
+h4 {
+  border-bottom: 1px solid #707372;
+  color:#707372;
+  margin-top: 50px;
+  text-align: left;
+}
+
+#registerMessage {
+  padding-left: 20px;
+  color: #F00;
+}
+
 footer {
     background-color: #707372;
     height: 50px;
