@@ -41,7 +41,6 @@ nav {
     background-color: #707372;
 }
 
-
 input[type=text]:focus:not([readonly]),
 input[type=password]:focus:not([readonly]),
 input[type=email]:focus:not([readonly]),
@@ -133,12 +132,16 @@ input[type=range] {
 }
 
 /*options menu font color*/
-.dropdown-content li>a, .dropdown-content li>span {
+.dropdown-content li > a, .dropdown-content li > span {
     color: #707372;
 }
-/*TODO fix this*/
+
 header, main, footer {
     padding-left: 240px;
+}
+
+.noPadding {
+    padding-left: 0;
 }
 
 /*Date picker styling*/
@@ -162,8 +165,6 @@ header, main, footer {
     background-color: #d14414;
 }
 
-
-
 .picker__nav--next:hover,
 .picker__nav--prev:hover {
     background-color: #d14414;
@@ -172,8 +173,8 @@ header, main, footer {
 }
 
 /*switch*/
-.switch label input[type=checkbox]:checked+.lever,
-.switch label input[type=checkbox]:checked+.lever:after {
+.switch label input[type=checkbox]:checked + .lever,
+.switch label input[type=checkbox]:checked + .lever:after {
     background-color: #d14414;
 }
 
@@ -183,22 +184,31 @@ header, main, footer {
     }
 }
 
-
 #registerMessage {
     padding-left: 20px;
     color: #F00;
 }
 
 h4 {
-  border-bottom: 1px solid #707372;
-  color:#707372;
-  margin-top: 50px;
-  text-align: left;
+    border-bottom: 1px solid #707372;
+    color: #707372;
+    margin-top: 50px;
+    text-align: left;
 }
 
 #registerMessage {
-  padding-left: 20px;
-  color: #F00;
+    padding-left: 20px;
+    color: #F00;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 footer {

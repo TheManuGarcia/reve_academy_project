@@ -7,7 +7,7 @@
 <body>
 <% include partials/header_main %>
 <div class="container">
-    <main>
+    <main class="noPadding">
         <div class="registration">
             <div class="row">
                 <form action="/register" class="col s10" method="post">
@@ -40,7 +40,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s5">
-                            <input id="password" type="password" class="validate" name="Password" value="123456" required>
+                            <input id="password" type="password" class="validate" name="Password" value="123456"
+                                   required>
                             <label for="password">Password</label>
                         </div>
                         <div class="input-field col s5">
@@ -50,26 +51,29 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s10">
-                            <input id="pin" type="text" maxlength="5" class="validate" name="PIN" value="49007" required>
+                            <input id="pin" type="text" maxlength="5" class="validate" name="PIN" value="49007"
+                                   required>
                             <label for="pin">Authorization Number</label>
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light" id="passwordSubmitButton" type="submit" name="action">
-                        Submit
-                        <i class="material-icons right">send</i>
-                    </button>
+                    <div class="row">
+                        <div class="input-field col s10">
+                            <button class="btn waves-effect waves-light" id="passwordSubmitButton" type="submit"
+                                    name="action">
+                                Submit
+                                <i class="material-icons right">send</i>
+                            </button>
                     <span id="registerMessage" style="padding-left:20px">
                         <% if (message.length > 0) { %>
-                            <%= message %>
+                        <%= message %>
                         <% } %>
                     </span>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
-
-
     </main>
-
 </div>
 <% include partials/footer %>
 </body>
