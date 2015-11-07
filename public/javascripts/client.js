@@ -16,6 +16,9 @@ $(document).ready(function(){
     // select box for add intern
     $('select').material_select();
 
+    //adds collapsible navbar functionality
+    $(".button-collapse").sideNav();
+
 
 
 });
