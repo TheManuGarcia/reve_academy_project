@@ -104,6 +104,7 @@ header, main, footer {
     padding-left: 240px;
 }
 
+/*Date picker styling*/
 .picker__date-display,
 .picker__weekday-display,
 .picker__close,
@@ -119,8 +120,18 @@ header, main, footer {
 .picker__day--selected,
 .picker__day--selected:hover,
 .picker--focused,
-.picker__day--selected {
+.picker__day--selected,
+.picker__day--highlighted {
     background-color: #d14414;
+}
+
+
+
+.picker__nav--next:hover,
+.picker__nav--prev:hover {
+    background-color: #d14414;
+    opacity: 0.3;
+
 }
 
 @media only screen and (max-width: 992px) {
