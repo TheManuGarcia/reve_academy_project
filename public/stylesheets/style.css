@@ -7,8 +7,26 @@ nav {
 }
 
 .registration {
-    margin-top: 100px;
+    margin-top: 50px;
 }
+
+/*side-nav styling*/
+.observationMenu,
+#slide-out {
+    background-color: #707372;
+    color: white;
+}
+
+.side-nav.fixed a,
+.side-nav a {
+    color: white;
+}
+
+#header,
+.side-nav {
+    background-color: #d14414;
+}
+
 
 input[type=text]:focus:not([readonly]),
 input[type=password]:focus:not([readonly]),
@@ -151,10 +169,6 @@ header, main, footer {
     }
 }
 
-#slide-out {
-    background: #d14414;
-    color: white;
-}
 
 #registerMessage {
     padding-left: 20px;
