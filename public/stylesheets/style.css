@@ -134,6 +134,12 @@ header, main, footer {
 
 }
 
+/*switch*/
+.switch label input[type=checkbox]:checked+.lever,
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #d14414;
+}
+
 @media only screen and (max-width: 992px) {
     header, main, footer {
         padding-left: 0;
