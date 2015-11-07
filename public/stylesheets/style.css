@@ -2,6 +2,7 @@
     background-color: #d14414;
 }
 
+.side-nav,
 nav {
     background-color: #d14414;
 }
@@ -31,9 +32,13 @@ nav {
     color: white;
 }
 
-#header,
-.side-nav {
+#header {
     background-color: #d14414;
+}
+
+.nav-mobile,
+.progress-monitoring {
+    background-color: #707372;
 }
 
 
