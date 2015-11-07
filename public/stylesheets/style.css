@@ -100,6 +100,11 @@ input[type=range] {
     background-color: #d14414;
 }
 
+/*options menu font color*/
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #707372;
+}
+/*TODO fix this*/
 header, main, footer {
     padding-left: 240px;
 }
