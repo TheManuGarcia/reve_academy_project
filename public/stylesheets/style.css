@@ -10,6 +10,15 @@ nav {
     margin-top: 50px;
 }
 
+.btn,
+.btn:focus {
+    background-color: #d14414;
+}
+
+.btn:hover {
+    background-color: #707372;
+}
+
 /*side-nav styling*/
 .observationMenu,
 #slide-out {
