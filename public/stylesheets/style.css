@@ -2,6 +2,10 @@
     background-color: #d14414;
 }
 
+#header {
+    height: 80px;
+}
+
 .side-nav,
 nav {
     background-color: #d14414;
