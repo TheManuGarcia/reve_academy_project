@@ -37,6 +37,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 /* label focus color */
 .input-field input[type=text]:focus + label,
+.input-field input[type=date]:focus + label,
 .input-field input[type=range]:focus + label,
 .input-field input[type=password]:focus + label,
 .input-field input[type=email]:focus + label {
@@ -45,6 +46,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 /* label underline focus color */
 .input-field input[type=text]:focus,
+.input-field input[type=date]:focus,
 .input-field input[type=range]:focus,
 .input-field input[type=password]:focus,
 .input-field input[type=email]:focus {
@@ -54,6 +56,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 /* valid color */
 .input-field input[type=text].valid,
+.input-field input[type=date].valid,
 .input-field input[type=password].valid,
 .input-field input[type=email].valid {
     border-bottom: 1px solid #707372;
@@ -62,6 +65,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 /* invalid color */
 .input-field input[type=text].invalid,
+.input-field input[type=date].invalid,
 .input-field input[type=password].invalid,
 .input-field input[type=email].invalid {
     border-bottom: 1px solid #707372;
@@ -77,7 +81,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
     background-color: #d14414 !important;
 }
 
-input[type=range] {
+input[type=range],
+input[type=date] {
     background-color: #d14414 !important;
 }
 
@@ -97,6 +102,25 @@ input[type=range] {
 
 header, main, footer {
     padding-left: 240px;
+}
+
+.picker__date-display,
+.picker__weekday-display,
+.picker__close,
+.picker__today {
+    background-color: #d14414;
+}
+
+.picker__close,
+.picker__today {
+    color: white;
+}
+
+.picker__day--selected,
+.picker__day--selected:hover,
+.picker--focused,
+.picker__day--selected {
+    background-color: #d14414;
 }
 
 @media only screen and (max-width: 992px) {
