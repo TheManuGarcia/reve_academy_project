@@ -161,18 +161,20 @@ header, main, footer {
     color: white;
 }
 
+.picker__day.picker__day--today {
+    color: #d14414;
+}
+
 .picker__day--selected,
 .picker__day--selected:hover,
-.picker--focused,
-.picker__day--selected,
-.picker__day--highlighted {
+.picker--focused .picker__day--selected {
     background-color: #d14414;
 }
 
 .picker__nav--next:hover,
 .picker__nav--prev:hover {
     background-color: #d14414;
-    opacity: 0.3;
+    opacity: 0.75;
 
 }
 
