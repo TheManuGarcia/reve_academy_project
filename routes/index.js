@@ -216,9 +216,6 @@ router.post('/add_class', function (req, res) {
 
     res.sendStatus(200);
 
-    //res.redirect('teacher/add_class', {title: 'Add Class'});
-
-
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
