@@ -7,14 +7,14 @@ app.controller('AddClassController', ['$http', function($http) {
 
         var newClass = {};
 
-            newClass.ClassName = addClass.ClassName;
-            newClass.DateStart = document.getElementById("DateStart").value;
-            newClass.DateStart = Date.parse(newClass.DateStart + " 12:00:00")/1000;
+        newClass.ClassName = addClass.ClassName;
+        newClass.DateStart = document.getElementById("DateStart").value;
+        newClass.DateStart = Date.parse(newClass.DateStart + " 12:00:00")/1000;
 
-            console.log("newClass = ", newClass);
+        console.log("newClass = ", newClass);
 
         $http.post('/add_class', newClass).then(function () {
-            //console.log(data);
+            window.location="/add_student";
         });
     };
 

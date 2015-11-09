@@ -78,6 +78,103 @@ router.get('/admin_view_data', function (req, res, next) {
 
 //TEACHER'S ROUTES
 
+//get classes route
+router.get('/getClasses', function(req, res) {
+    console.log(req.user);
+    if (req.user.UserType == 0 || req.user.UserType == 1) {
+
+        connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+
+            if (error) {
+                console.log("ERROR = ", error);
+                return;
+            }
+            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+        });
+
+        var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
+
+        connection.query(selectQuery, function(err, results) {
+            if (err) console.log("SELECT ERROR = ", err);
+            res.json(results);
+        });
+
+    }
+
+});
+
+
+//get students route
+
+router.get('/getStudents/:ClassID', function(req, res) {
+    console.log(req.user);
+    if (req.user.UserType == 0 || req.user.UserType == 1) {
+
+        connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+
+            if (error) {
+                console.log("ERROR = ", error);
+                return;
+            }
+            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+        });
+
+        var selectQuery = "SELECT FirstName, LastName FROM Students WHERE ClassID = " + req.params.ClassID;
+
+        connection.query(selectQuery, function(err, results) {
+            if (err) console.log("SELECT ERROR = ", err);
+            res.json(results);
+        });
+
+    }
+
+});
+
+//POST students to database
+
+router.post('/addStudent', function (req, res) {
+    connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+    //console.log(req.user);
+
+    var newStudentMysql = {
+        ClassID : req.body.ClassID,
+        FirstName : req.body.FirstName,
+        LastName  : req.body.LastName,
+        DateCreated : getUnixTime()
+    };
+
+    console.log(newStudentMysql);
+
+    var insertQuery = "INSERT INTO Students ( ClassID, FirstName, LastName, DateCreated ) values (?,?,?,?)";
+
+    connection.query(insertQuery, [newStudentMysql.ClassID, newStudentMysql.FirstName, newStudentMysql.LastName, newStudentMysql.DateCreated], function(err, rows) {
+
+        if (err) {
+            console.log("INSERT ERROR = ", err);
+            return;
+        }
+        console.log("INSERTED NEW Student = ", rows);
+
+        //newStudentMysql.UserID = rows.insertId;
+    });
+
+
+    res.sendStatus(200);
+
+});
+
+router.get('/add_student', function (req, res, next) {
+
+        res.render('teacher/add_student', {title: 'Add Student', user: req.user});
+});
+
 router.get('/add_class', function (req, res, next) {
     res.render('teacher/add_class', {title: 'Add Class', user: req.user});
 });
@@ -112,16 +209,12 @@ router.post('/add_class', function (req, res) {
         }
         console.log("INSERTED NEW CLASS = ", rows);
 
-        newClassMysql.UserID = rows.insertId;
-        //return done(null, newClassMysql);
+        //newClassMysql.UserID = rows.insertId;
     });
 
 
-    //
-
     res.sendStatus(200);
 
-    //res.redirect('teacher/add_class', {title: 'Add Class'});
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
