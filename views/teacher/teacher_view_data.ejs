@@ -9,8 +9,15 @@
 
 </head>
 <body>
+<%if (user.UserType==1) {%>
+<% include ../partials/teacher_header %>
+<% } else {%>
+
+
+<% include ../partials/header_main %>
+<% } %>
 <header>
-    <% include partials/admin_header %>
+
 </header>
 <% include partials/slideout_menu %>
 <div class="container">

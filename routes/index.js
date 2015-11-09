@@ -216,11 +216,9 @@ router.post('/add_class', function (req, res) {
 
     res.sendStatus(200);
 
-<<<<<<< HEAD
-=======
     //res.redirect('teacher/add_class', {title: 'Add Class'});
 
->>>>>>> d00ae5fc8bb326fafb01506f810b056c721d5392
+
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
