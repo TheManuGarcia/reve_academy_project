@@ -45,6 +45,10 @@ nav {
     background-color: #707372;
 }
 
+.topLi {
+    height: 80px;
+}
+
 input[type=text]:focus:not([readonly]),
 input[type=password]:focus:not([readonly]),
 input[type=email]:focus:not([readonly]),
@@ -223,4 +227,5 @@ footer {
     width: 100%;
     position: fixed;
     bottom: 0;
+    clear: both;
 }

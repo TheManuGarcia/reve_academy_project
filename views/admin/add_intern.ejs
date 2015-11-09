@@ -13,22 +13,22 @@
 
             <div class="addAnIntern">
                 <div class="row">
-                    <form class="col s12" method="post">
+                    <form class="col s12" method="post" ng-submit="intern.submit()">
                         <div class="input-field col s12">
-                            <input id="first_name" type="text" class="validate">
+                            <input id="first_name" type="text" class="validate" ng-model="intern.first_name">
                             <label for="first_name">First Name</label>
                         </div>
                         <div class="input-field col s12">
-                            <select>
-                                <option value="" disabled selected>Choose your option</option>
-                                <option value="1">Rêve Dev</option>
-                                <option value="2">Rêve Retail</option>
+                            <select id="Internship" name="Internship" ng-model="intern.Internship">
+                                <option value="" disabled selected>Choose Internship</option>
+                                <option value="Rêve-Dev">Rêve Dev</option>
+                                <option value="Rêve-Retail">Rêve Retail</option>
                             </select>
-                            <label>Choose Internship</label>
+                            <label for ="Internship">Choose Internship</label>
                         </div>
 
                         <div class="input-field col s4">
-                            <input type="date" class="datepicker" name="startdate">
+                            <input type="date" class="datepicker" name="startdate" ng-model="intern.date">
                             <label for="startdate">Start Date</label>
                         </div>
                         <div class="input-field col s4 offset-s8">
