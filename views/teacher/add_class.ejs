@@ -8,29 +8,32 @@
 <% include ../partials/header_main %>
 <div class="container">
     <main ng-controller="AddClassController as class" class="noPadding">
-
-        <form class="col s12">
+        <% if (user) { %>
+        Welcome, <%= user.Username %>
+        <% } %>
+        <form action='/add_class' method="post" class="col s12" ng-submit="class.submit()">
             <div class="row">
                 <div class="input-field col s6">
-                    <input type="text" class="validate" name="classname">
+                    <input type="text" class="validate" name="ClassName" ng-model="class.ClassName" required>
                     <label for="classname">Class Name</label>
                 </div>
 
 
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">playlist_add</i>
-                    <input type="text" class="validate" name="studentname">
-                    <label for="student_name">Student First Name</label>
-                </div>
+                <!--<div class="input-field col s6">-->
+                    <!--<i class="material-icons prefix">playlist_add</i>-->
+                    <!--<input type="text" class="validate" name="studentname">-->
+                    <!--<label for="student_name">Student First Name</label>-->
+                <!--</div>-->
             </div>
             <div class="row">
 
                 <div class="input-field col s4">
-                    <input type="date" class="datepicker" name="startdate">
+                    <input id="DateStart" type="date" class="datepicker" name="DateStart" ng-model="class.DateStart" required>
                     <label for="startdate">Start Date</label>
                 </div>
+                {{ class.DateStart }}
                 <div class="input-field col s4 offset-s8">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <button class="btn waves-effect waves-light" type="button" ng-click="class.submit()">Submit
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
@@ -42,4 +45,5 @@
 </div>
 <% include ../partials/footer %>
 </body>
+
 </html>

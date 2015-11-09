@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var flash = require('connect-flash');
+function getUnixTime() { return Math.floor(Date.now() / 1000); }
+var mysql = require('mysql');
+
+var dbconfig = require('../server/database');
+var connection = mysql.createConnection(dbconfig.connection);
 
 var username = 'Lauren';
 /* GET home page. */
@@ -17,6 +22,9 @@ router.get('/home', function (req, res, next) {
     res.render('home', {title: 'Home', user: req.user});
 });
 
+router.get('/getUser', function(req, res) {
+    res.json({user: req.user});
+});
 
 //SKILLS ROUTES
 router.get('/communication', function (req, res, next) {
@@ -71,7 +79,49 @@ router.get('/admin_view_data', function (req, res, next) {
 //TEACHER'S ROUTES
 
 router.get('/add_class', function (req, res, next) {
-    res.render('teacher/add_class', {title: 'Add Class'});
+    res.render('teacher/add_class', {title: 'Add Class', user: req.user});
+});
+
+router.post('/add_class', function (req, res) {
+    connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+    //console.log(req.user);
+
+    var newClassMysql = {
+        UserID : req.user.UserID,
+        ClassName : req.body.ClassName,
+        DateStart  : req.body.DateStart,
+        DateCreated : getUnixTime()
+    };
+
+    console.log(newClassMysql);
+
+    var insertQuery = "INSERT INTO Classes ( UserID, ClassName, DateStart, DateCreated ) values (?,?,?,?)";
+
+    connection.query(insertQuery, [newClassMysql.UserID, newClassMysql.ClassName, newClassMysql.DateStart, newClassMysql.DateCreated], function(err, rows) {
+
+        if (err) {
+            console.log("INSERT ERROR = ", err);
+            return;
+        }
+        console.log("INSERTED NEW CLASS = ", rows);
+
+        newClassMysql.UserID = rows.insertId;
+        //return done(null, newClassMysql);
+    });
+
+
+    //
+
+    res.sendStatus(200);
+
+    //res.redirect('teacher/add_class', {title: 'Add Class'});
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
