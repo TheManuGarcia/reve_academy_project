@@ -28,52 +28,52 @@ router.get('/getUser', function(req, res) {
 
 //SKILLS ROUTES
 router.get('/communication', function (req, res, next) {
-    res.render('communication', {title: 'Communication'});
+    res.render('communication', {title: 'Communication', user: req.user});
 });
 router.get('/equitable', function (req, res, next) {
     res.render('equitable', {title: 'Equitable'});
 });
 router.get('/progress_monitoring', function (req, res, next) {
-    res.render('progress_monitoring', {title: 'Progress Monitoring'});
+    res.render('progress_monitoring', {title: 'Progress Monitoring', user: req.user});
 });
 router.get('/enthusiasm', function (req, res, next) {
-    res.render('enthusiasm', {title: 'Enthusiasm'});
+    res.render('enthusiasm', {title: 'Enthusiasm', user: req.user});
 });
 router.get('/teamwork', function (req, res, next) {
-    res.render('teamwork', {title: 'Teamwork'});
+    res.render('teamwork', {title: 'Teamwork', user: req.user});
 });
 router.get('/problem_solving', function (req, res, next) {
-    res.render('problem_solving', {title: 'Problem Solving'});
+    res.render('problem_solving', {title: 'Problem Solving', user: req.user});
 });
 router.get('/professionalism', function (req, res, next) {
-    res.render('professionalism', {title: 'Professionalism'});
+    res.render('professionalism', {title: 'Professionalism', user: req.user});
 });
 router.get('/engagement', function (req, res, next) {
-    res.render('engagement', {title: 'Engagement'});
+    res.render('engagement', {title: 'Engagement', user: req.user});
 });
 router.get('/supportive_learning', function (req, res, next) {
-    res.render('supportive_learning', {title: 'Supportive Learning'});
+    res.render('supportive_learning', {title: 'Supportive Learning', user: req.user});
 });
 router.get('/responsibility', function (req, res, next) {
-    res.render('responsibility', {title: 'Responsibility'});
+    res.render('responsibility', {title: 'Responsibility', user: req.user});
 });
 router.get('/observation', function (req, res, next) {
-    res.render('observation', {title: 'Observation'});
+    res.render('observation', {title: 'Observation', user: req.user});
 });
 
 
 //ADMIN ROUTES
 
 router.get('/add_intern', function (req, res, next) {
-    res.render('admin/add_intern', {title: 'Add Intern'});
+    res.render('admin/add_intern', {title: 'Add Intern', user: req.user});
 });
 
 router.get('/add_teacher', function (req, res, next) {
-    res.render('admin/add_teacher', {title: 'Add Teacher'});
+    res.render('admin/add_teacher', {title: 'Add Teacher', user: req.user});
 });
 
 router.get('/admin_view_data', function (req, res, next) {
-    res.render('admin/admin_view_data', {title: 'Admin View Data'});
+    res.render('admin/admin_view_data', {title: 'Admin View Data', user: req.user});
 });
 
 //TEACHER'S ROUTES
@@ -177,6 +177,7 @@ router.get('/add_student', function (req, res, next) {
 
 router.get('/add_class', function (req, res, next) {
     res.render('teacher/add_class', {title: 'Add Class', user: req.user});
+
 });
 
 router.post('/add_class', function (req, res) {
@@ -215,10 +216,15 @@ router.post('/add_class', function (req, res) {
 
     res.sendStatus(200);
 
+<<<<<<< HEAD
+=======
+    //res.redirect('teacher/add_class', {title: 'Add Class'});
+
+>>>>>>> d00ae5fc8bb326fafb01506f810b056c721d5392
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
-    res.render('teacher/teacher_view_data', {title: 'Teacher View Data'});
+    res.render('teacher/teacher_view_data', {title: 'Teacher View Data', user: req.user});
 });
 
 // AUTH ROUTES

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="MainApp">
+<head>
+    <% include ../partials/head %>
+    <script src="/javascripts/controllers/AddStudent.js" type="text/javascript"></script>
+</head>
+<body>
+<% include ../partials/header_main %>
+<div class="container">
+    <main ng-controller="AddStudentController as student" class="noPadding">
+        <% if (user) { %>
+        Welcome, <%= user.Username %>
+        <% } %>
+
+        <br><br><br>
+<form>
+<div ng-repeat="Class in student.Classes track by $index">
+        <input class="with-gap" ng-model="student.ClassID" type="radio" name="group1" value="{{ Class.ClassID }}" id="{{ Class.ClassID }}"/>
+        <label for="{{Class.ClassID}}" ng-click="student.selectClass(Class)" >({{ (Class.DateStart * 1000) | date: 'MM/dd/yyyy' }}) {{ Class.ClassName }}</label>
+</div>
+</form>
+
+<div ng-if="student.classClicked">
+        <div>
+            <ul>
+                <li ng-repeat="student in student.classData track by $index">{{student.FirstName}} {{student.LastName}}</li>
+            </ul>
+        </div>
+        <div style="float:right">
+
+            Add student to class: {{ student.classSelected }}
+
+            <form method="post" ng-submit="student.addStudent(student, student.ClassID)">
+                <input type="text" placeholder="First Name" ng-model="student.FirstName">
+                <input type="text" placeholder="Last Initial" ng-model="student.LastName" maxlength="1">
+                <input type="submit" value="Save">
+            </form>
+
+
+        </div>
+</div>
+
+
+
+    </main>
+
+</div>
+<% include ../partials/footer %>
+</body>
+
+</html>
