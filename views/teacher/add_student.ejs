@@ -18,10 +18,13 @@
         Welcome, <%= user.Username %>
         <% } %>
 
-        <br><br><br>
+        <br><br>
+        <h4>Add Students</h4>
 
         <div class="row">
-            <div class="col s4">
+            <div class="col s3">
+                <h5>Select Class</h5>
+
                 <form>
                     <div ng-repeat="Class in student.Classes track by $index">
                         <input class="with-gap" ng-model="student.ClassID" type="radio" name="group1"
@@ -32,15 +35,18 @@
                     </div>
                 </form>
             </div>
-            <div class="col s4">
-                <h5>Add student to class: {{ student.classSelected }}</h5>
-                <form method="post" ng-submit="student.addStudent(student, student.ClassID)">
+            <div class="col s4 offset-s1">
+                <h5>Add student to {{ student.classSelected }}</h5>
+
+                <form method="post" ng-submit="student.addStudent(student, student.ClassID)" name="newStudent">
                     <input type="text" placeholder="First Name" ng-model="student.FirstName">
                     <input type="text" placeholder="Last Initial" ng-model="student.LastName" maxlength="1">
-                    <input type="submit" value="Save">
+                    <button class="btn waves-effect waves-light" type="submit">Save</button>
                 </form>
             </div>
-            <div class= "col s4" ng-if="student.classClicked">
+            <div class="col s3 offset-s1" ng-if="student.classClicked">
+                <h5>{{ student.classSelected }} Students</h5>
+
                 <div>
                     <ul>
                         <li ng-repeat="student in student.classData track by $index">{{student.FirstName}}
@@ -51,8 +57,6 @@
 
             </div>
         </div>
-
-
     </main>
 
 </div>

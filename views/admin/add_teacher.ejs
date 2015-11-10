@@ -14,7 +14,7 @@
 
             <div class="addATeacher">
                 <div class="row">
-                    <form class="col s12" method="post" ng-submit="teacher.submit()" >
+                    <form class="col s12" method="post" ng-submit="teacher.submit()">
                         <div class="input-field col s6">
                             <input id="first_name" type="text" class="validate" ng-model="teacher.first_name">
                             <label for="first_name">First Name</label>
@@ -24,11 +24,12 @@
                             <label for="last_name">Last Name</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="school" type="text" class="validate"ng-model="teacher.school">
+                            <input id="school" type="text" class="validate" ng-model="teacher.school">
                             <label for="school">School</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="startdate" type="date" class="datepicker" name="startdate" ng-model="teacher.startdate">
+                            <input id="startdate" type="date" class="datepicker" name="startdate"
+                                   ng-model="teacher.startdate">
                             <label for="startdate">Start Date</label>
                         </div>
                         <div class="input-field col s4 offset-s8">

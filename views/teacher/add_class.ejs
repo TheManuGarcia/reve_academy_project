@@ -16,6 +16,7 @@
         <% if (user) { %>
         Welcome, <%= user.Username %>
         <% } %>
+        <h4>Add A Class</h4>
         <div class="row">
             <form action='/add_class' method="post" class="col s12" ng-submit="class.submit()">
                 <div class="row">

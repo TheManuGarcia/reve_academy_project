@@ -188,6 +188,17 @@ header, main, footer {
     background-color: #d14414;
 }
 
+/*Radio Buttons*/
+
+[type="radio"].with-gap:checked + label:before {
+    border: 2px solid #d14414;
+}
+
+[type="radio"].with-gap:checked + label:after {
+    border: 2px solid #d14414;
+    background-color: #d14414;
+}
+
 @media only screen and (max-width: 992px) {
     header, main, footer {
         padding-left: 0;
@@ -204,6 +215,11 @@ h4 {
     color: #707372;
     margin-top: 50px;
     text-align: left;
+}
+
+h5 {
+    color: #707372;
+    /*border-bottom: 1px solid #707372;*/
 }
 
 #registerMessage {
