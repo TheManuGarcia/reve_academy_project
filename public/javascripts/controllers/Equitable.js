@@ -45,14 +45,9 @@ app.controller('EquitableController', function($http) {
             equitable.obsSaved = true;
             equitable.message = "Your observation was saved.";
             console.log(equitable.formData);
-            $("#equitableButton").prop('disabled', true);
-        };
-
-
-
-        return $http.post('/addObs', equitable.formData).then(function () {
-
-        });
+            $("#equitableButton").prop('disabled', true).remove();
+        }
+        return $http.post('/addObs', equitable.formData).then(function () { });
 
     }
 

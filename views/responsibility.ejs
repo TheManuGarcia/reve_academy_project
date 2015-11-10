@@ -2,48 +2,37 @@
 <html ng-app="MainApp">
 <head>
     <% include partials/head %>
-    <script src="/javascripts/controllers/Responsibility.js" type="text/javascript"></script>
+    <script src="/javascripts/controllers/Observation.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
     <% include partials/admin_header %>
 </header>
 <% include partials/slideout_menu %>
-<div class="container">
-    <main ng-controller="ResponsibilityController as responsibility">
-        <div class="row">
-            <h4 class="col s12">Responsibility</h4>
-        </div>
+<% include partials/observation_header %>
         <div class="responsibility">
+            <td>
+                {{Student.FirstName}} {{Student.LastName}}
+            </td>
+            <td>
             <ul>
 
                 <div class="switch">
-                    <li>John Smith
+
                         <label>
-                            <input type="checkbox"/>
+                            <input class='respo' ng-model="Student.ObsValue" type="checkbox" onclick="console.log(this.checked)"/>
                             <span class="lever"></span>
                             Work complete
                         </label>
-                    </li>
+
                 </div>
                 <br>
-
-                <div class="switch">
-                    <li>Jane Smith
-                        <label>
-                            <input type="checkbox"/>
-                            <span class="lever"></span>
-                            Work complete
-                        </label>
-                    </li>
-                </div>
             </ul>
-            <button class="right btn-small waves-effect waves-light btn deep-orange accent-4">Save</button>
+            <!--<button class="right btn-small waves-effect waves-light btn deep-orange accent-4">Save</button>-->
         </div>
 
     </main>
 
-</div>
-<% include partials/footer %>
+<% include partials/observation_footer %>
 </body>
 </html>
