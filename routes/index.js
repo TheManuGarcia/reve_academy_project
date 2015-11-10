@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var flash = require('connect-flash');
-function getUnixTime() { return Math.floor(Date.now() / 1000); }
-var mysql = require('mysql');
 
+require('../server/titlecase');
+function getUnixTime() { return Math.floor(Date.now() / 1000); }
+
+var mysql = require('mysql');
 var dbconfig = require('../server/database');
 var connection = mysql.createConnection(dbconfig.connection);
 
@@ -145,8 +147,8 @@ router.post('/addStudent', function (req, res) {
 
     var newStudentMysql = {
         ClassID : req.body.ClassID,
-        FirstName : req.body.FirstName,
-        LastName  : req.body.LastName,
+        FirstName : req.body.FirstName.toTitleCase(),
+        LastName  : req.body.LastName.toTitleCase(),
         DateCreated : getUnixTime()
     };
 
@@ -216,11 +218,8 @@ router.post('/add_class', function (req, res) {
 
     res.sendStatus(200);
 
-<<<<<<< HEAD
-=======
     //res.redirect('teacher/add_class', {title: 'Add Class'});
 
->>>>>>> d00ae5fc8bb326fafb01506f810b056c721d5392
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
