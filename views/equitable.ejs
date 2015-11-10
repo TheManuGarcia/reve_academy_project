@@ -9,15 +9,76 @@
     <% include partials/admin_header %>
 </header>
 <% include partials/slideout_menu %>
-<div class="container">
-    <main ng-controller="EquitableController as equitable">
+<div class="container" ng-controller="EquitableController as equitable">
+    <main>
         <div class="row">
             <h4 class="col s12">Equitable</h4>
-        </div>
 
+        </div>
+        <div class="row">
+            <div class="col s3">
+                <h5>Select Class</h5>
+
+                <form>
+                    <div ng-repeat="Class in equitable.Classes track by $index">
+                        <input class="with-gap" ng-model="equitable.ClassID" type="radio" name="group1"
+                               value="{{ Class.ClassID }}" id="{{ Class.ClassID }}"/>
+                        <label for="{{Class.ClassID}}" ng-click="equitable.selectClass(Class)">({{ (Class.DateStart *
+                            1000) |
+                            date: 'MM/dd/yyyy' }}) {{ Class.ClassName }}</label>
+                    </div>
+                </form>
+            </div>
+
+            <!--<div class="col s4 offset-s1" ng-if="student.classClicked">-->
+
+            <!--&lt;!&ndash;<form method="post" class="addStudentForm" ng-submit="equitable.addStudent(equitable, equitable.ClassID)" name="newStudent">&ndash;&gt;-->
+            <!--&lt;!&ndash;<input type="text" class="FirstName" placeholder="First Name" ng-model="equitable.FirstName">&ndash;&gt;-->
+            <!--&lt;!&ndash;<input type="text" placeholder="Last Initial" ng-model="equitable.LastName" maxlength="1">&ndash;&gt;-->
+            <!--&lt;!&ndash;<button class="btn waves-effect waves-light" type="submit">Save</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</form>&ndash;&gt;-->
+            <!--</div>-->
+
+
+            <table class="striped" ng-if="equitable.classClicked">
+                <h5>{{ equitable.classSelected }} Students</h5>
+                <th colspan="4">
+                    Name
+                </th>
+
+                <tr ng-repeat="Student in equitable.studentData track by $index">
+
+                    <td>
+                        {{Student.FirstName}} {{Student.LastName}}
+                    </td>
+                    <td>
+                        <input id="{{'Participating' + Student.StudentID}}" class="with-gap" type="radio"
+                               ng-model="Student.ObsValue" value="Participating" name="{{Student.StudentID}}">
+                        <label for="{{'Participating' + Student.StudentID}}">Participating</label>
+                    </td>
+                    <td>
+                        <input id="{{'NotParticipating' + Student.StudentID}}" class="with-gap" type="radio"
+                               ng-model="Student.ObsValue" value="Not Participating" name="{{Student.StudentID}}">
+                        <label for="{{'NotParticipating' + Student.StudentID}}">Not Participating</label>
+                    </td>
+                    <td>
+                        <input id="{{'Dominating' + Student.StudentID}}" class="with-gap" type="radio"
+                               ng-model="Student.ObsValue" value="Dominating" name="{{Student.StudentID}}">
+                        <label for="{{'Dominating' + Student.StudentID}}">Dominating</label>
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <span class="saved" ng-if="equitable.obsSaved">{{equitable.message}}</span>
+            <button id="equitableButton" ng-if="equitable.classClicked" type="button" ng-click="equitable.saveObs()">SAVE</button>
+
+
+        </div>
     </main>
 
 </div>
-<% include partials/footer %>
+
 </body>
 </html>

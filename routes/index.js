@@ -33,7 +33,7 @@ router.get('/communication', function (req, res, next) {
     res.render('communication', {title: 'Communication', user: req.user});
 });
 router.get('/equitable', function (req, res, next) {
-    res.render('equitable', {title: 'Equitable'});
+    res.render('equitable', {title: 'Equitable', user: req.user});
 });
 router.get('/progress_monitoring', function (req, res, next) {
     res.render('progress_monitoring', {title: 'Progress Monitoring', user: req.user});
@@ -63,6 +63,47 @@ router.get('/observation', function (req, res, next) {
     res.render('observation', {title: 'Observation', user: req.user});
 });
 
+
+// SKILLS POST ROUTES
+
+router.post('/addObs', function (req, res) {
+    console.log(req.body);
+    connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+
+    for(var i = 0; i<req.body.length; i++) {
+
+        var newObservationMysql = {
+            StudentID: req.body[i].StudentID,
+            ObsType: req.body[i].ObsType,
+            ObsValue: req.body[i].ObsValue,
+            DateCreated: getUnixTime()
+        };
+
+        //console.log(newObservationMysql);
+
+        var insertQuery = "INSERT INTO StudentObs ( StudentID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+
+        connection.query(insertQuery, [newObservationMysql.StudentID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+
+            if (err) {
+                console.log("INSERT ERROR = ", err);
+                return;
+            }
+            console.log("INSERTED NEW Observation = ", rows);
+
+        });
+    }
+
+    res.sendStatus(200);
+
+});
 
 //ADMIN ROUTES
 
@@ -121,7 +162,7 @@ router.get('/getStudents/:ClassID', function(req, res) {
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
         });
 
-        var selectQuery = "SELECT FirstName, LastName FROM Students WHERE ClassID = " + req.params.ClassID;
+        var selectQuery = "SELECT StudentID, FirstName, LastName FROM Students WHERE ClassID = " + req.params.ClassID;
 
         connection.query(selectQuery, function(err, results) {
             if (err) console.log("SELECT ERROR = ", err);

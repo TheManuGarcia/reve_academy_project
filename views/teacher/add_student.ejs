@@ -35,11 +35,11 @@
                     </div>
                 </form>
             </div>
-            <div class="col s4 offset-s1">
+            <div class="col s4 offset-s1" ng-if="student.classClicked">
                 <h5>Add student to {{ student.classSelected }}</h5>
 
-                <form method="post" ng-submit="student.addStudent(student, student.ClassID)" name="newStudent">
-                    <input type="text" placeholder="First Name" ng-model="student.FirstName">
+                <form method="post" class="addStudentForm" ng-submit="student.addStudent(student, student.ClassID)" name="newStudent">
+                    <input type="text" class="FirstName" placeholder="First Name" ng-model="student.FirstName">
                     <input type="text" placeholder="Last Initial" ng-model="student.LastName" maxlength="1">
                     <button class="btn waves-effect waves-light" type="submit">Save</button>
                 </form>
