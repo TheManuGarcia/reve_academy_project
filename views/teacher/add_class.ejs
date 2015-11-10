@@ -5,41 +5,43 @@
     <script src="/javascripts/controllers/AddClass.js" type="text/javascript"></script>
 </head>
 <body>
+<% if (user.UserType == 1) { %>
+<% include ../partials/teacher_header %>
+<% } else { %>
+
 <% include ../partials/header_main %>
+<% } %>
 <div class="container">
     <main ng-controller="AddClassController as class" class="noPadding">
         <% if (user) { %>
         Welcome, <%= user.Username %>
         <% } %>
-        <form action='/add_class' method="post" class="col s12" ng-submit="class.submit()">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input type="text" class="validate" name="ClassName" ng-model="class.ClassName" required>
-                    <label for="classname">Class Name</label>
+        <h4>Add A Class</h4>
+        <div class="row">
+            <form action='/add_class' method="post" class="col s12" ng-submit="class.submit()">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" class="validate" name="ClassName" ng-model="class.ClassName" required>
+                        <label for="classname">Class Name</label>
+                    </div>
                 </div>
+                <div class="row">
 
+                    <div class="input-field col s4">
+                        <input id="DateStart" type="date" class="datepicker" name="DateStart" ng-model="class.DateStart"
+                               required>
+                        <label for="startdate">Start Date</label>
+                    </div>
+                    {{ class.DateStart }}
+                    <div class="input-field col s4 offset-s8">
+                        <button class="btn waves-effect waves-light" type="button" ng-click="class.submit()">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
 
-                <!--<div class="input-field col s6">-->
-                    <!--<i class="material-icons prefix">playlist_add</i>-->
-                    <!--<input type="text" class="validate" name="studentname">-->
-                    <!--<label for="student_name">Student First Name</label>-->
-                <!--</div>-->
-            </div>
-            <div class="row">
-
-                <div class="input-field col s4">
-                    <input id="DateStart" type="date" class="datepicker" name="DateStart" ng-model="class.DateStart" required>
-                    <label for="startdate">Start Date</label>
                 </div>
-                {{ class.DateStart }}
-                <div class="input-field col s4 offset-s8">
-                    <button class="btn waves-effect waves-light" type="button" ng-click="class.submit()">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-
-            </div>
-        </form>
+            </form>
+        </div>
     </main>
 
 </div>
