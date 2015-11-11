@@ -149,10 +149,6 @@ header, footer {
     padding-left: 240px;
 }
 
-main {
-    padding-left: 100px;
-}
-
 .noPadding {
     padding-left: 0;
 }
@@ -203,6 +199,16 @@ main {
     border: 2px solid #d14414;
     background-color: #d14414;
 }
+
+/*Slider Styling*/
+
+input[type=range] {
+     background-color: white;
+     color: #d14414;
+}
+/*input[type=range], input[type=date] {*/
+     /*background-color: #d14414 !important; */
+/*}*/
 
 @media only screen and (max-width: 992px) {
     header, main, footer {
@@ -266,6 +272,7 @@ body {
 
 main {
     flex: 1 0 auto;
+    padding : 25px;
 }
 
 footer {

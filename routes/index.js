@@ -4,7 +4,9 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 require('../server/titlecase');
-function getUnixTime() { return Math.floor(Date.now() / 1000); }
+function getUnixTime() {
+    return Math.floor(Date.now() / 1000);
+}
 
 var mysql = require('mysql');
 var dbconfig = require('../server/database');
@@ -16,7 +18,7 @@ router.get('/', function (req, res, next) {
     if (req.user) {
         res.redirect('/home');
     } else {
-        res.render('index', { title: 'Rêve Academy Application' });
+        res.render('index', {title: 'Rêve Academy Application'});
     }
 });
 
@@ -24,7 +26,7 @@ router.get('/home', function (req, res, next) {
     res.render('home', {title: 'Home', user: req.user});
 });
 
-router.get('/getUser', function(req, res) {
+router.get('/getUser', function (req, res) {
     res.json({user: req.user});
 });
 
@@ -68,7 +70,7 @@ router.get('/observation', function (req, res, next) {
 
 router.post('/addObs', function (req, res) {
     console.log(req.body);
-    connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
 
         if (error) {
             console.log("ERROR = ", error);
@@ -77,7 +79,7 @@ router.post('/addObs', function (req, res) {
         console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
     });
 
-    for(var i = 0; i < req.body.length; i++) {
+    for (var i = 0; i < req.body.length; i++) {
 
         var newObservationMysql = {
             StudentID: req.body[i].StudentID,
@@ -105,6 +107,62 @@ router.post('/addObs', function (req, res) {
 
 });
 
+// post slider data
+router.post('/addObsSlider', function (req, res) {
+    //console.log(req.body);
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+
+    for (property in req.body) {
+
+        // assemble query object for each obs type submitted
+        var newObservationMysql = {};
+        newObservationMysql.StudentID = req.body.StudentID;
+        newObservationMysql.DateCreated = getUnixTime();
+
+        if (property == "Communication") {
+            newObservationMysql.ObsType = 'Communication';
+            newObservationMysql.ObsValue = req.body.Communication;
+        }
+        if (property == "Enthusiasm") {
+            newObservationMysql.ObsType = 'Enthusiasm';
+            newObservationMysql.ObsValue = req.body.Enthusiasm;
+        }
+        if (property == "Teamwork") {
+            newObservationMysql.ObsType = 'Teamwork';
+            newObservationMysql.ObsValue = req.body.Teamwork;
+        }
+        if (property == "ProblemSolving") {
+            newObservationMysql.ObsType = 'ProblemSolving';
+            newObservationMysql.ObsValue = req.body.ProblemSolving;
+        }
+        if (property == "Professionalism") {
+            newObservationMysql.ObsType = 'Professionalism';
+            newObservationMysql.ObsValue = req.body.Professionalism;
+        }
+
+        //Do NOT insert data if the current property is StudentID
+        if (property != "StudentID") {
+            var insertQuery = "INSERT INTO StudentObs ( StudentID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+            connection.query(insertQuery, [newObservationMysql.StudentID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+                if (err) {
+                    console.log("INSERT ERROR = ", err);
+                    return;
+                }
+                console.log("INSERTED NEW Observation = ", rows);
+            });
+        }
+
+    }
+
+    res.sendStatus(200);
+});
+
 //ADMIN ROUTES
 
 router.get('/add_intern', function (req, res, next) {
@@ -122,10 +180,10 @@ router.get('/admin_view_data', function (req, res, next) {
 //TEACHER'S ROUTES
 
 //get classes route
-router.get('/getClasses', function(req, res) {
+router.get('/getClasses', function (req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1) {
-        connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
             if (error) {
                 console.log("ERROR GETTING CLASSES = ", error);
                 return;
@@ -135,7 +193,7 @@ router.get('/getClasses', function(req, res) {
 
         var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
 
-        connection.query(selectQuery, function(err, results) {
+        connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
             res.json(results);
         });
@@ -144,11 +202,11 @@ router.get('/getClasses', function(req, res) {
 
 
 //get students route
-router.get('/getStudents/:ClassID', function(req, res) {
+router.get('/getStudents/:ClassID', function (req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1) {
 
-        connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
 
             if (error) {
                 console.log("ERROR GETTING STUDENTS = ", error);
@@ -159,7 +217,7 @@ router.get('/getStudents/:ClassID', function(req, res) {
 
         var selectQuery = "SELECT StudentID, FirstName, LastName FROM Students WHERE ClassID = " + req.params.ClassID;
 
-        connection.query(selectQuery, function(err, results) {
+        connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
             res.json(results);
         });
@@ -170,7 +228,7 @@ router.get('/getStudents/:ClassID', function(req, res) {
 
 //POST students to database
 router.post('/addStudent', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
         if (error) {
             console.log("ERROR = ", error);
             return;
@@ -180,17 +238,17 @@ router.post('/addStudent', function (req, res) {
     //console.log(req.user);
 
     var newStudentMysql = {
-        ClassID : req.body.ClassID,
-        FirstName : req.body.FirstName.toTitleCase(),
-        LastName  : req.body.LastName.toTitleCase(),
-        DateCreated : getUnixTime()
+        ClassID: req.body.ClassID,
+        FirstName: req.body.FirstName.toTitleCase(),
+        LastName: req.body.LastName.toTitleCase(),
+        DateCreated: getUnixTime()
     };
 
     console.log(newStudentMysql);
 
     var insertQuery = "INSERT INTO Students ( ClassID, FirstName, LastName, DateCreated ) values (?,?,?,?)";
 
-    connection.query(insertQuery, [newStudentMysql.ClassID, newStudentMysql.FirstName, newStudentMysql.LastName, newStudentMysql.DateCreated], function(err, rows) {
+    connection.query(insertQuery, [newStudentMysql.ClassID, newStudentMysql.FirstName, newStudentMysql.LastName, newStudentMysql.DateCreated], function (err, rows) {
 
         if (err) {
             console.log("INSERT ERROR = ", err);
@@ -214,7 +272,7 @@ router.get('/add_class', function (req, res, next) {
 
 // add class to DB
 router.post('/add_class', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function(error, results, fields) {
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
 
         if (error) {
             console.log("ERROR = ", error);
@@ -225,17 +283,17 @@ router.post('/add_class', function (req, res) {
     //console.log(req.user);
 
     var newClassMysql = {
-        UserID : req.user.UserID,
-        ClassName : req.body.ClassName,
-        DateStart  : req.body.DateStart,
-        DateCreated : getUnixTime()
+        UserID: req.user.UserID,
+        ClassName: req.body.ClassName,
+        DateStart: req.body.DateStart,
+        DateCreated: getUnixTime()
     };
 
     console.log(newClassMysql);
 
     var insertQuery = "INSERT INTO Classes ( UserID, ClassName, DateStart, DateCreated ) values (?,?,?,?)";
 
-    connection.query(insertQuery, [newClassMysql.UserID, newClassMysql.ClassName, newClassMysql.DateStart, newClassMysql.DateCreated], function(err, rows) {
+    connection.query(insertQuery, [newClassMysql.UserID, newClassMysql.ClassName, newClassMysql.DateStart, newClassMysql.DateCreated], function (err, rows) {
 
         if (err) {
             console.log("INSERT ERROR = ", err);
@@ -257,19 +315,19 @@ router.get('/teacher_view_data', function (req, res, next) {
 
 // AUTH ROUTES
 router.get('/login', function (req, res, next) {
-    res.render('login', {title: 'Login Page', message: req.flash('loginMessage') });
+    res.render('login', {title: 'Login Page', message: req.flash('loginMessage')});
 });
 
 router.get('/register', function (req, res, next) {
-    res.render('register', {title: 'Register', message: req.flash('registerMessage') });
+    res.render('register', {title: 'Register', message: req.flash('registerMessage')});
 });
 
 // login route
 router.post('/login', passport.authenticate('local-login', {
-    successRedirect : '/home', // redirect to the secure profile section
-    failureRedirect : '/login', // redirect back to the login page if there is an error
-    failureFlash : true // allow flash messages
-}), function(req, res) {
+    successRedirect: '/home', // redirect to the secure profile section
+    failureRedirect: '/login', // redirect back to the login page if there is an error
+    failureFlash: true // allow flash messages
+}), function (req, res) {
     console.log("logged in!");
 
     if (req.body.remember) {
@@ -282,13 +340,13 @@ router.post('/login', passport.authenticate('local-login', {
 
 // register account route
 router.post('/register', passport.authenticate('local-signup', {
-    successRedirect : '/home', // redirect to the secure profile section
-    failureRedirect : '/register', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
+    successRedirect: '/home', // redirect to the secure profile section
+    failureRedirect: '/register', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
 }));
 
 // logout
-router.get('/logout', function(req, res) {
+router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
