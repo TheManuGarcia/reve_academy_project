@@ -77,7 +77,7 @@ router.post('/addObs', function (req, res) {
         console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
     });
 
-    for(var i = 0; i<req.body.length; i++) {
+    for(var i = 0; i < req.body.length; i++) {
 
         var newObservationMysql = {
             StudentID: req.body[i].StudentID,
@@ -125,11 +125,9 @@ router.get('/admin_view_data', function (req, res, next) {
 router.get('/getClasses', function(req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1) {
-
         connection.query('USE ' + dbconfig.database, function(error, results, fields) {
-
             if (error) {
-                console.log("ERROR = ", error);
+                console.log("ERROR GETTING CLASSES = ", error);
                 return;
             }
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
@@ -141,14 +139,11 @@ router.get('/getClasses', function(req, res) {
             if (err) console.log("SELECT ERROR = ", err);
             res.json(results);
         });
-
     }
-
 });
 
 
 //get students route
-
 router.get('/getStudents/:ClassID', function(req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1) {
@@ -156,7 +151,7 @@ router.get('/getStudents/:ClassID', function(req, res) {
         connection.query('USE ' + dbconfig.database, function(error, results, fields) {
 
             if (error) {
-                console.log("ERROR = ", error);
+                console.log("ERROR GETTING STUDENTS = ", error);
                 return;
             }
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
@@ -174,10 +169,8 @@ router.get('/getStudents/:ClassID', function(req, res) {
 });
 
 //POST students to database
-
 router.post('/addStudent', function (req, res) {
     connection.query('USE ' + dbconfig.database, function(error, results, fields) {
-
         if (error) {
             console.log("ERROR = ", error);
             return;
@@ -205,24 +198,21 @@ router.post('/addStudent', function (req, res) {
         }
         console.log("INSERTED NEW Student = ", rows);
 
-        //newStudentMysql.UserID = rows.insertId;
     });
-
 
     res.sendStatus(200);
 
 });
 
 router.get('/add_student', function (req, res, next) {
-
-        res.render('teacher/add_student', {title: 'Add Student', user: req.user});
+    res.render('teacher/add_student', {title: 'Add Student', user: req.user});
 });
 
 router.get('/add_class', function (req, res, next) {
     res.render('teacher/add_class', {title: 'Add Class', user: req.user});
-
 });
 
+// add class to DB
 router.post('/add_class', function (req, res) {
     connection.query('USE ' + dbconfig.database, function(error, results, fields) {
 
@@ -274,27 +264,30 @@ router.get('/register', function (req, res, next) {
     res.render('register', {title: 'Register', message: req.flash('registerMessage') });
 });
 
+// login route
 router.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/home', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the login page if there is an error
-        failureFlash : true // allow flash messages
-    }), function(req, res) {
-        console.log("logged in!");
+    successRedirect : '/home', // redirect to the secure profile section
+    failureRedirect : '/login', // redirect back to the login page if there is an error
+    failureFlash : true // allow flash messages
+}), function(req, res) {
+    console.log("logged in!");
 
-        if (req.body.remember) {
-            req.session.cookie.maxAge = 1000 * 60 * 3;
-        } else {
-            req.session.cookie.expires = false;
-        }
-        res.redirect('/');
+    if (req.body.remember) {
+        req.session.cookie.maxAge = 1000 * 60 * 3;
+    } else {
+        req.session.cookie.expires = false;
+    }
+    res.redirect('/');
 });
 
+// register account route
 router.post('/register', passport.authenticate('local-signup', {
     successRedirect : '/home', // redirect to the secure profile section
     failureRedirect : '/register', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
 
+// logout
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
