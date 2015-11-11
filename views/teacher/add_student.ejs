@@ -22,7 +22,7 @@
         <h4>Add Students</h4>
 
         <div class="row">
-            <div class="col s3">
+            <div class="col m3 s12">
                 <h5>Select Class</h5>
 
                 <form>
@@ -35,17 +35,18 @@
                     </div>
                 </form>
             </div>
-            <div class="col s4 offset-s1" ng-if="student.classClicked">
-                <h5>Add student to {{ student.classSelected }}</h5>
+            <div class="col m4 offset-m1 col s12" ng-if="student.classClicked">
+                <h5 class="addStudentForm">Add student to {{ student.classSelected }}</h5>
 
-                <form method="post" class="addStudentForm" ng-submit="student.addStudent(student, student.ClassID)" name="newStudent">
+                <form method="post" class="addStudentForm" ng-submit="student.addStudent(student, student.ClassID)"
+                      name="newStudent">
                     <input type="text" class="FirstName" placeholder="First Name" ng-model="student.FirstName">
                     <input type="text" placeholder="Last Initial" ng-model="student.LastName" maxlength="1">
-                    <button class="btn waves-effect waves-light" type="submit">Save</button>
+                    <button class="btn waves-effect waves-light right" type="submit">Save</button>
                 </form>
             </div>
-            <div class="col s3 offset-s1" ng-if="student.classClicked">
-                <h5>{{ student.classSelected }} Students</h5>
+            <div class="col m3 offset-m1 col s12" ng-if="student.classClicked">
+                <h5 class="studentList">{{ student.classSelected }} Students</h5>
 
                 <div>
                     <ul>
@@ -60,7 +61,6 @@
     </main>
 
 </div>
-<% include ../partials/footer %>
 </body>
 
 </html>
