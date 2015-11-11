@@ -24,7 +24,8 @@
                     <div ng-repeat="Class in observation.Classes track by $index">
                         <input class="with-gap" ng-model="observation.ClassID" type="radio" name="group1"
                                value="{{ Class.ClassID }}" id="{{ Class.ClassID }}"/>
-                        <label for="{{Class.ClassID}}" ng-click="observation.selectClass(Class)">{{ Class.ClassName }}</label>
+                        <label for="{{Class.ClassID}}" ng-click="observation.selectClass(Class)">{{ Class.ClassName
+                            }}</label>
                     </div>
                 </form>
             </div>

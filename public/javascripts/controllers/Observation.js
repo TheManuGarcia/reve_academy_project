@@ -72,6 +72,14 @@ app.controller('ObservationController', function($http) {
         if(parseInt(observation.sliderTeamwork) !=0)observation.sliderData.Teamwork = parseInt(observation.sliderTeamwork);
         if(parseInt(observation.sliderProblemSolving) !=0)observation.sliderData.ProblemSolving = parseInt(observation.sliderProblemSolving);
         if(parseInt(observation.sliderProfessionalism) !=0)observation.sliderData.Professionalism = parseInt(observation.sliderProfessionalism);
+<<<<<<< HEAD
+=======
+        //console.log(observation.sliderData);
+        observation.obsSaved = true;
+        observation.message = "Your observation was saved.";
+        $("#progressButton").prop('disabled', true).remove();
+        return $http.post('/addObsSlider', observation.sliderData);
+>>>>>>> eb842182279edfdf6f7100583cab3e8e454fd24b
 
         observation.obsSaved = true;
         observation.message = "Your observation was saved.";
