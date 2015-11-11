@@ -203,11 +203,12 @@ header, footer {
 /*Slider Styling*/
 
 input[type=range] {
-     background-color: white;
-     color: #d14414;
+    background-color: white;
+    color: #d14414;
 }
+
 /*input[type=range], input[type=date] {*/
-     /*background-color: #d14414 !important; */
+/*background-color: #d14414 !important; */
 /*}*/
 
 @media only screen and (max-width: 992px) {
@@ -237,6 +238,7 @@ input[type=range] {
         line-height: 64px;
     }
 }
+
 
 #registerMessage {
     padding-left: 20px;
@@ -272,7 +274,7 @@ body {
 
 main {
     flex: 1 0 auto;
-    padding : 25px;
+    padding: 25px;
 }
 
 footer {
