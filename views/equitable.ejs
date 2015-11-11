@@ -9,27 +9,62 @@
     <% include partials/admin_header %>
 </header>
 <% include partials/slideout_menu %>
-<% include partials/observation_header %>
 
-                    <td>
-                        {{Student.FirstName}} {{Student.LastName}}
-                    </td>
-                    <td>
-                        <input id="{{'Participating' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Participating" name="{{Student.StudentID}}">
-                        <label for="{{'Participating' + Student.StudentID}}">Participating</label>
-                    </td>
-                    <td>
-                        <input id="{{'NotParticipating' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Not Participating" name="{{Student.StudentID}}">
-                        <label for="{{'NotParticipating' + Student.StudentID}}">Not Participating</label>
-                    </td>
-                    <td>
-                        <input id="{{'Dominating' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Dominating" name="{{Student.StudentID}}">
-                        <label for="{{'Dominating' + Student.StudentID}}">Dominating</label>
-                    </td>
+<div class="container" ng-controller="ObservationController as observation">
+    <main>
+        <div class="row">
+            <h4 class="col s12"><%= title %></h4>
 
-<% include partials/observation_footer %>
+        </div>
+        <div class="row">
+            <div class="col s3 offset-s1">
+                <h5>Select Class</h5>
+
+                <form>
+                    <div ng-repeat="Class in observation.Classes track by $index">
+                        <input class="with-gap" ng-model="observation.ClassID" type="radio" name="group1"
+                               value="{{ Class.ClassID }}" id="{{ Class.ClassID }}"/>
+                        <label for="{{Class.ClassID}}" ng-click="observation.selectClass(Class)">{{ Class.ClassName }}</label>
+                    </div>
+                </form>
+            </div>
+
+        <table class="striped col s4 offset-s1" ng-if="observation.classClicked">
+            <th colspan="4">
+                {{ observation.classSelected }} Students
+            </th>
+            <tr ng-repeat="Student in observation.studentData track by $index">
+                <td>
+                    {{Student.FirstName}} {{Student.LastName}}
+                </td>
+                <td>
+                    <input id="{{'Participating' + Student.StudentID}}" class="with-gap" type="radio"
+                           ng-model="Student.ObsValue" value="Participating" name="{{Student.StudentID}}">
+                    <label for="{{'Participating' + Student.StudentID}}">Participating</label>
+                </td>
+                <td>
+                    <input id="{{'NotParticipating' + Student.StudentID}}" class="with-gap" type="radio"
+                           ng-model="Student.ObsValue" value="Not Participating" name="{{Student.StudentID}}">
+                    <label for="{{'NotParticipating' + Student.StudentID}}">Not Participating</label>
+                </td>
+                <td>
+                    <input id="{{'Dominating' + Student.StudentID}}" class="with-gap" type="radio"
+                           ng-model="Student.ObsValue" value="Dominating" name="{{Student.StudentID}}">
+                    <label for="{{'Dominating' + Student.StudentID}}">Dominating</label>
+                </td>
+            </tr>
+
+        </table>
+
+        <button class="right btn-small waves-effect waves-light btn deep-orange accent-4" id="observationButton"
+                ng-if="observation.classClicked" type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
+        </button>
+        <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
+    </div>
+    </main>
+
+</div>
+
+
 </body>
 </html>

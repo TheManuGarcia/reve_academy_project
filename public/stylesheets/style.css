@@ -224,6 +224,14 @@ main {
     }
 }
 
+/*media="screen, projection"*/
+@media only screen and (min-width: 990px) {
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 0px;
+        line-height: 64px;
+    }
+}
+
 #registerMessage {
     padding-left: 20px;
     color: #F00;
