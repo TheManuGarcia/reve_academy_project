@@ -276,7 +276,7 @@ body {
 
 main {
     flex: 1 0 auto;
-    padding: 25px;
+    padding-left: 100px;
 }
 
 footer {
