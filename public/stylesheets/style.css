@@ -46,6 +46,7 @@ nav {
     background-color: #707372;
 }
 
+
 .topLi {
     height: 80px;
 }
@@ -275,7 +276,7 @@ body {
 
 main {
     flex: 1 0 auto;
-    padding: 25px;
+    padding-left: 100px;
 }
 
 footer {
