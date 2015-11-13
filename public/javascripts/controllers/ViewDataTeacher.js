@@ -28,4 +28,12 @@ app.controller('ViewDataTeacherController', function($http) {
         });
     };
 
+    viewdata.selectStudents = function(StudentID) {
+        console.log(StudentID);
+        $http.get('/getStudentData/' + StudentID).then(function(data4) {
+            console.log(data4.data);
+            viewdata.studentData = data4.data;
+        });
+    };
+
 });
