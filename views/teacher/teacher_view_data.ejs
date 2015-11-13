@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html ng-app="MainApp">
 <head>
-    <% include ../partials/head %>
+    <% include partials/head %>
 
     <script src="/javascripts/Chart.min.js" type="text/javascript"></script>
     <script src="/javascripts/ReveChart.js" type="text/javascript"></script>
-    <script src="/javascripts/controllers/TeacherViewData.js" type="text/javascript"></script>
+    <script src="/javascripts/controllers/ViewDataTeacher.js" type="text/javascript"></script>
 
 </head>
 <body>
 <% if (user.UserType == 1) { %>
-<% include ../partials/teacher_header %>
+<% include partials/teacher_header %>
 <% } else { %>
 
-<% include ../partials/header_main %>
+<% include partials/header_main %>
 <% } %>
 <header>
 
 </header>
 <% include partials/slideout_menu %>
 <div class="container">
-    <main ng-controller="TeacherViewDataController as teacherview">
+    <main ng-controller="ViewDataTeacherController as viewdata">
         <div class="row">
-            <ul id="teacher_options" class="dropdown-content">
-                <li><a href="#!" class="blue-grey-text text-darken-4">Whole Class</a></li>
-                <li><a href="#!" class="blue-grey-text text-darken-4">Student#1</a></li>
-                <li><a href="#!" class="blue-grey-text text-darken-4">Student#2</a></li>
+
+
+
+            <ul id="teacherList" class="dropdown-content">
+                <li ng-repeat="teacher in viewdata.teachers track by $index"><a ng-click="viewdata.selectTeacher(teacher.UserID)" href="#!" class="blue-grey-text text-darken-4">{{ teacher.FirstName }} {{ teacher.LastName }} {{teacher.UserID }}</a></li>
             </ul>
-            <a class="btn dropdown-button blue-grey lighten-1" href="#!" data-activates="teacher_options">Select<i
+
+            <ul id="classList" class="dropdown-content">
+                <li ng-repeat="class in viewdata.classes track by $index"><a ng-click="viewdata.selectClass(class.ClassID)" href="#!" class="blue-grey-text text-darken-4">{{ class.ClassName }}</a></li>
+            </ul>
+
+            <ul id="studentList" class="dropdown-content">
+                <li ng-repeat="student in viewdata.students track by $index"><a href="#!" class="blue-grey-text text-darken-4">{{ student.FirstName }} {{ student.LastName }}</a></li>
+            </ul>
+
+
+            <a class="btn dropdown-button blue-grey lighten-1" href="#!" data-activates="teacherList">Select Teacher<i
                         class="mdi-navigation-arrow-drop-down right"></i></a>
-            <button class="btn waves-effect waves-light yellow darken-4" type="submit" name="getdata">Get Data
+
+            <a ng-show="viewdata.teacherSelected" class="btn dropdown-button blue-grey lighten-1" href="#!" data-activates="classList">Select Class<i
+                        class="mdi-navigation-arrow-drop-down right"></i></a>
+
+            <a ng-show="viewdata.classSelected" class="btn dropdown-button blue-grey lighten-1" href="#!" data-activates="studentList">Select Student<i
+                        class="mdi-navigation-arrow-drop-down right"></i></a>
+
+            <button id="getDatabtn" class="btn waves-effect waves-light yellow darken-4" type="submit" name="getdata">Get Data
                 <i class="material-icons right">view_list</i>
             </button>
 
