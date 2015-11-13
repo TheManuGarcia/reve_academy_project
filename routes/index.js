@@ -163,23 +163,19 @@ router.post('/addObsSlider', function (req, res) {
     res.sendStatus(200);
 });
 
-//ADMIN ROUTES
-
-router.get('/add_intern', function (req, res, next) {
-    res.render('admin/add_intern', {title: 'Add Intern', user: req.user});
-});
-
-router.get('/add_teacher', function (req, res, next) {
-    res.render('admin/add_teacher', {title: 'Add Teacher', user: req.user});
-});
+// VIEW DATA ROUTES
 
 router.get('/admin_view_data', function (req, res, next) {
-    res.render('admin/admin_view_data', {title: 'Admin View Data', user: req.user});
+    res.render('admin/admin_view_data', {title: 'View Data', user: req.user});
+});
+
+router.get('/teacher_view_data', function (req, res, next) {
+    res.render('teacher/teacher_view_data', {title: 'View Data', user: req.user});
 });
 
 //TEACHER'S ROUTES
 
-//get classes route
+//get classes route for teacher logged in
 router.get('/getClasses', function (req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1) {
@@ -193,6 +189,27 @@ router.get('/getClasses', function (req, res) {
 
         var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
 
+        connection.query(selectQuery, function (err, results) {
+            if (err) console.log("SELECT ERROR = ", err);
+            res.json(results);
+        });
+    }
+});
+
+//get classes route for teacher selected in view data
+router.get('/getClasses/:UserID', function (req, res) {
+    console.log(req.user);
+    if (req.user.UserType == 0 || req.user.UserType == 1) {
+        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+            if (error) {
+                console.log("ERROR GETTING CLASSES = ", error);
+                return;
+            }
+            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+        });
+
+        var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.params.UserID;
+        console.log("selectQuery = ", selectQuery);
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
             res.json(results);
@@ -260,6 +277,27 @@ router.post('/addStudent', function (req, res) {
 
     res.sendStatus(200);
 
+});
+
+// get teachers
+router.get('/getTeachers', function (req, res) {
+    //console.log(req.user);
+    if (req.user.UserType == 0 || req.user.UserType == 1) {
+        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+            if (error) {
+                console.log("ERROR GETTING TEACHERS = ", error);
+                return;
+            }
+            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+        });
+
+        var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = 1";
+
+        connection.query(selectQuery, function (err, results) {
+            if (err) console.log("SELECT ERROR = ", err);
+            res.json(results);
+        });
+    }
 });
 
 router.get('/add_student', function (req, res, next) {
@@ -349,6 +387,22 @@ router.post('/register', passport.authenticate('local-signup', {
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
+});
+
+
+// get all data for specific teacher
+router.get('/getData/teacher/:userID', function(req, res) {
+
+});
+
+// get data for all students in specific class
+router.get('/getData/class/:classID', function(req, res) {
+
+});
+
+// get data for specific student
+router.get('/getData/student/:studentID', function(req, res) {
+
 });
 
 module.exports = router;

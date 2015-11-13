@@ -78,12 +78,6 @@ app.controller('ObservationController', function($http) {
         observation.message = "Your observation was saved.";
         $("#progressButton").prop('disabled', true).remove();
         return $http.post('/addObsSlider', observation.sliderData);
-
-        observation.obsSaved = true;
-        observation.message = "Your observation was saved.";
-
-        $("#observationButton").prop('disabled', true).remove();
-        return $http.post('/addObsSlider', observation.sliderData);
     }
 
 });
