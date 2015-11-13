@@ -1,9 +1,24 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    padding-left: 100px;
+}
+
 .main_header {
     background-color: #d14414;
 }
 
 #header {
     height: 80px;
+}
+
+.mainImage {
+    margin: 30px auto auto 250px;
 }
 
 .side-nav,
@@ -15,6 +30,9 @@ nav {
     margin-top: 50px;
 }
 
+
+/*button styling*/
+
 .btn,
 .btn:focus {
     background-color: #d14414;
@@ -23,6 +41,57 @@ nav {
 
 .btn:hover {
     background-color: #707372;
+}
+
+#progressButton,
+#observationButton {
+    margin-right: 0;
+}
+
+/*Range field and slider styling*/
+
+.range-field {
+    width: 400px;
+}
+
+.thumb {
+    background-color: #d14414 !important;
+}
+
+input[type=range] {
+    background-color: #d14414 !important;
+}
+
+/*media="screen, projection"*/
+input[type=range] + .thumb .value {
+    color: #d14414;
+}
+
+input[type=range] {
+    background-color: #d14414;
+    color: #d14414;
+}
+
+
+
+/*.thumb {*/
+    /*background-color: #d14414;*/
+/*}*/
+
+input[type=range]::-webkit-slider-thumb {
+    background: #d14414;
+}
+
+input[type=range]::-moz-range-thumb {
+    background: #d14414;
+}
+
+input[type=range]::-ms-thumb {
+    background: #d14414;
+}
+
+.thumb {
+    background-color: #d14414 !important;
 }
 
 /*side-nav styling*/
@@ -35,6 +104,11 @@ nav {
 .side-nav.fixed a,
 .side-nav a {
     color: white;
+}
+
+.side-nav a:hover {
+    background-color: #d14414;
+    width: 240px;
 }
 
 #header {
@@ -118,28 +192,28 @@ textarea.materialize-textarea:focus:not([readonly]) {
     color: #000;
 }
 
-.thumb {
-    background-color: #d14414 !important;
-}
+/*.thumb {*/
+    /*background-color: #d14414 !important;*/
+/*}*/
 
-input[type=range],
+/*input[type=range],*/
 input[type=date] {
     background-color: #d14414 !important;
 }
 
 /*media="screen, projection"*/
-input[type=range] + .thumb .value {
-    color: #d14414;
-}
+/*input[type=range] + .thumb .value {*/
+    /*color: #d14414;*/
+/*}*/
 
-input[type=range] {
-    background-color: #d14414;
-    color: #d14414;
-}
+/*input[type=range] {*/
+    /*background-color: #d14414;*/
+    /*color: #d14414;*/
+/*}*/
 
-.thumb {
-    background-color: #d14414;
-}
+/*.thumb {*/
+    /*background-color: #d14414;*/
+/*}*/
 
 /*options menu font color*/
 .dropdown-content li > a, .dropdown-content li > span {
@@ -256,34 +330,25 @@ h4 {
 h5 {
     color: #707372;
     margin-top: 0;
-    text-transform: uppercase;
 }
 
-table {
-    margin-bottom: 20px;
+/*Table stylings*/
+
+.tableFooter {
+    font-weight: bold;
 }
+
+.sliderTable,
+.radioTable {
+    border-top: 1px solid #707372;
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
 
 #registerMessage {
     padding-left: 20px;
     color: #F00;
 }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
 
-main {
-    flex: 1 0 auto;
-    padding-left: 100px;
-}
-
-footer {
-    background-color: #707372;
-    height: 50px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    clear: both;
-}

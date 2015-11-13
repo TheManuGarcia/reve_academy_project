@@ -17,7 +17,7 @@
 
         </div>
         <div class="row">
-            <div class="col s3 offset-s1">
+            <div class="col s6">
                 <h5>Select Class</h5>
 
                 <form>
@@ -30,7 +30,7 @@
                 </form>
             </div>
 
-            <div class="col m3 offset-m1 col s12" ng-if="observation.classClicked">
+            <div class="col s6" ng-if="observation.classClicked">
                 <h5 class="studentList">{{ observation.classSelected }} Students</h5>
 
                 <div ng-repeat="student in observation.studentData track by $index">
@@ -43,75 +43,19 @@
 
                 </div>
             </div>
-
-<<<<<<< HEAD
-            <div>
-                <h5 ng-model="observation.studentSelected">{{ observation.studentSelected.FirstName }} {{
-                    observation.studentSelected.LastName }}</h5>
-
-                <table class="col s3" ng-if="observation.studentClicked">
-                    <tr>
-                        <td>Communication</td>
-                        <td>{{ observation.sliderCommunication }}</td>
-                        <td class="range-field">
-                            <input type="range" id="slider1" min="0" value="{{ observation.sliderCommunication }}"
-                                   max="5" step="1" ng-model="observation.sliderCommunication">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Enthusiasm</td>
-                        <td>{{ observation.sliderEnthusiasm }}</td>
-                        <td class="range-field">
-                            <input type="range" id="slider2" min="0" value="{{ observation.sliderEnthusiasm }}" max="5"
-                                   step="1" ng-model="observation.sliderEnthusiasm">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Teamwork</td>
-                        <td>{{ observation.sliderTeamwork }}</td>
-                        <td class="range-field">
-                            <input type="range" id="slider3" min="0" value="{{ observation.sliderTeamwork }}" max="5"
-                                   step="1" ng-model="observation.sliderTeamwork">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Problem Solving</td>
-                        <td>{{ observation.sliderProblemSolving }}</td>
-                        <td class="range-field">
-                            <input type="range" id="slider4" min="0" value="{{ observation.sliderProblemSolving }}"
-                                   max="5" step="1" ng-model="observation.sliderProblemSolving">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Professionalism</td>
-                        <td>{{ observation.sliderProfessionalism }}</td>
-                        <td class="range-field">
-                            <input type="range" id="slider5" min="0" value="{{ observation.sliderProfessionalism }}"
-                                   max="5" step="1" ng-model="observation.sliderProfessionalism">
-                        </td>
-                    </tr>
-                </table>
-                <span style="float:right" ng-if="!observation.obsSaved && observation.studentClicked">Note: values of zero will not be saved.</span>
-                <button class="right btn-small waves-effect waves-light btn deep-orange accent-4" id="progressButton"
-                        ng-if="observation.studentClicked" type="button" ng-click="observation.saveSliderObs()">SAVE
-                </button>
-                <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
-            </div>
-
-
         </div>
+        <div class="row">
+            <!--<h5 class="col s12" ng-model="observation.studentSelected">{{ observation.studentSelected.FirstName-->
+                <!--}} {{-->
+                <!--observation.studentSelected.LastName }}</h5>-->
 
-=======
-            <table class="striped" ng-if="observation.studentClicked">
-                <th colspan="3" ng-model="observation.studentSelected">
-                    {{ observation.studentSelected.FirstName }} {{ observation.studentSelected.LastName }}
-                </th>
-                <tr>
+            <table class="col s12 sliderTable" ng-if="observation.studentClicked">
+                <tr class="firstTableRow">
                     <td>Communication</td>
                     <td>{{ observation.sliderCommunication }}</td>
                     <td class="range-field">
-                        <input type="range" id="slider1" min="0" value="{{ observation.sliderCommunication }}" max="5"
-                               step="1" ng-model="observation.sliderCommunication">
+                        <input type="range" id="slider1" min="0" value="{{ observation.sliderCommunication }}"
+                               max="5" step="1" ng-model="observation.sliderCommunication">
                     </td>
                 </tr>
                 <tr>
@@ -134,29 +78,87 @@
                     <td>Problem Solving</td>
                     <td>{{ observation.sliderProblemSolving }}</td>
                     <td class="range-field">
-                        <input type="range" id="slider4" min="0" value="{{ observation.sliderProblemSolving }}" max="5"
-                               step="1" ng-model="observation.sliderProblemSolving">
+                        <input type="range" id="slider4" min="0" value="{{ observation.sliderProblemSolving }}"
+                               max="5" step="1" ng-model="observation.sliderProblemSolving">
                     </td>
                 </tr>
                 <tr>
                     <td>Professionalism</td>
                     <td>{{ observation.sliderProfessionalism }}</td>
                     <td class="range-field">
-                        <input type="range" id="slider5" min="0" value="{{ observation.sliderProfessionalism }}" max="5"
-                               step="1" ng-model="observation.sliderProfessionalism">
+                        <input type="range" id="slider5" min="0" value="{{ observation.sliderProfessionalism }}"
+                               max="5" step="1" ng-model="observation.sliderProfessionalism">
                     </td>
+                </tr>
+                <tr>
+                    <td class="tableFooter">Choose a value 1-5 (values of 0 will not be saved)</td>
                 </tr>
             </table>
 
-        <button class="right btn-small waves-effect waves-light btn deep-orange accent-4" id="progressButton"
-                ng-if="observation.studentClicked" type="button" ng-click="observation.saveSliderObs()">SAVE
-        </button>
-        <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
-
+            <button class="right btn-small waves-effect waves-light btn" id="progressButton"
+                    ng-if="observation.studentClicked" type="button" ng-click="observation.saveSliderObs()">SAVE
+            </button>
+            <!--<span style="float:right" ng-if="!observation.obsSaved && observation.studentClicked">Note: values of zero will not be saved.</span>-->
+            <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>
 
->>>>>>> eb842182279edfdf6f7100583cab3e8e454fd24b
-    </main>
+
+</div>
+
+<!--<table class="striped" ng-if="observation.studentClicked">-->
+<!--<th colspan="3" ng-model="observation.studentSelected">-->
+<!--{{ observation.studentSelected.FirstName }} {{ observation.studentSelected.LastName }}-->
+<!--</th>-->
+<!--<tr>-->
+<!--<td>Communication</td>-->
+<!--<td>{{ observation.sliderCommunication }}</td>-->
+<!--<td class="range-field">-->
+<!--<input type="range" id="slider1" min="0" value="{{ observation.sliderCommunication }}" max="5"-->
+<!--step="1" ng-model="observation.sliderCommunication">-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>Enthusiasm</td>-->
+<!--<td>{{ observation.sliderEnthusiasm }}</td>-->
+<!--<td class="range-field">-->
+<!--<input type="range" id="slider2" min="0" value="{{ observation.sliderEnthusiasm }}" max="5"-->
+<!--step="1" ng-model="observation.sliderEnthusiasm">-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>Teamwork</td>-->
+<!--<td>{{ observation.sliderTeamwork }}</td>-->
+<!--<td class="range-field">-->
+<!--<input type="range" id="slider3" min="0" value="{{ observation.sliderTeamwork }}" max="5"-->
+<!--step="1" ng-model="observation.sliderTeamwork">-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>Problem Solving</td>-->
+<!--<td>{{ observation.sliderProblemSolving }}</td>-->
+<!--<td class="range-field">-->
+<!--<input type="range" id="slider4" min="0" value="{{ observation.sliderProblemSolving }}" max="5"-->
+<!--step="1" ng-model="observation.sliderProblemSolving">-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>Professionalism</td>-->
+<!--<td>{{ observation.sliderProfessionalism }}</td>-->
+<!--<td class="range-field">-->
+<!--<input type="range" id="slider5" min="0" value="{{ observation.sliderProfessionalism }}" max="5"-->
+<!--step="1" ng-model="observation.sliderProfessionalism">-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
+
+<!--<button class="right btn-small waves-effect waves-light btn deep-orange accent-4" id="progressButton"-->
+<!--ng-if="observation.studentClicked" type="button" ng-click="observation.saveSliderObs()">SAVE-->
+<!--</button>-->
+<!--<span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>-->
+
+<!--</div>-->
+
+</main>
 
 </div>
 
