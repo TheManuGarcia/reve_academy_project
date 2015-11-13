@@ -18,7 +18,17 @@ main {
 }
 
 .mainImage {
-    margin: 30px auto auto 250px;
+    margin: 20px auto 0 auto;
+    display: block;
+}
+
+.sliderImage {
+    padding-top: 10px;
+}
+
+nav .brand-logo,
+.teacherHeaderImage {
+    padding-left: 30px;
 }
 
 .side-nav,
