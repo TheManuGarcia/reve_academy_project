@@ -9,17 +9,6 @@ app.controller('InternObservationController', function ($http) {
     observation.internClicked = false;
     observation.obsSaved = false;
 
-    //$http.get('/getClasses').then(function (data) {
-    //    observation.Classes = data.data;
-    //});
-    //
-    //observation.selectClass = function (selectedClass) {
-    //    observation.classClicked = true;
-    //    observation.classSelected = selectedClass.ClassName;
-    //    observation.getStudents(selectedClass.ClassID);
-    //
-    //};
-
 
     $http.get('/getInterns').then(function (data) {
         console.log(data);
@@ -35,6 +24,8 @@ app.controller('InternObservationController', function ($http) {
     };
 
     observation.formData = [];
+
+    //TODO I think this needs to be changed to using UserID, because there is no InternID
 
     observation.saveObs = function (ObsType) {
 

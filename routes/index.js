@@ -371,6 +371,7 @@ router.get('/getStudents/:ClassID', function (req, res) {
 });
 
 //get interns route
+//TODO needs to be changed to getting Interns from the Users table
 router.get('/getInterns', function (req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1 || req.user.UserType == 2) {
