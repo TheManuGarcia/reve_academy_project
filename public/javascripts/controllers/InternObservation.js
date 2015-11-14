@@ -44,7 +44,7 @@ app.controller('InternObservationController', function ($http) {
 
         for (var i = 0; i < observation.internData.length; i++) {
             var temp = {};
-            temp.UserID = observation.internData[i].UserID;
+            temp.BeingObservedID = observation.internData[i].UserID;
             temp.ObsType = ObsType;
             temp.ObsValue = observation.internData[i].ObsValue;
             if (observation.internData[i].ObsValue || observation.internData[i].ObsValue == false) observation.formData.push(temp);
@@ -79,7 +79,7 @@ app.controller('InternObservationController', function ($http) {
     observation.sliderData = {};
 
     observation.saveSliderObs = function () {
-        observation.sliderData.UserID = parseInt(observation.internSelected.UserID);
+        observation.sliderData.BeingObservedID = parseInt(observation.internSelected.BeingObservedID);
         if (parseInt(observation.sliderCommunication) != 0)observation.sliderData.Communication = parseInt(observation.sliderCommunication);
         if (parseInt(observation.sliderEnthusiasm) != 0)observation.sliderData.Enthusiasm = parseInt(observation.sliderEnthusiasm);
         if (parseInt(observation.sliderTeamwork) != 0)observation.sliderData.Teamwork = parseInt(observation.sliderTeamwork);

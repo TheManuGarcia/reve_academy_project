@@ -137,7 +137,7 @@ router.post('/addInternObs', function (req, res) {
     for (var i = 0; i < req.body.length; i++) {
 
         var newObservationMysql = {
-            UserID: req.body[i].UserID,
+            BeingObservedID: req.body[i].BeingObservedID,
             ObsType: req.body[i].ObsType,
             ObsValue: req.body[i].ObsValue,
             DateCreated: getUnixTime()
@@ -145,9 +145,9 @@ router.post('/addInternObs', function (req, res) {
 
         //console.log(newObservationMysql);
 
-        var insertQuery = "INSERT INTO InternObs ( UserID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+        var insertQuery = "INSERT INTO InternObs ( BeingObservedID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
 
-        connection.query(insertQuery, [newObservationMysql.UserID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+        connection.query(insertQuery, [newObservationMysql.BeingObservedID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
 
             if (err) {
                 console.log("INSERT ERROR = ", err);
@@ -233,7 +233,7 @@ router.post('/addInternObsSlider', function (req, res) {
 
         // assemble query object for each obs type submitted
         var newObservationMysql = {};
-        newObservationMysql.UserID = req.body.UserID;
+        newObservationMysql.BeingObservedID = req.body.BeingObservedID;
         newObservationMysql.DateCreated = getUnixTime();
 
         if (property == "Communication") {
@@ -258,9 +258,9 @@ router.post('/addInternObsSlider', function (req, res) {
         }
 
         //Do NOT insert data if the current property is StudentID
-        if (property != "UserID") {
-            var insertQuery = "INSERT INTO InternObs ( UserID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
-            connection.query(insertQuery, [newObservationMysql.UserID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+        if (property != "BeingObservedID") {
+            var insertQuery = "INSERT INTO InternObs ( BeingObservedID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+            connection.query(insertQuery, [newObservationMysql.BeingObservedID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
                 if (err) {
                     console.log("INSERT ERROR = ", err);
                     return;
