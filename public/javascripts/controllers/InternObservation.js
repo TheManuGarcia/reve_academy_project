@@ -27,6 +27,7 @@ app.controller('InternObservationController', function ($http) {
     observation.selectIntern = function (intern) {
         console.log(intern);
         observation.internClicked = true;
+        observation.obsSaved = false;
         observation.internSelected = intern;
         console.log("Intern selected = " + observation.internSelected);
         resetSliders();
@@ -54,7 +55,6 @@ app.controller('InternObservationController', function ($http) {
             observation.obsSaved = true;
             observation.message = "Your observation was saved.";
             console.log(observation.formData);
-            $("#observationButton").prop('disabled', true).remove();
         }
         return $http.post('/addInternObs', observation.formData).then(function () {
         });
@@ -89,7 +89,6 @@ app.controller('InternObservationController', function ($http) {
         //console.log(observation.sliderData);
         observation.obsSaved = true;
         observation.message = "Your observation was saved.";
-        $("#progressButton").prop('disabled', true).remove();
         return $http.post('/addInternObsSlider', observation.sliderData);
     }
 

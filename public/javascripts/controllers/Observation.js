@@ -28,6 +28,7 @@ app.controller('ObservationController', function($http) {
 
     observation.selectStudent = function (student){
         observation.studentClicked = true;
+        observation.obsSaved = false;
         observation.studentSelected = student;
         resetSliders();
     };
@@ -48,7 +49,6 @@ app.controller('ObservationController', function($http) {
             observation.obsSaved = true;
             observation.message = "Your observation was saved.";
             console.log(observation.formData);
-            $("#observationButton").prop('disabled', true).remove();
         }
         return $http.post('/addObs', observation.formData).then(function () { });
 
@@ -77,7 +77,6 @@ app.controller('ObservationController', function($http) {
         //console.log(observation.sliderData);
         observation.obsSaved = true;
         observation.message = "Your observation was saved.";
-        $("#progressButton").prop('disabled', true).remove();
         return $http.post('/addObsSlider', observation.sliderData);
     }
 
