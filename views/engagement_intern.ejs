@@ -2,7 +2,7 @@
 <html ng-app="MainApp">
 <head>
     <% include partials/head %>
-    <script src="/javascripts/controllers/Observation.js" type="text/javascript"></script>
+    <script src="/javascripts/controllers/InternObservation.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -10,44 +10,30 @@
 </header>
 <% include partials/slideout_menu %>
 
-<div class="container" ng-controller="ObservationController as observation">
+<div class="container" ng-controller="InternObservationController as observation">
     <main>
         <div class="row">
             <h4 class="col s12"><%= title %></h4>
-
         </div>
+        <!--TODO I think this needs to use UserID instead of InternID-->
         <div class="row">
-            <div class="col s3">
-                <h5>Select Class</h5>
-
-                <form>
-                    <div ng-repeat="Class in observation.Classes track by $index">
-                        <input class="with-gap" ng-model="observation.ClassID" type="radio" name="group1"
-                               value="{{ Class.ClassID }}" id="{{ Class.ClassID }}"/>
-                        <label for="{{Class.ClassID}}" ng-click="observation.selectClass(Class)">{{ Class.ClassName
-                            }}</label>
-                    </div>
-                </form>
-            </div>
-
-
-            <table class="striped col s12 radioTable" ng-if="observation.classClicked">
+            <table class="striped col s12 radioTable">
                 <th colspan="4">
-                    {{ observation.classSelected }} Students
+                    Interns
                 </th>
-                <tr ng-repeat="Student in observation.studentData track by $index">
+                <tr ng-repeat="Intern in observation.internData track by $index">
                     <td>
-                        {{Student.FirstName}} {{Student.LastName}}
+                        {{Intern.FirstName}} {{Intern.LastName}}
                     </td>
                     <td>
-                        <input id="{{'Complete' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Complete" name="{{Student.StudentID}}">
-                        <label for="{{'Complete' + Student.StudentID}}">Student Work Complete</label>
+                        <input id="{{'Complete' + Intern.InternID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Complete" name="{{Intern.InternID}}">
+                        <label for="{{'Complete' + Intern.InternID}}">Intern Work Complete</label>
                     </td>
                     <td>
-                        <input id="{{'Incomplete' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Incomplete" name="{{Student.StudentID}}">
-                        <label for="{{'Incomplete' + Student.StudentID}}">Student Work Incomplete</label>
+                        <input id="{{'Incomplete' + Intern.InternID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Incomplete" name="{{Intern.InternID}}">
+                        <label for="{{'Incomplete' + Intern.InternID}}">Intern Work Incomplete</label>
                     </td>
                 </tr>
 
