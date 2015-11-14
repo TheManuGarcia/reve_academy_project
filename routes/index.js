@@ -233,7 +233,7 @@ router.post('/addInternObsSlider', function (req, res) {
 
         // assemble query object for each obs type submitted
         var newObservationMysql = {};
-        newObservationMysql.InternID = req.body.InternID;
+        newObservationMysql.UserID = req.body.UserID;
         newObservationMysql.DateCreated = getUnixTime();
 
         if (property == "Communication") {
@@ -258,9 +258,9 @@ router.post('/addInternObsSlider', function (req, res) {
         }
 
         //Do NOT insert data if the current property is StudentID
-        if (property != "InternID") {
-            var insertQuery = "INSERT INTO InternObs ( InternID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
-            connection.query(insertQuery, [newObservationMysql.InternID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+        if (property != "UserID") {
+            var insertQuery = "INSERT INTO InternObs ( UserID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+            connection.query(insertQuery, [newObservationMysql.UserID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
                 if (err) {
                     console.log("INSERT ERROR = ", err);
                     return;
