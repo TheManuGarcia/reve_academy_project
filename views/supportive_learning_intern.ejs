@@ -15,7 +15,6 @@
         <div class="row">
             <h4 class="col s12"><%= title %></h4>
         </div>
-        <!--TODO I think we need to use UserID instead of InternID-->
         <div class="row">
             <table class="striped col s12 radioTable">
                 <th colspan="4">
@@ -26,19 +25,19 @@
                         {{Intern.FirstName}} {{Intern.LastName}}
                     </td>
                     <td>
-                        <input id="{{'OnTarget' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="OnTarget" name="{{Intern.InternID}}">
-                        <label for="{{'OnTarget' + Intern.InternID}}">On target</label>
+                        <input id="{{'OnTarget' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="OnTarget" name="{{Intern.UserID}}">
+                        <label for="{{'OnTarget' + Intern.UserID}}">On target</label>
                     </td>
                     <td>
-                        <input id="{{'Enrichment' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Enrichment" name="{{Intern.InternID}}">
-                        <label for="{{'Enrichment' + Intern.InternID}}">Enrichment</label>
+                        <input id="{{'Enrichment' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Enrichment" name="{{Intern.UserID}}">
+                        <label for="{{'Enrichment' + Intern.UserID}}">Enrichment</label>
                     </td>
                     <td>
-                        <input id="{{'Support' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Support" name="{{Intern.InternID}}">
-                        <label for="{{'Support' + Intern.InternID}}">Support</label>
+                        <input id="{{'Support' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Support" name="{{Intern.UserID}}">
+                        <label for="{{'Support' + Intern.UserID}}">Support</label>
                     </td>
                 </tr>
 

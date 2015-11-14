@@ -16,7 +16,6 @@
             <h4 class="col s12"><%= title %></h4>
 
         </div>
-        <!--TODO I think this needs to be changed to using UserID instead of InternID-->
         <div class="row">
             <table class="striped col s12 radioTable">
                 <th colspan="4">
@@ -27,19 +26,19 @@
                         {{Intern.FirstName}} {{Intern.LastName}}
                     </td>
                     <td>
-                        <input id="{{'Participating' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Participating" name="{{Intern.InternID}}">
-                        <label for="{{'Participating' + Intern.InternID}}">Participating</label>
+                        <input id="{{'Participating' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Participating" name="{{Intern.UserID}}">
+                        <label for="{{'Participating' + Intern.UserID}}">Participating</label>
                     </td>
                     <td>
-                        <input id="{{'NotParticipating' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Not Participating" name="{{Intern.InternID}}">
-                        <label for="{{'NotParticipating' + Intern.InternID}}">Not Participating</label>
+                        <input id="{{'NotParticipating' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Not Participating" name="{{Intern.UserID}}">
+                        <label for="{{'NotParticipating' + Intern.UserID}}">Not Participating</label>
                     </td>
                     <td>
-                        <input id="{{'Dominating' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Dominating" name="{{Intern.InternID}}">
-                        <label for="{{'Dominating' + Intern.InternID}}">Dominating</label>
+                        <input id="{{'Dominating' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Dominating" name="{{Intern.UserID}}">
+                        <label for="{{'Dominating' + Intern.UserID}}">Dominating</label>
                     </td>
                 </tr>
 

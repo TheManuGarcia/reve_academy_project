@@ -15,17 +15,15 @@
         <div class="row">
             <h4 class="col s12"><%= title %></h4>
         </div>
-
-        <!--TODO I think this needs to use UserID instead of InternID-->
         <div class="row">
             <div class="col s12">
                 <h5 class="studentList">Interns</h5>
 
                 <div ng-repeat="Intern in observation.internData track by $index">
 
-                    <input class="with-gap" ng-model="observation.InternID" type="radio" name="studentGroup"
-                           value="{{ Intern.InternID }}" id="{{ Intern.InternID }}"/>
-                    <label for="{{ Intern.InternID }}" ng-click="observation.selectIntern(intern)">
+                    <input class="with-gap" ng-model="observation.UserID" type="radio" name="studentGroup"
+                           value="{{ Intern.UserID }}" id="{{ Intern.UserID }}"/>
+                    <label for="{{ Intern.UserID }}" ng-click="observation.selectIntern(intern)">
                         {{ Intern.FirstName }} {{ Intern.LastName }}
                     </label>
 

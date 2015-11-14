@@ -15,7 +15,6 @@
         <div class="row">
             <h4 class="col s12"><%= title %></h4>
         </div>
-        <!--TODO I think this needs to use UserID instead of InternID-->
         <div class="row">
             <table class="striped col s12 radioTable">
                 <th colspan="4">
@@ -26,14 +25,14 @@
                         {{Intern.FirstName}} {{Intern.LastName}}
                     </td>
                     <td>
-                        <input id="{{'Complete' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Complete" name="{{Intern.InternID}}">
-                        <label for="{{'Complete' + Intern.InternID}}">Intern Work Complete</label>
+                        <input id="{{'Complete' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Complete" name="{{Intern.UserID}}">
+                        <label for="{{'Complete' + Intern.UserID}}">Intern Work Complete</label>
                     </td>
                     <td>
-                        <input id="{{'Incomplete' + Intern.InternID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Incomplete" name="{{Intern.InternID}}">
-                        <label for="{{'Incomplete' + Intern.InternID}}">Intern Work Incomplete</label>
+                        <input id="{{'Incomplete' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Incomplete" name="{{Intern.UserID}}">
+                        <label for="{{'Incomplete' + Intern.UserID}}">Intern Work Incomplete</label>
                     </td>
                 </tr>
 
