@@ -9,6 +9,9 @@ app.controller('InternObservationController', function ($http) {
     observation.internClicked = false;
     observation.obsSaved = false;
 
+    //////////////////////////////////
+    //    GET INTERNS               //
+    /////////////////////////////////
 
     $http.get('/getInterns').then(function (data) {
         console.log(data);
@@ -16,6 +19,10 @@ app.controller('InternObservationController', function ($http) {
         console.log(observation.internData);
     });
 
+
+    //////////////////////////////////
+    //    SELECT INTERN             //
+    /////////////////////////////////
 
     observation.selectIntern = function (intern) {
         observation.internClicked = true;
@@ -26,6 +33,10 @@ app.controller('InternObservationController', function ($http) {
     observation.formData = [];
 
     //TODO I think this needs to be changed to using UserID, because there is no InternID
+
+    //////////////////////////////////
+    //    SAVE OBSERVATION          //
+    /////////////////////////////////
 
     observation.saveObs = function (ObsType) {
 
@@ -48,8 +59,9 @@ app.controller('InternObservationController', function ($http) {
 
     };
 
-    /////////////////////// SLIDER FORM ///////////////////////
-
+    //////////////////////////////////
+    //    SLIDER FORM              //
+    /////////////////////////////////
     function resetSliders() {
         observation.sliderCommunication = 0;
         observation.sliderEnthusiasm = 0;
@@ -57,6 +69,10 @@ app.controller('InternObservationController', function ($http) {
         observation.sliderProblemSolving = 0;
         observation.sliderProfessionalism = 0;
     }
+
+    //////////////////////////////////
+    //    SAVE SLIDER OBSERVATION   //
+    /////////////////////////////////
 
     observation.sliderData = {};
 
