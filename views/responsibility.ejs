@@ -6,7 +6,14 @@
 </head>
 <body>
 <header>
+    <% if (user.UserType == 0) { %>
     <% include partials/admin_header %>
+    <% } else if(user.UserType == 1) { %>
+    <% include partials/teacher_header%>
+
+    <% } else  { %>
+    <% include partials/intern_header%>
+    <% } %>
 </header>
 <% include partials/slideout_menu %>
 
@@ -41,12 +48,12 @@
                     </td>
                     <td>
                         <input id="{{'Complete' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Complete" name="{{Student.StudentID}}">
+                               ng-model="Student.ObsValue" value="OnTask" name="{{Student.StudentID}}">
                         <label for="{{'Complete' + Student.StudentID}}">On Task</label>
                     </td>
                     <td>
                         <input id="{{'Incomplete' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="Incomplete" name="{{Student.StudentID}}">
+                               ng-model="Student.ObsValue" value="OffTask" name="{{Student.StudentID}}">
                         <label for="{{'Incomplete' + Student.StudentID}}">Off Task</label>
                     </td>
                 </tr>

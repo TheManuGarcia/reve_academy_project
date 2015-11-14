@@ -5,11 +5,13 @@
     <script src="/javascripts/controllers/AddClass.js" type="text/javascript"></script>
 </head>
 <body>
-<% if (user.UserType == 1) { %>
-<% include ../partials/teacher_header %>
-<% } else { %>
+<% if (user.UserType == 0) { %>
+<% include ../partials/admin_header %>
+<% } else if(user.UserType == 1) { %>
+<% include ../partials/teacher_header%>
 
-<% include ../partials/header_main %>
+<% } else  { %>
+<% include ../partials/intern_header%>
 <% } %>
 <div class="container">
     <main ng-controller="AddClassController as class" class="noPadding">

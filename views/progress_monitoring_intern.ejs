@@ -2,7 +2,7 @@
 <html ng-app="MainApp">
 <head>
     <% include partials/head %>
-    <script src="/javascripts/controllers/Observation.js" type="text/javascript"></script>
+    <script src="/javascripts/controllers/InternObservation.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -17,35 +17,21 @@
 </header>
 <% include partials/slideout_menu %>
 
-<div class="container" ng-controller="ObservationController as observation" ng-cloak>
+<div class="container" ng-controller="InternObservationController as observation" ng-cloak>
     <main>
         <div class="row">
             <h4 class="col s12"><%= title %></h4>
-
         </div>
         <div class="row">
-            <div class="col s6">
-                <h5>Select Class</h5>
+            <div class="col s12">
+                <h5 class="studentList">Interns</h5>
 
-                <form>
-                    <div ng-repeat="Class in observation.Classes track by $index">
-                        <input class="with-gap" ng-model="observation.ClassID" type="radio" name="classGroup"
-                               value="{{ Class.ClassID }}" id="{{ Class.ClassID }}"/>
-                        <label for="{{Class.ClassID}}" ng-click="observation.selectClass(Class)">{{ Class.ClassName
-                            }}</label>
-                    </div>
-                </form>
-            </div>
+                <div ng-repeat="Intern in observation.internData track by $index">
 
-            <div class="col s6" ng-if="observation.classClicked">
-                <h5 class="studentList">{{ observation.classSelected }} Students</h5>
-
-                <div ng-repeat="student in observation.studentData track by $index">
-
-                    <input class="with-gap" ng-model="observation.StudentID" type="radio" name="studentGroup"
-                           value="{{ student.StudentID }}" id="{{ student.StudentID }}"/>
-                    <label for="{{ student.StudentID }}" ng-click="observation.selectStudent(student)">
-                        {{ student.FirstName }} {{ student.LastName }}
+                    <input class="with-gap" ng-model="observation.UserID" type="radio" name="InternGroup"
+                           value="{{ Intern.UserID }}" id="{{ Intern.UserID }}"/>
+                    <label for="{{ Intern.UserID }}" ng-click="observation.selectIntern(intern)">
+                        {{ Intern.FirstName }} {{ Intern.LastName }}
                     </label>
 
                 </div>
@@ -53,7 +39,7 @@
         </div>
         <div class="row">
 
-            <table class="col s12 sliderTable" ng-if="observation.studentClicked">
+            <table class="col s12 sliderTable" ng-if="observation.internClicked">
                 <tr class="firstTableRow">
                     <td>Communication</td>
                     <td>{{ observation.sliderCommunication }}</td>
@@ -100,13 +86,14 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="progressButton"
-                    ng-if="observation.studentClicked" type="button" ng-click="observation.saveSliderObs() observation.showMessage">SAVE
+                    ng-if="observation.internClicked" type="button" ng-click="observation.saveSliderObs()">SAVE
             </button>
             <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>
+
     </main>
 </div>
+
+
 </body>
 </html>
-
-<!--Need to put ng-hide/ng-show on button and span, right?-->

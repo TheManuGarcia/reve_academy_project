@@ -116,11 +116,6 @@ input[type=range]::-ms-thumb {
     color: white;
 }
 
-.side-nav a:hover {
-    background-color: #d14414;
-    width: 240px;
-}
-
 #header {
     background-color: #d14414;
 }
@@ -268,6 +263,9 @@ header, footer {
 
 }
 
+th {
+    color: #707372;
+}
 /*switch*/
 .switch label input[type=checkbox]:checked + .lever,
 .switch label input[type=checkbox]:checked + .lever:after {
@@ -309,8 +307,7 @@ input[type=range] {
 }
 
 @media only screen and (max-width: 600px) {
-    .addStudentForm,
-    .studentList {
+    .addStudentForm {
         margin-top: 20px;
 
     }

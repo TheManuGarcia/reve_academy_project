@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="MainApp">
+<head>
+    <% include partials/head %>
+    <script src="/javascripts/controllers/InternObservation.js" type="text/javascript"></script>
+</head>
+<body>
+<header>
+    <% if (user.UserType == 0) { %>
+    <% include partials/admin_header %>
+    <% } else if(user.UserType == 1) { %>
+    <% include partials/teacher_header %>
+
+    <% } else  { %>
+    <% include partials/intern_header %>
+    <% } %>
+</header>
+<% include partials/slideout_menu %>
+
+<div class="container" ng-controller="InternObservationController as observation">
+    <main>
+        <div class="row">
+            <h4 class="col s12"><%= title %></h4>
+        </div>
+        <div class="row">
+            <table class="striped col s12 radioTable">
+                <th colspan="4">
+                    Interns
+                </th>
+                <tr ng-repeat="Intern in observation.internData track by $index">
+                    <td>
+                        {{Intern.FirstName}} {{Intern.LastName}}
+                    </td>
+                    <td>
+                        <input id="{{'Complete' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Complete" name="{{Intern.UserID}}">
+                        <label for="{{'Complete' + Intern.UserID}}">Intern Work Complete</label>
+                    </td>
+                    <td>
+                        <input id="{{'Incomplete' + Intern.UserID}}" class="with-gap" type="radio"
+                               ng-model="Intern.ObsValue" value="Incomplete" name="{{Intern.UserID}}">
+                        <label for="{{'Incomplete' + Intern.UserID}}">Intern Work Incomplete</label>
+                    </td>
+                </tr>
+
+            </table>
+
+            <button class="right btn-small waves-effect waves-light btn" id="observationButton"
+                    type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
+            </button>
+            <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
+        </div>
+
+    </main>
+
+</div>
+
+
+</body>
+</html>

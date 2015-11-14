@@ -6,6 +6,7 @@ app.controller('ObservationController', function($http) {
     observation.classClicked = false;
     observation.studentClicked = false;
     observation.obsSaved = false;
+    observation.showButton = false;
 
     $http.get('/getClasses').then(function (data) {
         observation.Classes = data.data;

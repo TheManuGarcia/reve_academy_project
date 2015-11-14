@@ -5,14 +5,18 @@
 </head>
 <body>
 <header>
+    <% if (user.UserType == 0) { %>
     <% include partials/admin_header %>
+    <% } else if(user.UserType == 1) { %>
+    <% include partials/teacher_header%>
+
+    <% } else  { %>
+    <% include partials/intern_header%>
+    <% } %>
 </header>
 <% include partials/slideout_menu %>
 <div class="container">
     <main>
-        <div class="row">
-            <h4 class="col s12">Observation</h4>
-        </div>
     </main>
 </div>
 </body>
