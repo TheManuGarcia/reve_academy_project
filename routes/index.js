@@ -38,7 +38,7 @@ router.get('/equitable', function (req, res, next) {
     res.render('equitable', {title: 'Equitable', user: req.user});
 });
 router.get('/equitable_intern', function (req, res, next) {
-    res.render('equitable_intern', {title: 'Equitable Intern', user: req.user});
+    res.render('equitable_intern', {title: 'Equitable', user: req.user});
 });
 router.get('/engagement_intern', function (req, res, next) {
     res.render('engagement_intern', {title: 'Engagement Intern', user: req.user});
@@ -108,6 +108,46 @@ router.post('/addObs', function (req, res) {
         var insertQuery = "INSERT INTO StudentObs ( StudentID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
 
         connection.query(insertQuery, [newObservationMysql.StudentID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+
+            if (err) {
+                console.log("INSERT ERROR = ", err);
+                return;
+            }
+            console.log("INSERTED NEW Observation = ", rows);
+
+        });
+    }
+
+    res.sendStatus(200);
+
+});
+
+//post intern Obs data
+router.post('/addInternObs', function (req, res) {
+    console.log(req.body);
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+
+    for (var i = 0; i < req.body.length; i++) {
+
+        var newObservationMysql = {
+            InternID: req.body[i].InternID,
+            ObsType: req.body[i].ObsType,
+            ObsValue: req.body[i].ObsValue,
+            DateCreated: getUnixTime()
+        };
+
+        //console.log(newObservationMysql);
+
+        var insertQuery = "INSERT INTO InternObs ( InternID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+
+        connection.query(insertQuery, [newObservationMysql.InternID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
 
             if (err) {
                 console.log("INSERT ERROR = ", err);
@@ -264,6 +304,31 @@ router.get('/getStudents/:ClassID', function (req, res) {
         });
 
         var selectQuery = "SELECT StudentID, FirstName, LastName FROM Students WHERE ClassID = " + req.params.ClassID;
+
+        connection.query(selectQuery, function (err, results) {
+            if (err) console.log("SELECT ERROR = ", err);
+            res.json(results);
+        });
+
+    }
+
+});
+
+//get interns route
+router.get('/getInterns', function (req, res) {
+    console.log(req.user);
+    if (req.user.UserType == 0 || req.user.UserType == 1 || req.user.UserType == 2) {
+
+        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+
+            if (error) {
+                console.log("ERROR GETTING STUDENTS = ", error);
+                return;
+            }
+            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+        });
+
+        var selectQuery = "SELECT InternID, FirstName, LastName FROM Interns";
 
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
