@@ -371,7 +371,6 @@ router.get('/getStudents/:ClassID', function (req, res) {
 });
 
 //get interns route
-//TODO needs to be changed to getting Interns from the Users table
 router.get('/getInterns', function (req, res) {
     console.log(req.user);
     if (req.user.UserType == 0 || req.user.UserType == 1 || req.user.UserType == 2) {
@@ -385,7 +384,7 @@ router.get('/getInterns', function (req, res) {
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
         });
 
-        var selectQuery = "SELECT InternID, FirstName, LastName FROM Interns";
+        var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
 
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
