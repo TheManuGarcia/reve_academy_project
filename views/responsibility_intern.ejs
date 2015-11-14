@@ -26,12 +26,12 @@
                     </td>
                     <td>
                         <input id="{{'Complete' + Intern.UserID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Complete" name="{{Intern.UserID}}">
+                               ng-model="Intern.ObsValue" value="OnTask" name="{{Intern.UserID}}">
                         <label for="{{'Complete' + Intern.UserID}}">On Task</label>
                     </td>
                     <td>
                         <input id="{{'Incomplete' + Intern.UserID}}" class="with-gap" type="radio"
-                               ng-model="Intern.ObsValue" value="Incomplete" name="{{Intern.UserID}}">
+                               ng-model="Intern.ObsValue" value="OffTask" name="{{Intern.UserID}}">
                         <label for="{{'Incomplete' + Intern.UserID}}">Off Task</label>
                     </td>
                 </tr>
@@ -39,7 +39,7 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="observationButton"
-                    ng-if="observation.internClicked" type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
+                    type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
             </button>
             <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>
