@@ -21,7 +21,7 @@
 
                 <div ng-repeat="Intern in observation.internData track by $index">
 
-                    <input class="with-gap" ng-model="observation.UserID" type="radio" name="studentGroup"
+                    <input class="with-gap" ng-model="observation.UserID" type="radio" name="InternGroup"
                            value="{{ Intern.UserID }}" id="{{ Intern.UserID }}"/>
                     <label for="{{ Intern.UserID }}" ng-click="observation.selectIntern(intern)">
                         {{ Intern.FirstName }} {{ Intern.LastName }}

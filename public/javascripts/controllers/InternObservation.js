@@ -25,8 +25,10 @@ app.controller('InternObservationController', function ($http) {
     /////////////////////////////////
 
     observation.selectIntern = function (intern) {
+        console.log(intern);
         observation.internClicked = true;
         observation.internSelected = intern;
+        console.log("Intern selected = " + observation.internSelected);
         resetSliders();
     };
 
