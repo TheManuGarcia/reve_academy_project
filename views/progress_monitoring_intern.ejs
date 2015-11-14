@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="MainApp">
+<head>
+    <% include partials/head %>
+    <script src="/javascripts/controllers/Observation.js" type="text/javascript"></script>
+</head>
+<body>
+<header>
+    <% include partials/admin_header %>
+</header>
+<% include partials/slideout_menu %>
+
+<div class="container" ng-controller="InternObservationController as observation" ng-cloak>
+    <main>
+        <div class="row">
+            <h4 class="col s12"><%= title %></h4>
+        </div>
+
+        <!--TODO I think this needs to use UserID instead of InternID-->
+        <div class="row">
+            <div class="col s12">
+                <h5 class="studentList">Interns</h5>
+
+                <div ng-repeat="Intern in observation.internData track by $index">
+
+                    <input class="with-gap" ng-model="observation.InternID" type="radio" name="studentGroup"
+                           value="{{ Intern.InternID }}" id="{{ Intern.InternID }}"/>
+                    <label for="{{ Intern.InternID }}" ng-click="observation.selectIntern(intern)">
+                        {{ Intern.FirstName }} {{ Intern.LastName }}
+                    </label>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <table class="col s12 sliderTable" ng-if="observation.internClicked">
+                <tr class="firstTableRow">
+                    <td>Communication</td>
+                    <td>{{ observation.sliderCommunication }}</td>
+                    <td class="range-field">
+                        <input type="range" id="slider1" min="0" value="{{ observation.sliderCommunication }}"
+                               max="5" step="1" ng-model="observation.sliderCommunication">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enthusiasm</td>
+                    <td>{{ observation.sliderEnthusiasm }}</td>
+                    <td class="range-field">
+                        <input type="range" id="slider2" min="0" value="{{ observation.sliderEnthusiasm }}" max="5"
+                               step="1" ng-model="observation.sliderEnthusiasm">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Teamwork</td>
+                    <td>{{ observation.sliderTeamwork }}</td>
+                    <td class="range-field">
+                        <input type="range" id="slider3" min="0" value="{{ observation.sliderTeamwork }}" max="5"
+                               step="1" ng-model="observation.sliderTeamwork">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Problem Solving</td>
+                    <td>{{ observation.sliderProblemSolving }}</td>
+                    <td class="range-field">
+                        <input type="range" id="slider4" min="0" value="{{ observation.sliderProblemSolving }}"
+                               max="5" step="1" ng-model="observation.sliderProblemSolving">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Professionalism</td>
+                    <td>{{ observation.sliderProfessionalism }}</td>
+                    <td class="range-field">
+                        <input type="range" id="slider5" min="0" value="{{ observation.sliderProfessionalism }}"
+                               max="5" step="1" ng-model="observation.sliderProfessionalism">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableFooter">Choose a value 1-5 (values of 0 will not be saved)</td>
+                </tr>
+            </table>
+
+            <button class="right btn-small waves-effect waves-light btn" id="progressButton"
+                    ng-if="observation.internClicked" type="button" ng-click="observation.saveSliderObs()">SAVE
+            </button>
+            <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
+        </div>
+
+    </main>
+</div>
+
+
+</body>
+</html>
