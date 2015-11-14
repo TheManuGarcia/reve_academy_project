@@ -5,7 +5,14 @@
     <script src="/javascripts/controllers/AddTeacher.js" type="text/javascript"></script>
 </head>
 <body>
+<% if (user.UserType == 0) { %>
 <% include ../partials/admin_header %>
+<% } else if(user.UserType == 1) { %>
+<% include ../partials/teacher_header%>
+
+<% } else  { %>
+<% include ../partials/intern_header%>
+<% } %>
 
 <div class="container">
     <main ng-controller="AddTeacherController as teacher" class="noPadding">
