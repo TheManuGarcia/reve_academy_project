@@ -37,6 +37,21 @@ router.get('/communication', function (req, res, next) {
 router.get('/equitable', function (req, res, next) {
     res.render('equitable', {title: 'Equitable', user: req.user});
 });
+router.get('/equitable_intern', function (req, res, next) {
+    res.render('equitable_intern', {title: 'Equitable Intern', user: req.user});
+});
+router.get('/engagement_intern', function (req, res, next) {
+    res.render('engagement_intern', {title: 'Engagement Intern', user: req.user});
+});
+router.get('/progress_monitoring_intern', function (req, res, next) {
+    res.render('progress_monitoring_intern', {title: 'Progress Monitoring Intern', user: req.user});
+});
+router.get('/supportive_learning_intern', function (req, res, next) {
+    res.render('supportive_learning_intern', {title: 'Supportive Learning Intern', user: req.user});
+});
+router.get('/responsibility_intern', function (req, res, next) {
+    res.render('responsibility_intern', {title: 'Responsibility Intern', user: req.user});
+});
 router.get('/progress_monitoring', function (req, res, next) {
     res.render('progress_monitoring', {title: 'Progress Monitoring', user: req.user});
 });
