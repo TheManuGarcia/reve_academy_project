@@ -137,7 +137,7 @@ router.post('/addInternObs', function (req, res) {
     for (var i = 0; i < req.body.length; i++) {
 
         var newObservationMysql = {
-            InternID: req.body[i].InternID,
+            UserID: req.body[i].UserID,
             ObsType: req.body[i].ObsType,
             ObsValue: req.body[i].ObsValue,
             DateCreated: getUnixTime()
@@ -145,9 +145,9 @@ router.post('/addInternObs', function (req, res) {
 
         //console.log(newObservationMysql);
 
-        var insertQuery = "INSERT INTO InternObs ( InternID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+        var insertQuery = "INSERT INTO InternObs ( UserID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
 
-        connection.query(insertQuery, [newObservationMysql.InternID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+        connection.query(insertQuery, [newObservationMysql.UserID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
 
             if (err) {
                 console.log("INSERT ERROR = ", err);
