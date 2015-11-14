@@ -70,7 +70,7 @@ app.controller('InternObservationController', function ($http) {
     observation.sliderData = {};
 
     observation.saveSliderObs = function () {
-        observation.sliderData.StudentID = parseInt(observation.studentSelected.StudentID);
+        observation.sliderData.InternID = parseInt(observation.internSelected.InternID);
         if (parseInt(observation.sliderCommunication) != 0)observation.sliderData.Communication = parseInt(observation.sliderCommunication);
         if (parseInt(observation.sliderEnthusiasm) != 0)observation.sliderData.Enthusiasm = parseInt(observation.sliderEnthusiasm);
         if (parseInt(observation.sliderTeamwork) != 0)observation.sliderData.Teamwork = parseInt(observation.sliderTeamwork);
@@ -81,7 +81,7 @@ app.controller('InternObservationController', function ($http) {
         observation.obsSaved = true;
         observation.message = "Your observation was saved.";
         $("#progressButton").prop('disabled', true).remove();
-        return $http.post('/addObsSlider', observation.sliderData);
+        return $http.post('/addInternObsSlider', observation.sliderData);
     }
 
 });

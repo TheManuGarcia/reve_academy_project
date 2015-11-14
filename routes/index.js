@@ -218,6 +218,62 @@ router.post('/addObsSlider', function (req, res) {
     res.sendStatus(200);
 });
 
+//POST INTERN SLIDER DATA
+router.post('/addInternObsSlider', function (req, res) {
+    //console.log(req.body);
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+
+    for (property in req.body) {
+
+        // assemble query object for each obs type submitted
+        var newObservationMysql = {};
+        newObservationMysql.InternID = req.body.InternID;
+        newObservationMysql.DateCreated = getUnixTime();
+
+        if (property == "Communication") {
+            newObservationMysql.ObsType = 'Communication';
+            newObservationMysql.ObsValue = req.body.Communication;
+        }
+        if (property == "Enthusiasm") {
+            newObservationMysql.ObsType = 'Enthusiasm';
+            newObservationMysql.ObsValue = req.body.Enthusiasm;
+        }
+        if (property == "Teamwork") {
+            newObservationMysql.ObsType = 'Teamwork';
+            newObservationMysql.ObsValue = req.body.Teamwork;
+        }
+        if (property == "ProblemSolving") {
+            newObservationMysql.ObsType = 'ProblemSolving';
+            newObservationMysql.ObsValue = req.body.ProblemSolving;
+        }
+        if (property == "Professionalism") {
+            newObservationMysql.ObsType = 'Professionalism';
+            newObservationMysql.ObsValue = req.body.Professionalism;
+        }
+
+        //Do NOT insert data if the current property is StudentID
+        if (property != "InternID") {
+            var insertQuery = "INSERT INTO InternObs ( InternID, ObsType, ObsValue, DateCreated ) values (?,?,?,?)";
+            connection.query(insertQuery, [newObservationMysql.InternID, newObservationMysql.ObsType, newObservationMysql.ObsValue, newObservationMysql.DateCreated], function (err, rows) {
+                if (err) {
+                    console.log("INSERT ERROR = ", err);
+                    return;
+                }
+                console.log("INSERTED NEW Observation = ", rows);
+            });
+        }
+
+    }
+
+    res.sendStatus(200);
+});
+
 // VIEW DATA ROUTES
 
 router.get('/admin_view_data', function (req, res, next) {
