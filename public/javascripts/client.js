@@ -20,7 +20,7 @@ $(document).ready(function(){
     //$('.modal-trigger').leanModal();
 
     $('.modal-trigger').leanModal({
-            dismissible: false, // Modal can be dismissed by clicking outside of the modal
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
             opacity: .5, // Opacity of modal background
             in_duration: 0, // Transition in duration
             out_duration: 0 // Transition out duration

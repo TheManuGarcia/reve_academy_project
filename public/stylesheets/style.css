@@ -358,6 +358,27 @@ h5 {
     background-color: #707372;
 }
 
+/*Tabs styling*/
+
+.tabs .tab a {
+    color: #d14414;
+}
+
+.tabs .tab a:hover {
+    color: #707372;
+}
+
+.tabs .indicator  {
+    background-color: #d14414;
+    color: #d14414;
+}
+
+/*modal trigger*/
+
+.material-icons {
+    background-color: #d14414;
+}
+
 #registerMessage {
     padding-left: 20px;
     color: #F00;
