@@ -352,6 +352,11 @@ h5 {
     padding-top: 30px;
 }
 
+/*Styling dropdown menus on View Data Pages*/
+
+.dropdown-button {
+    background-color: #707372;
+}
 
 #registerMessage {
     padding-left: 20px;
