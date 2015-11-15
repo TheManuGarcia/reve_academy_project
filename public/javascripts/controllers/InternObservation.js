@@ -79,7 +79,7 @@ app.controller('InternObservationController', function ($http) {
     observation.sliderData = {};
 
     observation.saveSliderObs = function () {
-        observation.sliderData.BeingObservedID = parseInt(observation.internSelected.BeingObservedID);
+        observation.sliderData.BeingObservedID = parseInt(observation.internSelected.UserID);
         if (parseInt(observation.sliderCommunication) != 0)observation.sliderData.Communication = parseInt(observation.sliderCommunication);
         if (parseInt(observation.sliderEnthusiasm) != 0)observation.sliderData.Enthusiasm = parseInt(observation.sliderEnthusiasm);
         if (parseInt(observation.sliderTeamwork) != 0)observation.sliderData.Teamwork = parseInt(observation.sliderTeamwork);
