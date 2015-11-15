@@ -314,7 +314,8 @@ router.get('/getClasses', function (req, res) {
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
         });
 
-        var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
+        if (req.user.UserType == 0) var selectQuery = "SELECT Classes.ClassID, Classes.ClassName, Classes.DateStart, Users.FirstName, Users.LastName FROM Classes, Users WHERE Classes.UserID = Users.UserID ORDER BY Users.LastName;";
+        if (req.user.UserType == 1) var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
 
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
@@ -378,7 +379,7 @@ router.get('/getInterns', function (req, res) {
         connection.query('USE ' + dbconfig.database, function (error, results, fields) {
 
             if (error) {
-                console.log("ERROR GETTING STUDENTS = ", error);
+                console.log("ERROR GETTING interns = ", error);
                 return;
             }
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
@@ -555,6 +556,43 @@ router.get('/getData/class/:classID', function(req, res) {
 // get data for specific student
 router.get('/getData/student/:studentID', function(req, res) {
 
+});
+
+// get users for user view page
+router.get('/admin', function(req, res) {
+    if (req.user.UserType == 0) {
+        res.render('admin/admin', {title: 'Administration', user: req.user});
+    } else {
+        res.redirect('/');
+    }
+});
+
+router.post('/deleteUser', function(req, res) {
+    if (req.user.UserType == 0) {
+
+        console.log(req.body.UserID);
+        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+
+            if (error) {
+                console.log("ERROR = ", error);
+                return;
+            }
+            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+        });
+
+        connection.query("DELETE FROM Users WHERE UserID = ?", [req.body.UserID], function (err, rows) {
+
+            if (err) {
+                console.log("DELETE ERROR = ", err);
+                return;
+            }
+            console.log("DELETE USER = ", rows);
+
+            //newClassMysql.UserID = rows.insertId;
+        });
+    }
+
+    res.sendStatus(200);
 });
 
 module.exports = router;
