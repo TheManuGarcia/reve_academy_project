@@ -358,6 +358,19 @@ h5 {
     background-color: #707372;
 }
 
+.dropdown-button {
+    padding: 0 0 0 30px;
+    width: 200px;
+}
+
+#getDatabtn {
+    width: 200px;
+}
+
+#selectTeacherBtn {
+    margin-top: 20px;
+}
+
 /*Tabs styling*/
 
 .tabs .tab a {
