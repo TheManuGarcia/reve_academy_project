@@ -19,35 +19,35 @@ $(function() {
         if ($("#password").val().length < 6) {
             $("#registerMessage").text('Passwords must be at least six (6) characters').css("color", "#F00");
         } else {
-            checkConfirm("#password", "#confirmPassword", "Passwords");
+            checkConfirm("#password", "#confirmPassword", "Password is");
         }
     });
     $('#confirmPassword').keyup(function () {
-        checkConfirm("#password", "#confirmPassword", "Passwords");
+        checkConfirm("#password", "#confirmPassword", "Password is");
     });
 
     $("#password").change(function () {
         if ($("#password").val().length < 6) {
             $("#registerMessage").text('Passwords must be at least six (6) characters').css("color", "#F00");
         } else {
-            checkConfirm("#password", "#confirmPassword", "Passwords");
+            checkConfirm("#password", "#confirmPassword", "Password is");
         }
     });
     $('#confirmPassword').change(function () {
-        checkConfirm("#password", "#confirmPassword", "Passwords");
+        checkConfirm("#password", "#confirmPassword", "Password is");
     });
 
     $("#email").keyup(function () {
-        checkConfirm("#email", "#confirmEmail", "Emails");
+        checkConfirm("#email", "#confirmEmail", "Email is");
     });
     $('#confirmEmail').keyup(function () {
-        checkConfirm("#email", "#confirmEmail", "Emails");
+        checkConfirm("#email", "#confirmEmail", "Email is");
     });
     $("#email").change(function () {
-        checkConfirm("#email", "#confirmEmail", "Emails");
+        checkConfirm("#email", "#confirmEmail", "Email is");
     });
     $('#confirmEmail').change(function () {
-        checkConfirm("#email", "#confirmEmail", "Emails");
+        checkConfirm("#email", "#confirmEmail", "Email is");
     });
 
 });
