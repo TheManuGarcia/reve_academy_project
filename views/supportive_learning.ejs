@@ -47,8 +47,8 @@
                     </td>
                     <td>
                         <input id="{{'OnTarget' + Student.StudentID}}" class="with-gap" type="radio"
-                               ng-model="Student.ObsValue" value="OnTarget" name="{{Student.StudentID}}">
-                        <label for="{{'OnTarget' + Student.StudentID}}">On target</label>
+                               ng-model="Student.ObsValue" value="On Target" name="{{Student.StudentID}}">
+                        <label for="{{'OnTarget' + Student.StudentID}}">On Target</label>
                     </td>
                     <td>
                         <input id="{{'Enrichment' + Student.StudentID}}" class="with-gap" type="radio"
@@ -65,7 +65,7 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="observationButton"
-                    ng-if="observation.classClicked" type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
+                    ng-if="!observation.obsSaved" type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
             </button>
             <span class="saved right obsMessage" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>

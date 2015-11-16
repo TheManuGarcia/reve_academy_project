@@ -4,8 +4,7 @@ app.controller('ViewDataAdminController', function($http) {
     viewdata.teacherSelected = false;
     viewdata.classSelected = false;
     viewdata.studentSelected = false;
-    var data4=[];
-    data4.data={};
+    viewdata.showCharts = false;
 
     $http.get('/getTeachers').then(function(data) {
         //console.log(data.data);
@@ -37,6 +36,7 @@ app.controller('ViewDataAdminController', function($http) {
 
     viewdata.selectStudent = function(Student) {
         viewdata.studentSelected = true;
+        viewdata.showCharts = false;
         StudentID = Student.StudentID;
         viewdata.studentName = Student.FirstName + " " + Student.LastName;
     };
@@ -44,6 +44,11 @@ app.controller('ViewDataAdminController', function($http) {
     viewdata.getData = function(){
         // remove existing charts before appending new charts
         $('#charts').empty();
+        $('.chart1Table').find("tr:gt(0)").remove();
+        $('.chart2Table').find("tr:gt(0)").remove();
+        $('.chart3Table').find("tr:gt(0)").remove();
+        $('.chart4Table').find("tr:gt(0)").remove();
+        viewdata.showCharts = true;
         $http.get('/getStudentData/' + StudentID).then(function(data4) {
             //console.log(data4.data);
             viewdata.studentData = data4.data;
@@ -112,7 +117,7 @@ app.controller('ViewDataAdminController', function($http) {
 
         }
 
-        var i = 0;
+        i = 0;
         while (i < data.length) {
             switch (data[i].ObsType) {
                 case "Equitable":
@@ -127,7 +132,7 @@ app.controller('ViewDataAdminController', function($http) {
                 case "Teamwork":
                     buildObject(dataTeamwork, data[i]);
                     break;
-                case "ProblemSolving":
+                case "Problem Solving":
                     buildObject(dataProblemSolving, data[i]);
                     break;
                 case "Professionalism":
@@ -136,7 +141,7 @@ app.controller('ViewDataAdminController', function($http) {
                 case "Engagement":
                     buildObject(dataEngagement, data[i]);
                     break;
-                case "SupportiveLearning":
+                case "Supportive Learning":
                     buildObject(dataSupportiveLearning, data[i]);
                     break;
                 case "Responsibility":
@@ -149,13 +154,14 @@ app.controller('ViewDataAdminController', function($http) {
             i++;
         }
 
-        var chartDataArray = [dataEquitable, dataCommunication, dataEnthusiasm, dataTeamwork, dataProblemSolving,
-            dataProfessionalism, dataEngagement, dataSupportiveLearning, dataResponsibility];
+        var chartDataArray = [dataCommunication, dataEnthusiasm, dataTeamwork, dataProblemSolving,
+            dataProfessionalism, dataEquitable, dataEngagement, dataSupportiveLearning, dataResponsibility];
 
         var chartCtxArray = [];
 
         var chartTitle;
-        for (var x = 0; x < chartDataArray.length; x++) {
+        //for (var x = 0; x < chartDataArray.length; x++) {
+        for (var x = 0; x <= 4; x++) {
             if (Object.keys(chartDataArray[x]).length) {
                 chartTitle = chartDataArray[x].datasets[0].label;
             } else {
@@ -165,56 +171,76 @@ app.controller('ViewDataAdminController', function($http) {
             chartCtxArray.push($("#Chart" + x).get(0).getContext("2d"));
         }
 
+        // charts
+
         if (Object.keys(chartDataArray[0]).length) {
-            var myChart0 = new Chart(chartCtxArray[0]).Line(dataEquitable, chartOptions);
+            var myChart0 = new Chart(chartCtxArray[0]).Line(dataCommunication, chartOptions);
         } else {
             $("#ChartLI0").remove();
         }
 
         if (Object.keys(chartDataArray[1]).length) {
-            var myChart1 = new Chart(chartCtxArray[1]).Line(dataCommunication, chartOptions);
+            var myChart1 = new Chart(chartCtxArray[1]).Line(dataEnthusiasm, chartOptions);
         } else {
             $("#ChartLI1").remove();
         }
 
         if (Object.keys(chartDataArray[2]).length) {
-            var myChart2 = new Chart(chartCtxArray[2]).Line(dataEnthusiasm, chartOptions);
+            var myChart2 = new Chart(chartCtxArray[2]).Line(dataTeamwork, chartOptions);
         } else {
             $("#ChartLI2").remove();
         }
 
         if (Object.keys(chartDataArray[3]).length) {
-            var myChart3 = new Chart(chartCtxArray[3]).Line(dataTeamwork, chartOptions);
+            var myChart3 = new Chart(chartCtxArray[3]).Line(dataProblemSolving, chartOptions);
         } else {
             $("#ChartLI3").remove();
         }
 
         if (Object.keys(chartDataArray[4]).length) {
-            var myChart4 = new Chart(chartCtxArray[4]).Line(dataProblemSolving, chartOptions);
+            var myChart4 = new Chart(chartCtxArray[4]).Line(dataProfessionalism, chartOptions);
         } else {
             $("#ChartLI4").remove();
         }
 
+        // tables
+
         if (Object.keys(chartDataArray[5]).length) {
-            var myChart5 = new Chart(chartCtxArray[5]).Line(dataProfessionalism, chartOptions);
+            i = 0;
+            while(chartDataArray[5].labels[i]) {
+                $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")
+                i++;
+            }
         } else {
             $("#ChartLI5").remove();
         }
 
         if (Object.keys(chartDataArray[6]).length) {
-            var myChart6 = new Chart(chartCtxArray[6]).Line(dataEngagement, chartOptions);
+            i = 0;
+            while(chartDataArray[6].labels[i]) {
+                $(".chart2Table").append("<tr><td>" + chartDataArray[6].labels[i] + "</td><td>" + chartDataArray[6].datasets[0].data[i] + "</td></tr>")
+                i++;
+            }
         } else {
             $("#ChartLI6").remove();
         }
 
         if (Object.keys(chartDataArray[7]).length) {
-            var myChart7 = new Chart(chartCtxArray[7]).Line(dataSupportiveLearning, chartOptions);
+            i = 0;
+            while(chartDataArray[7].labels[i]) {
+                $(".chart3Table").append("<tr><td>" + chartDataArray[7].labels[i] + "</td><td>" + chartDataArray[7].datasets[0].data[i] + "</td></tr>")
+                i++;
+            }
         } else {
             $("#ChartLI7").remove();
         }
 
         if (Object.keys(chartDataArray[8]).length) {
-            var myChart8 = new Chart(chartCtxArray[8]).Line(dataResponsibility, chartOptions);
+            i = 0;
+            while(chartDataArray[8].labels[i]) {
+                $(".chart4Table").append("<tr><td>" + chartDataArray[8].labels[i] + "</td><td>" + chartDataArray[8].datasets[0].data[i] + "</td></tr>")
+                i++;
+            }
         } else {
             $("#ChartLI8").remove();
         }

@@ -193,7 +193,7 @@ router.post('/addObsSlider', function (req, res) {
             newObservationMysql.ObsValue = req.body.Teamwork;
         }
         if (property == "ProblemSolving") {
-            newObservationMysql.ObsType = 'ProblemSolving';
+            newObservationMysql.ObsType = 'Problem Solving';
             newObservationMysql.ObsValue = req.body.ProblemSolving;
         }
         if (property == "Professionalism") {
@@ -314,8 +314,9 @@ router.get('/getClasses', function (req, res) {
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
         });
 
-        if (req.user.UserType == 0) var selectQuery = "SELECT Classes.ClassID, Classes.ClassName, Classes.DateStart, Users.FirstName, Users.LastName FROM Classes, Users WHERE Classes.UserID = Users.UserID ORDER BY Users.LastName;";
-        if (req.user.UserType == 1) var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
+        var selectQuery;
+        if (req.user.UserType == 0) selectQuery = "SELECT Classes.ClassID, Classes.ClassName, Classes.DateStart, Users.FirstName, Users.LastName FROM Classes, Users WHERE Classes.UserID = Users.UserID ORDER BY Users.LastName;";
+        if (req.user.UserType == 1) selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.user.UserID;
 
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);

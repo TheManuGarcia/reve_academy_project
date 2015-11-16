@@ -399,6 +399,10 @@ td {
     color: #d14414;
 }
 
+#tables {
+    width: 400px;
+}
+
 /*modal trigger*/
 
 .material-icons {
