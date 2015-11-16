@@ -6,7 +6,7 @@ app.controller('ViewDataTeacherController', function($http) {
     viewdata.showCharts = false;
 
     $http.get('/getClasses/').then(function(data2) {
-        console.log(data2.data);
+        //console.log(data2.data);
         viewdata.classes = data2.data;
     });
 
@@ -194,46 +194,64 @@ app.controller('ViewDataTeacherController', function($http) {
         }
 
         // tables
-
-        if (Object.keys(chartDataArray[5]).length) {
-            i = 0;
-            while(chartDataArray[5].labels[i]) {
-                $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")
-                i++;
+        
+        var j = 5;
+        var tableNumber = 1;
+        
+        while (j <= 8) {
+            if (Object.keys(chartDataArray[j]).length) {
+                i = 0;
+                while(chartDataArray[j].labels[i]) {
+                    $(".chart" + tableNumber + "Table").append("<tr><td>" + chartDataArray[j].labels[i] + "</td><td>" + chartDataArray[j].datasets[0].data[i] + "</td></tr>");
+                    i++;
+                }
+            } else {
+                //console.log('got here');
+                $("#ChartLI" + j).remove();
             }
-        } else {
-            $("#ChartLI5").remove();
+            j++;
+            tableNumber++;
         }
 
-        if (Object.keys(chartDataArray[6]).length) {
-            i = 0;
-            while(chartDataArray[6].labels[i]) {
-                $(".chart2Table").append("<tr><td>" + chartDataArray[6].labels[i] + "</td><td>" + chartDataArray[6].datasets[0].data[i] + "</td></tr>")
-                i++;
-            }
-        } else {
-            $("#ChartLI6").remove();
-        }
-
-        if (Object.keys(chartDataArray[7]).length) {
-            i = 0;
-            while(chartDataArray[7].labels[i]) {
-                $(".chart3Table").append("<tr><td>" + chartDataArray[7].labels[i] + "</td><td>" + chartDataArray[7].datasets[0].data[i] + "</td></tr>")
-                i++;
-            }
-        } else {
-            $("#ChartLI7").remove();
-        }
-
-        if (Object.keys(chartDataArray[8]).length) {
-            i = 0;
-            while(chartDataArray[8].labels[i]) {
-                $(".chart4Table").append("<tr><td>" + chartDataArray[8].labels[i] + "</td><td>" + chartDataArray[8].datasets[0].data[i] + "</td></tr>")
-                i++;
-            }
-        } else {
-            $("#ChartLI8").remove();
-        }
+        //if (Object.keys(chartDataArray[5]).length) {
+        //    i = 0;
+        //    while(chartDataArray[5].labels[i]) {
+        //        $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")
+        //        i++;
+        //    }
+        //} else {
+        //    $("#ChartLI5").remove();
+        //}
+        //
+        //if (Object.keys(chartDataArray[6]).length) {
+        //    i = 0;
+        //    while(chartDataArray[6].labels[i]) {
+        //        $(".chart2Table").append("<tr><td>" + chartDataArray[6].labels[i] + "</td><td>" + chartDataArray[6].datasets[0].data[i] + "</td></tr>")
+        //        i++;
+        //    }
+        //} else {
+        //    $("#ChartLI6").remove();
+        //}
+        //
+        //if (Object.keys(chartDataArray[7]).length) {
+        //    i = 0;
+        //    while(chartDataArray[7].labels[i]) {
+        //        $(".chart3Table").append("<tr><td>" + chartDataArray[7].labels[i] + "</td><td>" + chartDataArray[7].datasets[0].data[i] + "</td></tr>")
+        //        i++;
+        //    }
+        //} else {
+        //    $("#ChartLI7").remove();
+        //}
+        //
+        //if (Object.keys(chartDataArray[8]).length) {
+        //    i = 0;
+        //    while(chartDataArray[8].labels[i]) {
+        //        $(".chart4Table").append("<tr><td>" + chartDataArray[8].labels[i] + "</td><td>" + chartDataArray[8].datasets[0].data[i] + "</td></tr>")
+        //        i++;
+        //    }
+        //} else {
+        //    $("#ChartLI8").remove();
+        //}
 
     }
 

@@ -383,6 +383,10 @@ td {
     width: 400px;
 }
 
+#tables td {
+    font-weight : normal;
+}
+
 /*modal trigger*/
 
 .material-icons {
