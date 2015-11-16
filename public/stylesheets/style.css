@@ -360,7 +360,8 @@ td {
     background-color: #d14414;
 }
 
-#selectTeacherBtn {
+#selectTeacherBtn,
+#selectClassBtn {
     margin-top: 20px;
 }
 

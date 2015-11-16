@@ -19,7 +19,7 @@
 <% } %>
 
 <div class="container">
-    <main ng-controller="ViewDataAdminController as viewdata">
+    <main class="noPadding" ng-controller="ViewDataAdminController as viewdata">
 
 
         <ul id="teacherList" class="dropdown-content">
@@ -29,7 +29,6 @@
                 </a>
             </li>
         </ul>
-        <!--<p ng-if="viewdata.teacherSelected">{{ viewdata.teacherName }}</p>-->
 
         <ul id="classList" class="dropdown-content">
             <li ng-repeat="class in viewdata.classes track by $index">
@@ -38,7 +37,6 @@
                 </a>
             </li>
         </ul>
-        <!--<p ng-if="viewdata.classSelected">{{ viewdata.className }}</p>-->
 
         <ul id="studentList" class="dropdown-content">
             <li ng-repeat="student in viewdata.students track by $index">
@@ -47,8 +45,6 @@
                 </a>
             </li>
         </ul>
-        <!--<p ng-if="viewdata.studentSelected">{{ viewdata.studentName }}</p>-->
-
 
         <div class="row">
             <div class="col s3">

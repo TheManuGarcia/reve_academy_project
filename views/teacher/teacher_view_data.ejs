@@ -19,7 +19,7 @@
 <% } %>
 
 <div class="container">
-    <main ng-controller="ViewDataTeacherController as viewdata">
+    <main class="noPadding" ng-controller="ViewDataTeacherController as viewdata">
 
         <ul id="classList" class="dropdown-content">
             <li ng-repeat="class in viewdata.classes track by $index">
@@ -39,7 +39,7 @@
 
         <div class="row">
             <div class="col s3">
-                <a class="btn dropdown-button" href="#!"
+                <a class="btn dropdown-button" id="selectClassBtn" href="#!"
                    data-activates="classList">Select Class<i
                             class="mdi-navigation-arrow-drop-down right"></i></a>
             </div>
@@ -50,7 +50,7 @@
 
         <div class="row">
             <div class="col s3">
-                <a ng-show="viewdata.classSelected" class="btn dropdown-button" href="#!"
+                <a ng-show="viewdata.classSelected" class="btn dropdown-button" id="selectStudentBtn" href="#!"
                    data-activates="studentList">Select Student<i
                             class="mdi-navigation-arrow-drop-down right"></i></a>
             </div>
