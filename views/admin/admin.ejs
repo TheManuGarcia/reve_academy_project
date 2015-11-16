@@ -16,105 +16,105 @@
         <div class="row">
             <h4 class="col s10">Administration</h4>
         </div>
-            <div class="col s10">
-                <ul class="tabs">
-                    <li class="tab col s2"><a class="active" href="#classes">Classes</a></li>
-                    <li class="tab col s2"><a href="#teachers">Teachers</a></li>
-                    <li class="tab col s2"><a href="#interns">Interns</a></li>
-                    <li class="tab col s2"><a href="#codes">Login Codes</a></li>
-                </ul>
-            </div>
+        <div class="col s10">
+            <ul class="tabs">
+                <li class="tab col s2"><a class="active" href="#classes">Classes</a></li>
+                <li class="tab col s2"><a href="#teachers">Teachers</a></li>
+                <li class="tab col s2"><a href="#interns">Interns</a></li>
+                <li class="tab col s2"><a href="#codes">Login Codes</a></li>
+            </ul>
+        </div>
 
-            <div id="classes" class="col s10">
-                <table class="striped col s10">
-                    <th>
-                        Class ID
-                    </th>
-                    <th>
-                        Class Name
-                    </th>
-                    <th>
-                        Teacher
-                    </th>
-                    <th>
-                        Start Date
-                    </th>
-                    <tr ng-repeat="class in admin.classes track by $index">
-                        <td>
-                            {{ class.ClassID }}
-                        </td>
-                        <td>
-                            {{ class.ClassName }}
-                        </td>
-                        <td>
-                            {{ class.FirstName }} {{ class.LastName }}
-                        </td>
-                        <td>
-                            {{ class.DateStart * 1000 | date: 'MM/dd/yyyy' }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <div id="classes" class="col s10">
+            <table class="striped col s10">
+                <th>
+                    Class ID
+                </th>
+                <th>
+                    Class Name
+                </th>
+                <th>
+                    Teacher
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <tr ng-repeat="class in admin.classes track by $index">
+                    <td>
+                        {{ class.ClassID }}
+                    </td>
+                    <td>
+                        {{ class.ClassName }}
+                    </td>
+                    <td>
+                        {{ class.FirstName }} {{ class.LastName }}
+                    </td>
+                    <td>
+                        {{ class.DateStart * 1000 | date: 'MM/dd/yyyy' }}
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-            <div id="teachers" class="col s10">
-                <table class="striped col s10">
-                    <th>
-                        Delete
-                    </th>
-                    <th>
-                        Teacher Name
-                    </th>
-                    <tr ng-repeat="teacher in admin.teachers track by $index">
-                        <td>
-                            <a data-target="modalTeacher{{ teacher.UserID }}" class="modal-trigger btn-floating btn-large waves-effect" repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
+        <div id="teachers" class="col s10">
+            <table class="striped col s10">
+                <th>
+                    Delete
+                </th>
+                <th>
+                    Teacher Name
+                </th>
+                <tr ng-repeat="teacher in admin.teachers track by $index">
+                    <td>
+                        <a data-target="modalTeacher{{ teacher.UserID }}" class="modal-trigger btn-floating btn-large waves-effect" repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
 
-                            <div id="modalTeacher{{ teacher.UserID }}" class="modal">
-                                <div class="modal-content">
-                                    <h4>Confirm Delete Teacher</h4>
-                                    <p>Are you sure you want to delete {{ teacher.FirstName }} {{ teacher.LastName }}?</p>
-                                    <p>Note: associated classes and observations will not be deleted.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a class="modal-close waves-effect waves-red btn-flat">CANCEL</a>
-                                    <a class="modal-close waves-effect waves-green btn-flat" ng-click="admin.deleteUser('Teacher', teacher.UserID)">DELETE</a>
-                                </div>
+                        <div id="modalTeacher{{ teacher.UserID }}" class="modal">
+                            <div class="modal-content">
+                                <h4>Confirm Delete Teacher</h4>
+                                <p>Are you sure you want to delete {{ teacher.FirstName }} {{ teacher.LastName }}?</p>
+                                <p>Note: associated classes and observations will not be deleted.</p>
                             </div>
-                        </td>
-                        <td>{{ teacher.FirstName }} {{ teacher.LastName }}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="interns" class="col s10">
-                <table class="striped col s10">
-                    <th>
-                        Delete
-                    </th>
-                    <th>
-                        Intern Name
-                    </th>
-                    <tr ng-repeat="intern in admin.interns track by $index">
-                        <td>
-                            <a data-target="modalIntern{{ intern.UserID }}" class="modal-trigger btn-floating btn-large waves-effect waves-light red" repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
-
-                            <div id="modalIntern{{ intern.UserID }}" class="modal">
-                                <div class="modal-content">
-                                    <h4>Confirm Delete Intern</h4>
-                                    <p>Are you sure you want to delete {{ intern.FirstName }} {{ intern.LastName }}?</p>
-                                    <p>Note: associated observations will not be deleted.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a class="modal-close waves-effect waves-red btn-flat" data-dismiss="modal">CANCEL</a>
-                                    <a class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal" ng-click="admin.deleteUser('Intern', intern.UserID)">DELETE</a>
-                                </div>
+                            <div class="modal-footer">
+                                <a class="modal-close waves-effect waves-red btn-flat">CANCEL</a>
+                                <a class="modal-close waves-effect waves-green btn-flat" ng-click="admin.deleteUser('Teacher', teacher.UserID)">DELETE</a>
                             </div>
-                        </td>
-                        <td>{{ intern.FirstName }} {{ intern.LastName }}</td>
-                    </tr>
-                </table>
-            </div>
+                        </div>
+                    </td>
+                    <td>{{ teacher.FirstName }} {{ teacher.LastName }}</td>
+                </tr>
+            </table>
+        </div>
 
-            <div id="codes" class="col s10">Login Codes</div>
+        <div id="interns" class="col s10">
+            <table class="striped col s10">
+                <th>
+                    Delete
+                </th>
+                <th>
+                    Intern Name
+                </th>
+                <tr ng-repeat="intern in admin.interns track by $index">
+                    <td>
+                        <a data-target="modalIntern{{ intern.UserID }}" class="modal-trigger btn-floating btn-large waves-effect waves-light red" repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
+
+                        <div id="modalIntern{{ intern.UserID }}" class="modal">
+                            <div class="modal-content">
+                                <h4>Confirm Delete Intern</h4>
+                                <p>Are you sure you want to delete {{ intern.FirstName }} {{ intern.LastName }}?</p>
+                                <p>Note: associated observations will not be deleted.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="modal-close waves-effect waves-red btn-flat" data-dismiss="modal">CANCEL</a>
+                                <a class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal" ng-click="admin.deleteUser('Intern', intern.UserID)">DELETE</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ intern.FirstName }} {{ intern.LastName }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="codes" class="col s10">Login Codes</div>
 
     </main>
 
