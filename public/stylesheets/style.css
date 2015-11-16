@@ -197,19 +197,6 @@ input[type=date] {
     background-color: #d14414 !important;
 }
 
-/*media="screen, projection"*/
-/*input[type=range] + .thumb .value {*/
-    /*color: #d14414;*/
-/*}*/
-
-/*input[type=range] {*/
-    /*background-color: #d14414;*/
-    /*color: #d14414;*/
-/*}*/
-
-/*.thumb {*/
-    /*background-color: #d14414;*/
-/*}*/
 
 /*options menu font color*/
 .dropdown-content li > a, .dropdown-content li > span {
@@ -314,6 +301,10 @@ input[type=range] {
     color: #F00;
 }
 
+h3 {
+    color: #707372;
+}
+
 h4 {
     border-bottom: 1px solid #707372;
     color: #707372;
@@ -358,6 +349,7 @@ td {
 #getDatabtn {
     width: 200px;
     background-color: #d14414;
+    margin: 0 0 30px 0;
 }
 
 #selectTeacherBtn,
@@ -405,5 +397,31 @@ td {
     padding-left: 20px;
     color: #F00;
 }
+
+/*Charts*/
+
+canvas {
+    margin: 0 0 30px 0;
+}
+
+.chart1Table,
+.chart2Table,
+.chart3Table,
+.chart4Table {
+    margin: 0 0 40px 0;
+}
+
+p {
+    color: #707372;
+}
+
+.firstParagraph {
+    margin-top: 20px;
+}
+
+.secondParagraph {
+    margin-top: 0;
+}
+
 
 

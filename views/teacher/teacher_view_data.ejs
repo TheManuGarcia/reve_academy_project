@@ -43,8 +43,8 @@
                    data-activates="classList">Select Class<i
                             class="mdi-navigation-arrow-drop-down right"></i></a>
             </div>
-            <div class="col s4">
-                <p ng-if="viewdata.classSelected">{{ viewdata.className }} (Start Date: {{ viewdata.dateStart }}) </p>
+            <div class="col s4 offset-s1">
+                <p class="firstParagraph" ng-if="viewdata.classSelected">{{ viewdata.className }} (Start Date: {{ viewdata.dateStart }}) </p>
             </div>
         </div>
 
@@ -54,7 +54,8 @@
                    data-activates="studentList">Select Student<i
                             class="mdi-navigation-arrow-drop-down right"></i></a>
             </div>
-            <div class="col s4"><p ng-if="viewdata.studentSelected">{{ viewdata.studentName }}</p>
+            <div class="col s4 offset-s1">
+                <p class="secondParagraph" ng-if="viewdata.studentSelected">{{ viewdata.studentName }}</p>
             </div>
         </div>
 
