@@ -66,22 +66,17 @@
                 </th>
                 <tr ng-repeat="teacher in admin.teachers track by $index">
                     <td>
-                        <a data-target="modalTeacher{{ teacher.UserID }}"
-                           class="modal-trigger btn-floating btn-large waves-effect" repeat-done="admin.initModals()"><i
-                                    class="material-icons">delete</i></a>
+                        <a data-target="modalTeacher{{ teacher.UserID }}" class="modal-trigger btn-floating btn-large waves-effect" repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
 
                         <div id="modalTeacher{{ teacher.UserID }}" class="modal">
                             <div class="modal-content">
                                 <h4>Confirm Delete Teacher</h4>
-
                                 <p>Are you sure you want to delete {{ teacher.FirstName }} {{ teacher.LastName }}?</p>
-
                                 <p>Note: associated classes and observations will not be deleted.</p>
                             </div>
                             <div class="modal-footer">
                                 <a class="modal-close waves-effect waves-red btn-flat">CANCEL</a>
-                                <a class="modal-close waves-effect waves-green btn-flat"
-                                   ng-click="admin.deleteUser('Teacher', teacher.UserID)">DELETE</a>
+                                <a class="modal-close waves-effect waves-green btn-flat" ng-click="admin.deleteUser('Teacher', teacher.UserID)">DELETE</a>
                             </div>
                         </div>
                     </td>
@@ -100,22 +95,17 @@
                 </th>
                 <tr ng-repeat="intern in admin.interns track by $index">
                     <td>
-                        <a data-target="modalIntern{{ intern.UserID }}"
-                           class="modal-trigger btn-floating btn-large waves-effect waves-light red"
-                           repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
+                        <a data-target="modalIntern{{ intern.UserID }}" class="modal-trigger btn-floating btn-large waves-effect waves-light red" repeat-done="admin.initModals()"><i class="material-icons">delete</i></a>
 
                         <div id="modalIntern{{ intern.UserID }}" class="modal">
                             <div class="modal-content">
                                 <h4>Confirm Delete Intern</h4>
-
                                 <p>Are you sure you want to delete {{ intern.FirstName }} {{ intern.LastName }}?</p>
-
                                 <p>Note: associated observations will not be deleted.</p>
                             </div>
                             <div class="modal-footer">
                                 <a class="modal-close waves-effect waves-red btn-flat" data-dismiss="modal">CANCEL</a>
-                                <a class="modal-close waves-effect waves-green btn-flat"
-                                   ng-click="admin.deleteUser('Intern', intern.UserID)">DELETE</a>
+                                <a class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal" ng-click="admin.deleteUser('Intern', intern.UserID)">DELETE</a>
                             </div>
                         </div>
                     </td>
