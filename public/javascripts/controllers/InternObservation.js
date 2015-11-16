@@ -53,6 +53,7 @@ app.controller('InternObservationController', function ($http) {
         }
         if (observation.formData.length) {
             observation.obsSaved = true;
+            console.log(observation.obsSaved);
             observation.message = "Your observation was saved.";
             console.log(observation.formData);
         }

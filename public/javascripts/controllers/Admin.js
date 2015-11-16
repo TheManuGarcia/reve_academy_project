@@ -14,6 +14,7 @@ app.controller('AdminController', function($http) {
     admin.getTeachers = function() {
         $http.get('/getTeachers').then(function(data) {
             //console.log(data.data);
+            $('.modal-backdrop').remove();
             admin.teachers = data.data;
         });
    };
@@ -21,6 +22,7 @@ app.controller('AdminController', function($http) {
     admin.getInterns = function() {
         $http.get('/getInterns').then(function(data) {
             //console.log(data.data);
+            $('.modal-backdrop').remove();
             admin.interns = data.data;
         });
     };
@@ -39,6 +41,8 @@ app.controller('AdminController', function($http) {
     admin.deleteUser = function(Type, UserID) {
         var userToDelete = { UserID : UserID };
         return $http.post('/deleteUser', userToDelete).then(function() {
+            // remove backdrop from modal after deletion
+            $('.modal-backdrop').remove();
             if (Type == "Teacher") admin.getTeachers();
             if (Type == "Intern") admin.getInterns();
         });

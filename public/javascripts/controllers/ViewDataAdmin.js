@@ -4,23 +4,30 @@ app.controller('ViewDataAdminController', function($http) {
     viewdata.teacherSelected = false;
     viewdata.classSelected = false;
     viewdata.studentSelected = false;
+    var data4=[];
+    data4.data={};
 
     $http.get('/getTeachers').then(function(data) {
         //console.log(data.data);
         viewdata.teachers = data.data;
     });
 
-    viewdata.selectTeacher = function(UserID) {
+    viewdata.selectTeacher = function(Teacher) {
         viewdata.teacherSelected = true;
+        UserID = Teacher.UserID;
+        viewdata.teacherName = Teacher.FirstName + " " + Teacher.LastName;
         //console.log(UserID);
         $http.get('/getClasses/' + UserID).then(function(data2) {
-            //console.log(data2.data);
+            console.log(data2.data);
             viewdata.classes = data2.data;
         });
     };
 
-    viewdata.selectClass = function(ClassID) {
+    viewdata.selectClass = function(Class) {
         viewdata.classSelected = true;
+        ClassID = Class.ClassID;
+        viewdata.className = Class.ClassName;
+        viewdata.dateStart = moment.unix(Class.DateStart).format("M/DD/YYYY");
         //console.log(ClassID);
         $http.get('/getStudents/' + ClassID).then(function(data3) {
             //console.log(data3.data);
@@ -28,14 +35,19 @@ app.controller('ViewDataAdminController', function($http) {
         });
     };
 
-    viewdata.selectStudent = function(StudentID) {
+    viewdata.selectStudent = function(Student) {
         viewdata.studentSelected = true;
-        //console.log(StudentID);
+        StudentID = Student.StudentID;
+        viewdata.studentName = Student.FirstName + " " + Student.LastName;
+    };
+
+    viewdata.getData = function(){
+        // remove existing charts before appending new charts
+        $('#charts').empty();
         $http.get('/getStudentData/' + StudentID).then(function(data4) {
             //console.log(data4.data);
             viewdata.studentData = data4.data;
             viewdata.studentChart(data4.data);
-
         });
     };
 
@@ -70,9 +82,6 @@ app.controller('ViewDataAdminController', function($http) {
             tooltipXPadding: 10,
             tooltipYPadding: 10,
             responsive: false
-
-
-
         };
 
         function buildObject(dataObject, dataToPush) {
@@ -143,121 +152,72 @@ app.controller('ViewDataAdminController', function($http) {
         var chartDataArray = [dataEquitable, dataCommunication, dataEnthusiasm, dataTeamwork, dataProblemSolving,
             dataProfessionalism, dataEngagement, dataSupportiveLearning, dataResponsibility];
 
-        var chartObjectArray = [];
         var chartCtxArray = [];
 
-
-        var activeCharts = [];
-        var inactiveCharts = [];
-        for (var k = 0; k < chartDataArray.length; k++) {
-            if (Object.keys(chartDataArray[k]).length) {
-                activeCharts.push(chartDataArray[k]);
-            } else {
-                inactiveCharts.push(chartDataArray[k]);
-            }
-        }
-
         var chartTitle;
-        for (var x = 0; x < activeCharts.length; x++) {
-            chartTitle = activeCharts[x].datasets[0].label;
-            $("#charts").append("<li>" + chartTitle + "<canvas id='Chart" + x + "' width='400' height='256'></canvas></li>");
+        for (var x = 0; x < chartDataArray.length; x++) {
+            if (Object.keys(chartDataArray[x]).length) {
+                chartTitle = chartDataArray[x].datasets[0].label;
+            } else {
+                chartTitle = "";
+            }
+            $("#charts").append("<li id='ChartLI" + x + "'><h3>" + chartTitle + "</h3><canvas id='Chart" + x + "' width='400' height='256'></canvas></li>");
             chartCtxArray.push($("#Chart" + x).get(0).getContext("2d"));
-            //chartObjectArray.push(new Chart(chartCtxArray[x]).Line(activeCharts[x]), chartOptions);
-            //console.log(chartObjectArray);
-            //eval("var myChart" + x + " = new Chart(chartCtxArray[" + x + "]).Line(activeCharts[" + x + "]), chartOptions;");
         }
 
-        //for (var y = 0; y < chartCtxArray.length; y++) {
-        //    console.log(chartCtxArray[y]);
-        //    chartObjectArray.push(new Chart(chartCtxArray[y]).Line(activeCharts[y]), chartOptions);
-        //}
-        //
-        //Chart.defaults.global = {
-        //    pointDotRadius : 6,
-        //    scaleOverride: true,
-        //    scaleSteps: 6,
-        //    scaleStepWidth: 1,
-        //    scaleStartValue: 0
-        //};
+        if (Object.keys(chartDataArray[0]).length) {
+            var myChart0 = new Chart(chartCtxArray[0]).Line(dataEquitable, chartOptions);
+        } else {
+            $("#ChartLI0").remove();
+        }
 
-        //var chart0 = $("#Chart0").get(0).getContext("2d");
-        //var chart1 = $("#Chart1").get(0).getContext("2d");
-        //var chart2 = $("#Chart2").get(0).getContext("2d");
-        //var chart3 = $("#Chart3").get(0).getContext("2d");
-        //var chart4 = $("#Chart4").get(0).getContext("2d");
-        //var chart5 = $("#Chart5").get(0).getContext("2d");
-        //var chart6 = $("#Chart6").get(0).getContext("2d");
-        //var chart7 = $("#Chart7").get(0).getContext("2d");
-        //var chart8 = $("#Chart8").get(0).getContext("2d");
-        //
+        if (Object.keys(chartDataArray[1]).length) {
+            var myChart1 = new Chart(chartCtxArray[1]).Line(dataCommunication, chartOptions);
+        } else {
+            $("#ChartLI1").remove();
+        }
 
+        if (Object.keys(chartDataArray[2]).length) {
+            var myChart2 = new Chart(chartCtxArray[2]).Line(dataEnthusiasm, chartOptions);
+        } else {
+            $("#ChartLI2").remove();
+        }
 
+        if (Object.keys(chartDataArray[3]).length) {
+            var myChart3 = new Chart(chartCtxArray[3]).Line(dataTeamwork, chartOptions);
+        } else {
+            $("#ChartLI3").remove();
+        }
 
+        if (Object.keys(chartDataArray[4]).length) {
+            var myChart4 = new Chart(chartCtxArray[4]).Line(dataProblemSolving, chartOptions);
+        } else {
+            $("#ChartLI4").remove();
+        }
 
-            if (Object.keys(chartDataArray[z]).length) var myChart0 = new Chart(chartCtxArray[0]).Line(dataEquitable, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart1 = new Chart(chartCtxArray[1]).Line(dataCommunication, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart2 = new Chart(chartCtxArray[2]).Line(dataEnthusiasm, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart3 = new Chart(chartCtxArray[3]).Line(dataTeamwork, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart4 = new Chart(chartCtxArray[4]).Line(dataProblemSolving, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart5 = new Chart(chartCtxArray[5]).Line(dataProfessionalism, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart6 = new Chart(chartCtxArray[6]).Line(dataProfessionalism, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart7 = new Chart(chartCtxArray[7]).Line(dataEngagement, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart8 = new Chart(chartCtxArray[8]).Line(dataSupportiveLearning, chartOptions);
-            if (Object.keys(chartDataArray[z]).length) var myChart9 = new Chart(chartCtxArray[9]).Line(dataResponsibility, chartOptions);
+        if (Object.keys(chartDataArray[5]).length) {
+            var myChart5 = new Chart(chartCtxArray[5]).Line(dataProfessionalism, chartOptions);
+        } else {
+            $("#ChartLI5").remove();
+        }
 
+        if (Object.keys(chartDataArray[6]).length) {
+            var myChart6 = new Chart(chartCtxArray[6]).Line(dataEngagement, chartOptions);
+        } else {
+            $("#ChartLI6").remove();
+        }
 
+        if (Object.keys(chartDataArray[7]).length) {
+            var myChart7 = new Chart(chartCtxArray[7]).Line(dataSupportiveLearning, chartOptions);
+        } else {
+            $("#ChartLI7").remove();
+        }
 
-//
-//console.log(myChart0);
-
-        //var myChart0 = new Chart(chart0).Line(dataEquitable, chartOptions);
-        //var myChart1 = new Chart(chart1).Line(dataCommunication, chartOptions);
-        //var myChart2 = new Chart(chart2).Line(dataEnthusiasm, chartOptions);
-        //var myChart3 = new Chart(chart3).Line(dataTeamwork, chartOptions);
-        //var myChart4 = new Chart(chart4).Line(dataProblemSolving, chartOptions);
-        //var myChart5 = new Chart(chart5).Line(dataProfessionalism, chartOptions);
-        //var myChart6 = new Chart(chart6).Line(dataEngagement, chartOptions);
-        //var myChart7 = new Chart(chart7).Line(dataSupportiveLearning, chartOptions);
-        //var myChart8 = new Chart(chart8).Line(dataResponsibility, chartOptions);
-
-
-
-
-        // var title = "";
-       //for (var k = 0; k < chartDataArray.length; k++) {
-       //  if (Object.keys(chartDataArray[k]).length) {
-       //      title = chartDataArray[k].datasets[0].label;
-       //
-       //      $("#charts").append(title + "<canvas id='Chart" + k + "' width='400' height='256'></canvas><br>");
-       //
-       //      chartCtxArray.push($("#Chart" + k).get(0).getContext("2d"));
-       //      console.log(chartCtxArray);
-       //      chartObjectArray.push(new Chart(chartCtxArray[k].Line(chartDataArray[k]), chartOptions));
-       //  }
-       //
-       //}
-       //
-       // //console.log(Object.keys(dataProblemSolving).length);
-       // ////console.log(dataProblemSolving);
-       // var chart0 = $("#Chart0").get(0).getContext("2d");
-       // var chart1 = $("#Chart1").get(0).getContext("2d");
-       // var chart2 = $("#Chart2").get(0).getContext("2d");
-       // var chart3 = $("#Chart3").get(0).getContext("2d");
-       // var chart4 = $("#Chart4").get(0).getContext("2d");
-       // var chart5 = $("#Chart5").get(0).getContext("2d");
-       // var chart6 = $("#Chart6").get(0).getContext("2d");
-       // var chart7 = $("#Chart7").get(0).getContext("2d");
-       // var chart8 = $("#Chart8").get(0).getContext("2d");
-       //
-       // var myChart0 = new Chart(chart0).Line(dataEquitable, chartOptions);
-       // var myChart1 = new Chart(chart1).Line(dataCommunication, chartOptions);
-       // var myChart2 = new Chart(chart2).Line(dataEnthusiasm, chartOptions);
-       // var myChart3 = new Chart(chart3).Line(dataTeamwork, chartOptions);
-       // var myChart4 = new Chart(chart4).Line(dataProblemSolving, chartOptions);
-       // var myChart5 = new Chart(chart5).Line(dataProfessionalism, chartOptions);
-       // var myChart6 = new Chart(chart6).Line(dataEngagement, chartOptions);
-       // var myChart7 = new Chart(chart7).Line(dataSupportiveLearning, chartOptions);
-       // var myChart8 = new Chart(chart8).Line(dataResponsibility, chartOptions);
+        if (Object.keys(chartDataArray[8]).length) {
+            var myChart8 = new Chart(chartCtxArray[8]).Line(dataResponsibility, chartOptions);
+        } else {
+            $("#ChartLI8").remove();
+        }
 
     }
 
