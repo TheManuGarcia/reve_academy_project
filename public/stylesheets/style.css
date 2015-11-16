@@ -342,6 +342,11 @@ h5 {
 /*Table stylings*/
 
 .tableFooter {
+    color: #d14414;
+}
+
+td {
+    color: #707372;
     font-weight: bold;
 }
 
