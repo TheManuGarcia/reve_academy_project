@@ -83,11 +83,6 @@ input[type=range] {
 }
 
 
-
-/*.thumb {*/
-    /*background-color: #d14414;*/
-/*}*/
-
 input[type=range]::-webkit-slider-thumb {
     background: #d14414;
 }
@@ -197,10 +192,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
     color: #000;
 }
 
-/*.thumb {*/
-    /*background-color: #d14414 !important;*/
-/*}*/
-
 /*input[type=range],*/
 input[type=date] {
     background-color: #d14414 !important;
@@ -289,10 +280,6 @@ input[type=range] {
     background-color: white;
     color: #d14414;
 }
-
-/*input[type=range], input[type=date] {*/
-/*background-color: #d14414 !important; */
-/*}*/
 
 @media only screen and (max-width: 992px) {
     header, main, footer {
