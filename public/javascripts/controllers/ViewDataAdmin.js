@@ -5,6 +5,7 @@ app.controller('ViewDataAdminController', function($http) {
     viewdata.classSelected = false;
     viewdata.studentSelected = false;
     viewdata.showCharts = false;
+    viewdata.studentName;
 
     $http.get('/getTeachers').then(function(data) {
         //console.log(data.data);
@@ -207,6 +208,7 @@ app.controller('ViewDataAdminController', function($http) {
 
         var j = 5;
         var tableNumber = 1;
+        var noData = false;
 
         while (j <= 8) {
             if (Object.keys(chartDataArray[j]).length) {
@@ -218,6 +220,11 @@ app.controller('ViewDataAdminController', function($http) {
             } else {
                 //console.log('got here');
                 $("#ChartLI" + j).remove();
+
+                if(noData ==false) {
+                    $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
+                    noData = true;
+                }
             }
             j++;
             tableNumber++;
