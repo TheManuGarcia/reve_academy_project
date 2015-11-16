@@ -53,7 +53,7 @@
             <button class="right btn-small waves-effect waves-light btn" id="observationButton"
                     type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
             </button>
-            <span class="saved right" ng-if="observation.obsSaved">{{ observation.message }}</span>
+            <span class="saved right obsMessage" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>
 
     </main>

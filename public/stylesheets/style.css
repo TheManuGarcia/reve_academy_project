@@ -372,7 +372,12 @@ h5 {
     margin-top: 20px;
 }
 
+/*Observation Message*/
 
+.obsMessage {
+    color: #707372;
+    font-size: 20px;
+}
 
 /*Tabs styling*/
 
