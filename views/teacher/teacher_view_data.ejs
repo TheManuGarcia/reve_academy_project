@@ -9,15 +9,15 @@
 
 </head>
 <body>
-<header>
-    <% if (user.UserType == 0) { %>
-    <% include ../partials/admin_header %>
-    <% } else if (user.UserType == 1) { %>
-    <% include ../partials/teacher_header %>
-    <% } else  { %>
-    <% include ../partials/intern_header %>
-    <% } %>
-</header>
+
+<% if (user.UserType == 0) { %>
+<% include ../partials/admin_header %>
+<% } else if (user.UserType == 1) { %>
+<% include ../partials/teacher_header %>
+<% } else  { %>
+<% include ../partials/intern_header %>
+<% } %>
+
 <div class="container">
     <main ng-controller="ViewDataTeacherController as viewdata">
 
@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col s12">
                 <button id="getDatabtn" class="btn waves-effect waves-light" type="submit"
-                        ng-if = "viewdata.studentSelected" ng-click="viewdata.getData()" name="getdata">Get Data
+                        ng-if="viewdata.studentSelected" ng-click="viewdata.getData()" name="getdata">Get Data
                     <i class="material-icons right">view_list</i>
                 </button>
             </div>
