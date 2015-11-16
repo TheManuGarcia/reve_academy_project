@@ -10,16 +10,14 @@
 
 </head>
 <body>
-<% if (user.UserType == 0) { %>
-<% include ../partials/admin_header %>
-<% } else if (user.UserType == 1) { %>
-<% include ../partials/teacher_header %>
-<% } else  { %>
-<% include ../partials/intern_header %>
-<% } %>
-
 <header>
-
+    <% if (user.UserType == 0) { %>
+    <% include ../partials/admin_header %>
+    <% } else if (user.UserType == 1) { %>
+    <% include ../partials/teacher_header %>
+    <% } else  { %>
+    <% include ../partials/intern_header %>
+    <% } %>
 </header>
 <% include ../partials/slideout_menu %>
 <div class="container">
@@ -47,7 +45,7 @@
 
         <div class="row">
             <div class="col s12">
-                <a class="btn dropdown-button" id=selectTeacherBtn" href="#!" data-activates="teacherList">Select
+                <a class="btn dropdown-button" id="selectTeacherBtn" href="#!" data-activates="teacherList">Select
                     Teacher<i
                             class="mdi-navigation-arrow-drop-down right"></i></a>
             </div>

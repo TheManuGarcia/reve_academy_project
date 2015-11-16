@@ -14,7 +14,7 @@ main {
 }
 
 #header {
-    height: 80px;
+    height: 64px;
 }
 
 .mainImage {
@@ -127,7 +127,7 @@ input[type=range]::-ms-thumb {
 
 
 .topLi {
-    height: 80px;
+    height: 64px;
 }
 
 input[type=text]:focus:not([readonly]),
