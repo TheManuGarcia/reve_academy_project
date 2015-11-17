@@ -407,7 +407,8 @@ router.get('/getInterns', function (req, res) {
             console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
         });
 
-        var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
+        //var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
+        var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserID = " + req.user.UserID + " UNION SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
 
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
@@ -428,7 +429,7 @@ router.get('/getOneIntern', function (req, res) {
         console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
     });
 
-    var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE UserID = " + req.user.UserID + " ORDER BY DateCreated";
+    var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE UserID = " + req.user.UserID + " AND BeingObservedID = " + req.user.UserID + " ORDER BY DateCreated";
     connection.query(selectQuery, function (err, results) {
         if (err) console.log("SELECT ERROR = ", err);
         res.json(results);

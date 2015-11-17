@@ -279,8 +279,8 @@ app.controller('ViewDataAdminController', function($http) {
         var j = 5;
         var tableNumber = 1;
 
-
         while (j <= 8) {
+            // show data table if data exists in current dataArray index
             if (Object.keys(chartDataArray[j]).length) {
                 i = 0;
                 $("#ChartLI" + j).show();
@@ -290,55 +290,17 @@ app.controller('ViewDataAdminController', function($http) {
                 }
                 pageData = true;
             } else {
-                //console.log('got here');
+                // hide table if no data found
                 $("#ChartLI" + j).hide();
             }
             j++;
             tableNumber++;
         }
-    // show message if no data found for submitted user
-    if (pageData == false) $("#dataMessageAdmin").show();
 
-
-    //if (Object.keys(chartDataArray[5]).length) {
-        //    i = 0;
-        //    while(chartDataArray[5].labels[i]) {
-        //        $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI5").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[6]).length) {
-        //    i = 0;
-        //    while(chartDataArray[6].labels[i]) {
-        //        $(".chart2Table").append("<tr><td>" + chartDataArray[6].labels[i] + "</td><td>" + chartDataArray[6].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI6").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[7]).length) {
-        //    i = 0;
-        //    while(chartDataArray[7].labels[i]) {
-        //        $(".chart3Table").append("<tr><td>" + chartDataArray[7].labels[i] + "</td><td>" + chartDataArray[7].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI7").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[8]).length) {
-        //    i = 0;
-        //    while(chartDataArray[8].labels[i]) {
-        //        $(".chart4Table").append("<tr><td>" + chartDataArray[8].labels[i] + "</td><td>" + chartDataArray[8].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI8").remove();
-        //}
+        // show message if no data found for submitted user
+        if (pageData == false) {
+            $("#dataMessageAdmin").show();
+        }
 
     }
 

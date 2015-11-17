@@ -349,7 +349,7 @@ td {
 #getDatabtn {
     width: 200px;
     background-color: #d14414;
-    margin: 0 0 30px 0;
+    margin: 30px 0 30px 0;
 }
 
 #selectTeacherBtn,

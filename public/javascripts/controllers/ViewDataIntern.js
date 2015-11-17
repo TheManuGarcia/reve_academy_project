@@ -1,10 +1,8 @@
-/**
- * Created by Lauren on 11/16/15.
- */
 app.controller('ViewDataInternController', function ($http) {
 
     var viewdata = this;
     viewdata.showCharts = false;
+    viewdata.noData = false;
 
     viewdata.getData = function () {
         // remove existing charts before appending new charts
@@ -15,9 +13,14 @@ app.controller('ViewDataInternController', function ($http) {
         $('.chart4Table').find("tr:gt(0)").remove();
         viewdata.showCharts = true;
         $http.get('/getOneIntern').then(function (data) {
-            console.log(data.data);
-            viewdata.internData = data.data;
-            viewdata.internChart(data.data);
+            //console.log(data.data);
+            if (data.data.length) {
+                viewdata.showCharts = true;
+                viewdata.internChart(data.data);
+            } else {
+                viewdata.showCharts = false;
+                viewdata.noData = true;
+            }
         });
     };
 
@@ -172,7 +175,6 @@ app.controller('ViewDataInternController', function ($http) {
 
         var j = 5;
         var tableNumber = 1;
-        var noData = false;
 
         while (j <= 8) {
             if (Object.keys(chartDataArray[j]).length) {
@@ -184,11 +186,6 @@ app.controller('ViewDataInternController', function ($http) {
             } else {
                 //console.log('got here');
                 $("#ChartLI" + j).remove();
-
-                if (noData == false) {
-                    $(".aclass").append("<p class='noDataText'>There is no data</p>")
-                    noData = true;
-                }
             }
             j++;
             tableNumber++;
