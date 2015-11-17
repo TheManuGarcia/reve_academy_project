@@ -19,11 +19,11 @@ $(function() {
         if ($("#password").val().length < 6) {
             $("#registerMessage").text('Passwords must be at least six (6) characters').css("color", "#F00");
         } else {
-            checkConfirm("#password", "#confirmPassword", "Password is");
+            checkConfirm("#password", "#confirmPassword", "Passwords");
         }
     });
     $('#confirmPassword').keyup(function () {
-        checkConfirm("#password", "#confirmPassword", "Password is");
+        checkConfirm("#password", "#confirmPassword", "Passwords");
     });
 
     $("#password").change(function () {
@@ -38,10 +38,10 @@ $(function() {
     });
 
     $("#email").keyup(function () {
-        checkConfirm("#email", "#confirmEmail", "Email is");
+        checkConfirm("#email", "#confirmEmail", "Emails");
     });
     $('#confirmEmail').keyup(function () {
-        checkConfirm("#email", "#confirmEmail", "Email is");
+        checkConfirm("#email", "#confirmEmail", "Emails");
     });
     $("#email").change(function () {
         checkConfirm("#email", "#confirmEmail", "Email is");
