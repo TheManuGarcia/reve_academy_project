@@ -249,7 +249,7 @@ router.post('/addInternObsSlider', function (req, res) {
             newObservationMysql.ObsValue = req.body.Teamwork;
         }
         if (property == "ProblemSolving") {
-            newObservationMysql.ObsType = 'ProblemSolving';
+            newObservationMysql.ObsType = 'Problem Solving';
             newObservationMysql.ObsValue = req.body.ProblemSolving;
         }
         if (property == "Professionalism") {
@@ -400,6 +400,23 @@ router.get('/getInterns', function (req, res) {
 
     }
 
+});
+
+//get one intern route
+router.get('/getOneIntern', function (req, res) {
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+
+    var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE UserID = " + req.user.UserID + " ORDER BY DateCreated";
+    connection.query(selectQuery, function (err, results) {
+        if (err) console.log("SELECT ERROR = ", err);
+        res.json(results);
+    });
 });
 
 //POST students to database
