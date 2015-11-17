@@ -430,6 +430,7 @@ router.get('/getOneIntern', function (req, res) {
     });
 
     var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE UserID = " + req.user.UserID + " AND BeingObservedID = " + req.user.UserID + " ORDER BY DateCreated";
+
     connection.query(selectQuery, function (err, results) {
         if (err) console.log("SELECT ERROR = ", err);
         res.json(results);
