@@ -1,12 +1,21 @@
 app.controller('ObservationController', function($http) {
-    console.log("Observation Controller");
 
     var observation = this;
     observation.classSelected = "";
     observation.classClicked = false;
     observation.studentClicked = false;
     observation.obsSaved = false;
-    observation.showButton = false;
+    observation.message = "Your observation was saved.";
+
+    observation.showButtonProgress = function() {
+        if (observation.obsSaved) return false;
+        if (!observation.obsSaved && observation.studentClicked) return true;
+    };
+
+    observation.showButton = function() {
+        if (observation.obsSaved) return false;
+        if (!observation.obsSaved && observation.classClicked) return true;
+    };
 
     $http.get('/getClasses').then(function (data) {
         observation.Classes = data.data;
@@ -14,13 +23,13 @@ app.controller('ObservationController', function($http) {
 
     observation.selectClass = function (selectedClass) {
         observation.classClicked = true;
+        observation.obsSaved = false;
         observation.classSelected = selectedClass.ClassName;
         observation.getStudents(selectedClass.ClassID);
-
+        resetSliders();
     };
 
     observation.getStudents = function (classID) {
-
         $http.get('/getStudents/' + classID).then(function (data) {
             observation.studentData = data.data;
         });
@@ -37,21 +46,21 @@ app.controller('ObservationController', function($http) {
 
     observation.saveObs = function (ObsType) {
 
-        for(var i = 0; i < observation.studentData.length; i++){
+        for (var i = 0; i < observation.studentData.length; i++) {
             var temp = {};
             temp.StudentID = observation.studentData[i].StudentID;
             temp.ObsType = ObsType;
             temp.ObsValue = observation.studentData[i].ObsValue;
-            if(observation.studentData[i].ObsValue || observation.studentData[i].ObsValue == false) observation.formData.push(temp);
-
+            if (observation.studentData[i].ObsValue || observation.studentData[i].ObsValue == false) observation.formData.push(temp);
         }
-        if(observation.formData.length) {
+        if (observation.formData.length) {
             observation.obsSaved = true;
-            observation.message = "Your observation was saved.";
             console.log(observation.formData);
+            return $http.post('/addObs', observation.formData).then(function () {
+                // empty formdata after submitting
+                observation.formData = [];
+            });
         }
-        return $http.post('/addObs', observation.formData).then(function () { });
-
     };
 
     /////////////////////// SLIDER FORM ///////////////////////
@@ -76,8 +85,10 @@ app.controller('ObservationController', function($http) {
 
         //console.log(observation.sliderData);
         observation.obsSaved = true;
-        observation.message = "Your observation was saved.";
-        return $http.post('/addObsSlider', observation.sliderData);
+        return $http.post('/addObsSlider', observation.sliderData).then(function() {
+            // empty slider data after submitting
+            observation.sliderData = {};
+        });
     }
 
 });

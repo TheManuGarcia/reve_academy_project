@@ -2,12 +2,16 @@
  * Created by Lauren on 11/13/15.
  */
 app.controller('InternObservationController', function ($http) {
-    console.log("Intern Observation Controller");
-
 
     var observation = this;
     observation.internClicked = false;
     observation.obsSaved = false;
+    observation.message = "Your observation was saved.";
+
+    observation.showButtonProgress = function() {
+        if (observation.obsSaved) return false;
+        if (!observation.obsSaved && observation.internClicked) return true;
+    };
 
     //////////////////////////////////
     //    GET INTERNS               //
@@ -35,8 +39,6 @@ app.controller('InternObservationController', function ($http) {
 
     observation.formData = [];
 
-    //TODO I think this needs to be changed to using UserID, because there is no InternID
-
     //////////////////////////////////
     //    SAVE OBSERVATION          //
     /////////////////////////////////
@@ -56,10 +58,10 @@ app.controller('InternObservationController', function ($http) {
             console.log(observation.obsSaved);
             observation.message = "Your observation was saved.";
             console.log(observation.formData);
+            return $http.post('/addInternObs', observation.formData).then(function () {
+                observation.formData = [];
+            });
         }
-        return $http.post('/addInternObs', observation.formData).then(function () {
-        });
-
     };
 
     //////////////////////////////////
@@ -87,10 +89,12 @@ app.controller('InternObservationController', function ($http) {
         if (parseInt(observation.sliderProblemSolving) != 0)observation.sliderData.ProblemSolving = parseInt(observation.sliderProblemSolving);
         if (parseInt(observation.sliderProfessionalism) != 0)observation.sliderData.Professionalism = parseInt(observation.sliderProfessionalism);
 
-        //console.log(observation.sliderData);
+        console.log(observation.sliderData);
         observation.obsSaved = true;
         observation.message = "Your observation was saved.";
-        return $http.post('/addInternObsSlider', observation.sliderData);
+        return $http.post('/addInternObsSlider', observation.sliderData).then(function() {
+            observation.sliderData = {};
+        });
     }
 
 });

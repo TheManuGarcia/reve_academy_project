@@ -26,7 +26,6 @@
         <div class="row">
             <div class="col s6">
                 <h5>Select Class</h5>
-
                 <form>
                     <div ng-repeat="Class in observation.Classes track by $index">
                         <input class="with-gap" ng-model="observation.ClassID" type="radio" name="classGroup"
@@ -100,7 +99,7 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="progressButton"
-                    ng-if="!observation.obsSaved" type="button" ng-click="observation.saveSliderObs()">SAVE
+                    ng-if="observation.showButtonProgress()" type="button" ng-click="observation.saveSliderObs()">SAVE
             </button>
             <span class="saved right obsMessage" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>

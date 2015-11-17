@@ -61,7 +61,7 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="observationButton"
-                    ng-if="!observation.obsSaved" type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
+                    ng-if="observation.showButton()" type="button" ng-click="observation.saveObs('<%= title %>')">SAVE
             </button>
             <span class="saved right obsMessage" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>

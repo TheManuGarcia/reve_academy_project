@@ -86,7 +86,7 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="progressButton"
-                    ng-if="!observation.obsSaved" type="button" ng-click="observation.saveSliderObs()">SAVE
+                    ng-if="observation.showButtonProgress()" type="button" ng-click="observation.saveSliderObs()">SAVE
             </button>
             <span class="saved right obsMessage" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>
