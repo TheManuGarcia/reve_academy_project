@@ -152,6 +152,7 @@ app.controller('ViewDataTeacherController', function($http) {
         var chartCtxArray = [];
 
         var chartTitle;
+        var pageData = false;
         //for (var x = 0; x < chartDataArray.length; x++) {
         for (var x = 0; x <= 4; x++) {
             if (Object.keys(chartDataArray[x]).length) {
@@ -167,30 +168,36 @@ app.controller('ViewDataTeacherController', function($http) {
 
         if (Object.keys(chartDataArray[0]).length) {
             var myChart0 = new Chart(chartCtxArray[0]).Line(dataCommunication, chartOptions);
+            pageData = true;
+
         } else {
             $("#ChartLI0").remove();
         }
 
         if (Object.keys(chartDataArray[1]).length) {
             var myChart1 = new Chart(chartCtxArray[1]).Line(dataEnthusiasm, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI1").remove();
         }
 
         if (Object.keys(chartDataArray[2]).length) {
             var myChart2 = new Chart(chartCtxArray[2]).Line(dataTeamwork, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI2").remove();
         }
 
         if (Object.keys(chartDataArray[3]).length) {
             var myChart3 = new Chart(chartCtxArray[3]).Line(dataProblemSolving, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI3").remove();
         }
 
         if (Object.keys(chartDataArray[4]).length) {
             var myChart4 = new Chart(chartCtxArray[4]).Line(dataProfessionalism, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI4").remove();
         }
@@ -199,10 +206,11 @@ app.controller('ViewDataTeacherController', function($http) {
         
         var j = 5;
         var tableNumber = 1;
-        var noData = false;
+
         
         while (j <= 8) {
             if (Object.keys(chartDataArray[j]).length) {
+                $(".aclass").remove();
                 i = 0;
                 while(chartDataArray[j].labels[i]) {
                     $(".chart" + tableNumber + "Table").append("<tr><td>" + chartDataArray[j].labels[i] + "</td><td>" + chartDataArray[j].datasets[0].data[i] + "</td></tr>");
@@ -212,9 +220,9 @@ app.controller('ViewDataTeacherController', function($http) {
                 //console.log('got here');
                 $("#ChartLI" + j).remove();
 
-                if(noData ==false) {
+                if(pageData ==false) {
                     $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
-                   noData=true;
+                   pageData=true;
 
 
                 }
@@ -222,6 +230,12 @@ app.controller('ViewDataTeacherController', function($http) {
             j++;
             tableNumber++;
         }
+        //if(pageData ==false) {
+        //    $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
+        //    pageData = true;
+        //
+        //
+        //}
 
         //if (Object.keys(chartDataArray[5]).length) {
         //    i = 0;
