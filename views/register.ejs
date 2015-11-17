@@ -65,14 +65,17 @@
                                 Submit
                             </button>
                     <span id="registerMessage" style="padding-left:20px">
-                        <% if (message.length > 0) { %>
-                        <%= message %>
-                        <% } %>
+
                     </span>
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+        <% if (message.length > 0) { %>
+        <div class="row">
+            <div class="logintext col s4 card-panel  red darken-1"> <%= message %> </div>
+            <% } %>
         </div>
     </main>
 </div>
