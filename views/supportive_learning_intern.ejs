@@ -20,7 +20,7 @@
 <div class="container" ng-controller="InternObservationController as observation">
     <main>
         <div class="row">
-            <h4 class="col s12"><%= title %></h4>
+            <h4 class="col s12">Supportive Learning</h4>
         </div>
         <div class="row">
             <table class="striped col s12 radioTable">
@@ -51,7 +51,7 @@
             </table>
 
             <button class="right btn-small waves-effect waves-light btn" id="observationButton"
-                    type="button" ng-if="!observation.obsSaved" ng-click="observation.saveObs('<%= title %>')">SAVE
+                    type="button" ng-if="!observation.obsSaved" ng-click="observation.saveObs('Supportive Learning')">SAVE
             </button>
             <span class="saved right obsMessage" ng-if="observation.obsSaved">{{ observation.message }}</span>
         </div>

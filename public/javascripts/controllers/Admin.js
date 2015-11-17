@@ -37,14 +37,28 @@ app.controller('AdminController', function($http) {
             }
         );
     };
+    console.log(navigator.userAgent);
 
     admin.deleteUser = function(Type, UserID) {
         var userToDelete = { UserID : UserID };
         return $http.post('/deleteUser', userToDelete).then(function() {
             // remove backdrop from modal after deletion
+            //if (Type == "Teacher") $('#modalTeacher' + UserID).modal('hide');
+            //if (Type == "Intern") $('#modalIntern' + UserID).modal('hide');
             $('.modal-backdrop').remove();
-            if (Type == "Teacher") admin.getTeachers();
-            if (Type == "Intern") admin.getInterns();
+            $('body').removeClass('modal-open');
+            if (Type == "Teacher") {
+                admin.getTeachers();
+            }
+            if (Type == "Intern") {
+                admin.getInterns();
+            }
+
+            var pattern = /Firefox/g;
+            var result = pattern.test(navigator.userAgent);
+            if (result) {
+                window.location="/admin";
+            }
         });
     };
 

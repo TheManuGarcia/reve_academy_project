@@ -5,26 +5,83 @@ app.controller('ViewDataAdminController', function($http) {
     viewdata.classSelected = false;
     viewdata.studentSelected = false;
     viewdata.showCharts = false;
-    viewdata.studentName;
+    viewdata.internSelected = false;
+    viewdata.foundClasses = false;
+    viewdata.teacherMessage = "";
+    var pageData = false;
+    $("#dataMessageAdmin").hide();
+
 
     $http.get('/getTeachers').then(function(data) {
         //console.log(data.data);
         viewdata.teachers = data.data;
+        $http.get('/getInterns').then(function(dataInterns) {
+           viewdata.interns = dataInterns.data;
+        });
     });
 
+    viewdata.showButton = function(button) {
+        if (viewdata.internSelected) return false;
+        if (button == "classButton" && viewdata.teacherSelected) return true;
+        if (button == "studentButton" && viewdata.teacherSelected && viewdata.classSelected) return true;
+    };
+
+    // select a teacher and get that teacher's classes
+    var UserID;
     viewdata.selectTeacher = function(Teacher) {
+        $("#dataMessageAdmin").hide();
+        pageData = false;
+        clearCharts();
+        viewdata.showCharts = false;
+        viewdata.internSelected = false;
         viewdata.teacherSelected = true;
+        viewdata.classSelected = false;
+        viewdata.foundClasses = false;
+        viewdata.studentSelected = false;
         UserID = Teacher.UserID;
-        viewdata.teacherName = Teacher.FirstName + " " + Teacher.LastName;
+        viewdata.name = Teacher.FirstName + " " + Teacher.LastName;
         //console.log(UserID);
         $http.get('/getClasses/' + UserID).then(function(data2) {
-            console.log(data2.data);
+            //console.log(data2.data);
+            viewdata.classes = [];
             viewdata.classes = data2.data;
+            if (viewdata.classes.length) {
+                viewdata.foundClasses = true;
+            } else {
+                viewdata.teacherMessage = "(no classes found)";
+            }
         });
     };
 
+    var BeingObservedID;
+    viewdata.selectIntern = function(Intern) {
+        viewdata.internSelected = true;
+        viewdata.teacherSelected = true;
+        viewdata.classSelected = false;
+        viewdata.studentSelected = false;
+        viewdata.name = Intern.FirstName + " " + Intern.LastName;
+        //console.log(Intern);
+        BeingObservedID = Intern.UserID;
+        viewdata.showCharts = false;
+        clearCharts();
+    };
+
+    function clearCharts() {
+        $('#charts').empty();
+        $('.chart1Table').find("tr:gt(0)").remove();
+        $('.chart2Table').find("tr:gt(0)").remove();
+        $('.chart3Table').find("tr:gt(0)").remove();
+        $('.chart4Table').find("tr:gt(0)").remove();
+    }
+
+    var ClassID;
     viewdata.selectClass = function(Class) {
+        $("#dataMessageAdmin").hide();
+        pageData = false;
+        clearCharts();
+        viewdata.showCharts = false;
         viewdata.classSelected = true;
+        viewdata.studentSelected = false;
         ClassID = Class.ClassID;
         viewdata.className = Class.ClassName;
         viewdata.dateStart = moment.unix(Class.DateStart).format("M/DD/YYYY");
@@ -35,26 +92,34 @@ app.controller('ViewDataAdminController', function($http) {
         });
     };
 
+    var StudentID;
     viewdata.selectStudent = function(Student) {
+        $("#dataMessageAdmin").hide();
+        pageData = false;
+        clearCharts();
         viewdata.studentSelected = true;
         viewdata.showCharts = false;
         StudentID = Student.StudentID;
         viewdata.studentName = Student.FirstName + " " + Student.LastName;
     };
 
-    viewdata.getData = function(){
+    viewdata.getData = function() {
+        pageData = false;
+        clearCharts();
         // remove existing charts before appending new charts
-        $('#charts').empty();
-        $('.chart1Table').find("tr:gt(0)").remove();
-        $('.chart2Table').find("tr:gt(0)").remove();
-        $('.chart3Table').find("tr:gt(0)").remove();
-        $('.chart4Table').find("tr:gt(0)").remove();
         viewdata.showCharts = true;
-        $http.get('/getStudentData/' + StudentID).then(function(data4) {
-            //console.log(data4.data);
-            viewdata.studentData = data4.data;
-            viewdata.studentChart(data4.data);
-        });
+        if (viewdata.studentSelected) {
+            $http.get('/getStudentData/' + StudentID).then(function (data4) {
+                //console.log(data4.data);
+                viewdata.studentChart(data4.data);
+            });
+        }
+        if (viewdata.internSelected) {
+            $http.get('/getInternData/' + BeingObservedID).then(function (data4) {
+                //console.log(data4.data);
+                viewdata.studentChart(data4.data);
+            });
+        }
     };
 
     viewdata.studentChart = function(data) {
@@ -149,7 +214,7 @@ app.controller('ViewDataAdminController', function($http) {
                     buildObject(dataResponsibility, data[i]);
                     break;
                 default:
-                    console.log("Not working boss!");
+                    console.log("Not working boss! " + data[i].ObsType);
             }
 
             i++;
@@ -176,30 +241,35 @@ app.controller('ViewDataAdminController', function($http) {
 
         if (Object.keys(chartDataArray[0]).length) {
             var myChart0 = new Chart(chartCtxArray[0]).Line(dataCommunication, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI0").remove();
         }
 
         if (Object.keys(chartDataArray[1]).length) {
             var myChart1 = new Chart(chartCtxArray[1]).Line(dataEnthusiasm, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI1").remove();
         }
 
         if (Object.keys(chartDataArray[2]).length) {
             var myChart2 = new Chart(chartCtxArray[2]).Line(dataTeamwork, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI2").remove();
         }
 
         if (Object.keys(chartDataArray[3]).length) {
             var myChart3 = new Chart(chartCtxArray[3]).Line(dataProblemSolving, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI3").remove();
         }
 
         if (Object.keys(chartDataArray[4]).length) {
             var myChart4 = new Chart(chartCtxArray[4]).Line(dataProfessionalism, chartOptions);
+            pageData = true;
         } else {
             $("#ChartLI4").remove();
         }
@@ -208,30 +278,29 @@ app.controller('ViewDataAdminController', function($http) {
 
         var j = 5;
         var tableNumber = 1;
-        var noData = false;
+
 
         while (j <= 8) {
             if (Object.keys(chartDataArray[j]).length) {
                 i = 0;
+                $("#ChartLI" + j).show();
                 while(chartDataArray[j].labels[i]) {
                     $(".chart" + tableNumber + "Table").append("<tr><td>" + chartDataArray[j].labels[i] + "</td><td>" + chartDataArray[j].datasets[0].data[i] + "</td></tr>");
                     i++;
                 }
+                pageData = true;
             } else {
                 //console.log('got here');
-                $("#ChartLI" + j).remove();
-
-                if(noData ==false) {
-                    $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
-                    noData = true;
-                }
+                $("#ChartLI" + j).hide();
             }
             j++;
             tableNumber++;
         }
+    // show message if no data found for submitted user
+    if (pageData == false) $("#dataMessageAdmin").show();
 
 
-        //if (Object.keys(chartDataArray[5]).length) {
+    //if (Object.keys(chartDataArray[5]).length) {
         //    i = 0;
         //    while(chartDataArray[5].labels[i]) {
         //        $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")

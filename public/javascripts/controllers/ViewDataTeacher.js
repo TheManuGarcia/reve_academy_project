@@ -4,8 +4,10 @@ app.controller('ViewDataTeacherController', function($http) {
     viewdata.classSelected = false;
     viewdata.studentSelected = false;
     viewdata.showCharts = false;
+    var pageData = false;
+    $("#dataMessage").hide();
 
-    viewdata.studentName;
+    //viewdata.studentName;
 
     $http.get('/getClasses/').then(function(data2) {
         //console.log(data2.data);
@@ -13,6 +15,8 @@ app.controller('ViewDataTeacherController', function($http) {
     });
 
     viewdata.selectClass = function(Class) {
+        $("#dataMessage").hide();
+        pageData = false;
         viewdata.classSelected = true;
         ClassID = Class.ClassID;
         viewdata.className = Class.ClassName;
@@ -25,6 +29,8 @@ app.controller('ViewDataTeacherController', function($http) {
     };
 
     viewdata.selectStudent = function(Student) {
+        $("#dataMessage").hide();
+        pageData = false;
         viewdata.studentSelected = true;
         viewdata.showCharts = false;
         StudentID = Student.StudentID;
@@ -32,6 +38,7 @@ app.controller('ViewDataTeacherController', function($http) {
     };
 
     viewdata.getData = function(){
+        pageData = false;
         // remove existing charts before appending new charts
         $('#charts').empty();
         $('.chart1Table').find("tr:gt(0)").remove();
@@ -40,7 +47,7 @@ app.controller('ViewDataTeacherController', function($http) {
         $('.chart4Table').find("tr:gt(0)").remove();
         viewdata.showCharts = true;
         $http.get('/getStudentData/' + StudentID).then(function(data4) {
-            //console.log(data4.data);
+            console.log(data4.data);
             viewdata.studentData = data4.data;
             viewdata.studentChart(data4.data);
         });
@@ -152,7 +159,6 @@ app.controller('ViewDataTeacherController', function($http) {
         var chartCtxArray = [];
 
         var chartTitle;
-        var pageData = false;
         //for (var x = 0; x < chartDataArray.length; x++) {
         for (var x = 0; x <= 4; x++) {
             if (Object.keys(chartDataArray[x]).length) {
@@ -206,36 +212,28 @@ app.controller('ViewDataTeacherController', function($http) {
         
         var j = 5;
         var tableNumber = 1;
-
         
         while (j <= 8) {
             if (Object.keys(chartDataArray[j]).length) {
-                $(".aclass").remove();
+                //$(".aclass").remove();
                 i = 0;
+                $("#ChartLI" + j).show();
+
                 while(chartDataArray[j].labels[i]) {
                     $(".chart" + tableNumber + "Table").append("<tr><td>" + chartDataArray[j].labels[i] + "</td><td>" + chartDataArray[j].datasets[0].data[i] + "</td></tr>");
                     i++;
                 }
+                pageData = true;
             } else {
                 //console.log('got here');
-                $("#ChartLI" + j).remove();
-
-                if(pageData ==false) {
-                    $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
-                   pageData=true;
-
-
-                }
+                $("#ChartLI" + j).hide();
             }
             j++;
             tableNumber++;
         }
-        //if(pageData ==false) {
-        //    $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
-        //    pageData = true;
-        //
-        //
-        //}
+
+        // show message if no data found for submitted user
+        if (pageData == false) $("#dataMessage").show();
 
         //if (Object.keys(chartDataArray[5]).length) {
         //    i = 0;

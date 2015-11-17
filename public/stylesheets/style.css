@@ -325,7 +325,7 @@ h5 {
 
 td {
     color: #707372;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .sliderTable,
@@ -427,3 +427,13 @@ p {
     color: white;
 }
 
+.selectHeader {
+    padding: 15px 0 0 40px;
+    font-style: italic;
+    color: #999 !important;
+    cursor: default !important;
+}
+
+.selectHeader:hover {
+    background-color: #FFF !important;
+}

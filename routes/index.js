@@ -305,6 +305,22 @@ router.get('/getStudentData/:StudentID', function (req, res) {
     });
 });
 
+router.get('/getInternData/:UserID', function (req, res) {
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+
+    var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE BeingObservedID = " + req.params.UserID + " ORDER BY DateCreated";
+    connection.query(selectQuery, function (err, results) {
+        if (err) console.log("SELECT ERROR = ", err);
+        res.json(results);
+    });
+});
+
 //TEACHER'S ROUTES
 
 //get classes route for teacher logged in
