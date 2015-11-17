@@ -103,13 +103,13 @@ app.controller('ViewDataInternController', function ($http) {
                 case "Professionalism":
                     buildObject(dataProfessionalism, data[i]);
                     break;
-                case "Engagement Intern":
+                case "Engagement":
                     buildObject(dataEngagement, data[i]);
                     break;
-                case "Supportive Learning Intern":
+                case "Supportive Learning":
                     buildObject(dataSupportiveLearning, data[i]);
                     break;
-                case "Responsibility Intern":
+                case "Responsibility":
                     buildObject(dataResponsibility, data[i]);
                     break;
                 default:
