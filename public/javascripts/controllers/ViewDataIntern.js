@@ -10,40 +10,44 @@ app.controller('ViewDataInternController', function($http) {
     viewdata.showCharts = false;
     viewdata.studentName;
 
-    $http.get('/getTeachers').then(function(data) {
-        //console.log(data.data);
-        viewdata.teachers = data.data;
-    });
+    //$http.get('/getTeachers').then(function(data) {
+    //    //console.log(data.data);
+    //    viewdata.teachers = data.data;
+    //});
 
-    viewdata.selectTeacher = function(Teacher) {
-        viewdata.teacherSelected = true;
-        UserID = Teacher.UserID;
-        viewdata.teacherName = Teacher.FirstName + " " + Teacher.LastName;
-        //console.log(UserID);
-        $http.get('/getClasses/' + UserID).then(function(data2) {
-            console.log(data2.data);
-            viewdata.classes = data2.data;
-        });
-    };
+    //viewdata.selectTeacher = function(Teacher) {
+    //    viewdata.teacherSelected = true;
+    //    UserID = Teacher.UserID;
+    //    viewdata.teacherName = Teacher.FirstName + " " + Teacher.LastName;
+    //    //console.log(UserID);
+    //    $http.get('/getClasses/' + UserID).then(function(data2) {
+    //        console.log(data2.data);
+    //        viewdata.classes = data2.data;
+    //    });
+    //};
 
-    viewdata.selectClass = function(Class) {
-        viewdata.classSelected = true;
-        ClassID = Class.ClassID;
-        viewdata.className = Class.ClassName;
-        viewdata.dateStart = moment.unix(Class.DateStart).format("M/DD/YYYY");
-        //console.log(ClassID);
-        $http.get('/getStudents/' + ClassID).then(function(data3) {
-            //console.log(data3.data);
-            viewdata.students = data3.data;
-        });
-    };
+    viewdata.getIntern = function(Intern){
 
-    viewdata.selectStudent = function(Student) {
-        viewdata.studentSelected = true;
-        viewdata.showCharts = false;
-        StudentID = Student.StudentID;
-        viewdata.studentName = Student.FirstName + " " + Student.LastName;
-    };
+    }
+
+    //viewdata.selectClass = function(Class) {
+    //    viewdata.classSelected = true;
+    //    ClassID = Class.ClassID;
+    //    viewdata.className = Class.ClassName;
+    //    viewdata.dateStart = moment.unix(Class.DateStart).format("M/DD/YYYY");
+    //    //console.log(ClassID);
+    //    $http.get('/getStudents/' + ClassID).then(function(data3) {
+    //        //console.log(data3.data);
+    //        viewdata.students = data3.data;
+    //    });
+    //};
+
+    //viewdata.selectStudent = function(Student) {
+    //    viewdata.studentSelected = true;
+    //    viewdata.showCharts = false;
+    //    StudentID = Student.StudentID;
+    //    viewdata.studentName = Student.FirstName + " " + Student.LastName;
+    //};
 
     viewdata.getData = function(){
         // remove existing charts before appending new charts
