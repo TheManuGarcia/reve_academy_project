@@ -284,6 +284,11 @@ router.get('/teacher_view_data', function (req, res, next) {
     res.render('teacher/teacher_view_data', {title: 'View Data', user: req.user});
 });
 
+router.get('/intern_view_data', function (req, res, next) {
+    res.render('intern_view_data', {title: 'View Data', user: req.user});
+});
+
+
 router.get('/getStudentData/:StudentID', function (req, res) {
     connection.query('USE ' + dbconfig.database, function (error, results, fields) {
         if (error) {
