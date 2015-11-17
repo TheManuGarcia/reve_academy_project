@@ -1,55 +1,12 @@
 /**
  * Created by Lauren on 11/16/15.
  */
-app.controller('ViewDataInternController', function($http) {
+app.controller('ViewDataInternController', function ($http) {
 
     var viewdata = this;
-    viewdata.teacherSelected = false;
-    viewdata.classSelected = false;
-    viewdata.studentSelected = false;
     viewdata.showCharts = false;
-    viewdata.studentName;
 
-    //$http.get('/getTeachers').then(function(data) {
-    //    //console.log(data.data);
-    //    viewdata.teachers = data.data;
-    //});
-
-    //viewdata.selectTeacher = function(Teacher) {
-    //    viewdata.teacherSelected = true;
-    //    UserID = Teacher.UserID;
-    //    viewdata.teacherName = Teacher.FirstName + " " + Teacher.LastName;
-    //    //console.log(UserID);
-    //    $http.get('/getClasses/' + UserID).then(function(data2) {
-    //        console.log(data2.data);
-    //        viewdata.classes = data2.data;
-    //    });
-    //};
-
-    viewdata.getIntern = function(Intern){
-
-    }
-
-    //viewdata.selectClass = function(Class) {
-    //    viewdata.classSelected = true;
-    //    ClassID = Class.ClassID;
-    //    viewdata.className = Class.ClassName;
-    //    viewdata.dateStart = moment.unix(Class.DateStart).format("M/DD/YYYY");
-    //    //console.log(ClassID);
-    //    $http.get('/getStudents/' + ClassID).then(function(data3) {
-    //        //console.log(data3.data);
-    //        viewdata.students = data3.data;
-    //    });
-    //};
-
-    //viewdata.selectStudent = function(Student) {
-    //    viewdata.studentSelected = true;
-    //    viewdata.showCharts = false;
-    //    StudentID = Student.StudentID;
-    //    viewdata.studentName = Student.FirstName + " " + Student.LastName;
-    //};
-
-    viewdata.getData = function(){
+    viewdata.getData = function () {
         // remove existing charts before appending new charts
         $('#charts').empty();
         $('.chart1Table').find("tr:gt(0)").remove();
@@ -57,14 +14,14 @@ app.controller('ViewDataInternController', function($http) {
         $('.chart3Table').find("tr:gt(0)").remove();
         $('.chart4Table').find("tr:gt(0)").remove();
         viewdata.showCharts = true;
-        $http.get('/getStudentData/' + StudentID).then(function(data4) {
-            //console.log(data4.data);
-            viewdata.studentData = data4.data;
-            viewdata.studentChart(data4.data);
+        $http.get('/getOneIntern').then(function (data) {
+            console.log(data.data);
+            viewdata.internData = data.data;
+            viewdata.internChart(data.data);
         });
     };
 
-    viewdata.studentChart = function(data) {
+    viewdata.internChart = function (data) {
 
         var dataEquitable = {};
         var dataCommunication = {};
@@ -84,7 +41,7 @@ app.controller('ViewDataInternController', function($http) {
         var pointHighlightStroke = "rgba(220,220,220,1)";
 
         var chartOptions = {
-            pointDotRadius : 5,
+            pointDotRadius: 5,
             scaleOverride: true,
             scaleSteps: 6,
             scaleStepWidth: 1,
@@ -220,7 +177,7 @@ app.controller('ViewDataInternController', function($http) {
         while (j <= 8) {
             if (Object.keys(chartDataArray[j]).length) {
                 i = 0;
-                while(chartDataArray[j].labels[i]) {
+                while (chartDataArray[j].labels[i]) {
                     $(".chart" + tableNumber + "Table").append("<tr><td>" + chartDataArray[j].labels[i] + "</td><td>" + chartDataArray[j].datasets[0].data[i] + "</td></tr>");
                     i++;
                 }
@@ -228,56 +185,13 @@ app.controller('ViewDataInternController', function($http) {
                 //console.log('got here');
                 $("#ChartLI" + j).remove();
 
-                if(noData ==false) {
-                    $(".aclass").append("<p class='noDataText'>There is no data for " + viewdata.studentName + "</p>")
+                if (noData == false) {
+                    $(".aclass").append("<p class='noDataText'>There is no data</p>")
                     noData = true;
                 }
             }
             j++;
             tableNumber++;
         }
-
-
-        //if (Object.keys(chartDataArray[5]).length) {
-        //    i = 0;
-        //    while(chartDataArray[5].labels[i]) {
-        //        $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI5").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[6]).length) {
-        //    i = 0;
-        //    while(chartDataArray[6].labels[i]) {
-        //        $(".chart2Table").append("<tr><td>" + chartDataArray[6].labels[i] + "</td><td>" + chartDataArray[6].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI6").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[7]).length) {
-        //    i = 0;
-        //    while(chartDataArray[7].labels[i]) {
-        //        $(".chart3Table").append("<tr><td>" + chartDataArray[7].labels[i] + "</td><td>" + chartDataArray[7].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI7").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[8]).length) {
-        //    i = 0;
-        //    while(chartDataArray[8].labels[i]) {
-        //        $(".chart4Table").append("<tr><td>" + chartDataArray[8].labels[i] + "</td><td>" + chartDataArray[8].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI8").remove();
-        //}
-
     }
-
 });
