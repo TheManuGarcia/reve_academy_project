@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app="MainApp">
+<head>
+    <% include ../partials/head %>
+
+    <script src="/javascripts/Chart.min.js" type="text/javascript"></script>
+    <script src="/javascripts/moment.min.js"></script>
+    <script src="/javascripts/controllers/ViewDataIntern.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<% if (user.UserType == 0) { %>
+<% include ../partials/admin_header %>
+<% } else if (user.UserType == 1) { %>
+<% include ../partials/teacher_header %>
+<% } else  { %>
+<% include ../partials/intern_header %>
+<% } %>
+
+<div class="container">
+    <main class="noPadding" ng-controller="ViewDataInternController as viewdata">
+
+
+        <ul id="teacherList" class="dropdown-content">
+            <li ng-repeat="teacher in viewdata.teachers track by $index">
+                <a ng-click="viewdata.selectTeacher(teacher)" href="#!">
+                    {{ teacher.FirstName }} {{ teacher.LastName }}
+                </a>
+            </li>
+        </ul>
+
+        <ul id="classList" class="dropdown-content">
+            <li ng-repeat="class in viewdata.classes track by $index">
+                <a ng-click="viewdata.selectClass(class)" href="#!">
+                    {{ class.ClassName }}
+                </a>
+            </li>
+        </ul>
+
+        <ul id="studentList" class="dropdown-content">
+            <li ng-repeat="student in viewdata.students track by $index">
+                <a ng-click="viewdata.selectStudent(student)" ng-model="student" href="#!">
+                    {{student.FirstName }} {{ student.LastName }}
+                </a>
+            </li>
+        </ul>
+
+        <div class="row">
+            <div class="col s3">
+                <a class="btn dropdown-button" id="selectTeacherBtn" href="#!" data-activates="teacherList">Select
+                    Teacher<i
+                            class="mdi-navigation-arrow-drop-down right"></i></a>
+            </div>
+            <div class="col s4 offset-s1">
+                <p class="firstParagraph" ng-if="viewdata.teacherSelected">{{ viewdata.teacherName }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s3">
+                <a ng-show="viewdata.teacherSelected" class="btn dropdown-button" href="#!"
+                   data-activates="classList">Select Class<i
+                            class="mdi-navigation-arrow-drop-down right"></i></a>
+            </div>
+            <div class="col s4 offset-s1">
+                <p class="secondParagraph" ng-if="viewdata.classSelected">{{ viewdata.className }} (Start Date: {{ viewdata.dateStart }}) </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s3">
+                <a ng-show="viewdata.classSelected" class="btn dropdown-button" href="#!"
+                   data-activates="studentList">Select Student<i
+                            class="mdi-navigation-arrow-drop-down right"></i></a>
+            </div>
+            <div class="col s4 offset-s1"><p class="secondParagraph" ng-if="viewdata.studentSelected">{{ viewdata.studentName }}</p>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col s12">
+                <button id="getDatabtn" class="btn waves-effect waves-light" type="submit"
+                        ng-if="viewdata.studentSelected" ng-click="viewdata.getData()" name="getdata">Get Data
+                    <i class="material-icons right">view_list</i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="logintext col s4 card-panel red lighten-4 aclass"></div>
+        </div>
+
+        <div ng-show="viewdata.showCharts">
+            <ul id="charts"></ul>
+            <ul id="tables">
+                <li id="ChartLI5">
+                    <div>
+
+                        <h3 class="chartTitle">Equitable</h3>
+
+                        <h3>Equitable</h3>
+
+                        <table class="chart1Table striped responsive-table">
+                            <th>
+                                Observation Date
+                            </th>
+                            <th>
+                                Observation Value
+                            </th>
+                        </table>
+                    </div>
+                </li>
+                <li id="ChartLI6">
+                    <div>
+                        <h3>Engagement</h3>
+                        <table class="chart2Table striped responsive-table">
+                            <th>
+                                Observation Date
+                            </th>
+                            <th>
+                                Observation Value
+                            </th>
+                        </table>
+                    </div>
+                </li>
+                <li id="ChartLI7">
+                    <div>
+                        <h3>Problem Solving</h3>
+                        <table class="chart3Table striped responsive-table">
+                            <th>
+                                Observation Date
+                            </th>
+                            <th>
+                                Observation Value
+                            </th>
+                        </table>
+                    </div>
+                </li>
+                <li id="ChartLI8">
+                    <div>
+                        <h3>Responsibility</h3>
+                        <table class="chart4Table striped responsive-table">
+                            <th>
+                                Observation Date
+                            </th>
+                            <th>
+                                Observation Value
+                            </th>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+    </main>
+
+</div>
+</body>
+</html>
