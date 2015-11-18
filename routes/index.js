@@ -4,15 +4,24 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 require('../server/titlecase');
-function getUnixTime() {
-    return Math.floor(Date.now() / 1000);
-}
+function getUnixTime() { return Math.floor(Date.now() / 1000); }
+function checkRedirect(res, req) { res.redirect('/'); }
 
 var mysql = require('mysql');
 var dbconfig = require('../server/database');
 var connection = mysql.createConnection(dbconfig.connection);
 
-var username = 'Lauren';
+function connectionQuery() {
+    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
+        if (error) {
+            console.log("ERROR = ", error);
+            return;
+        }
+        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
+    });
+}
+
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
     if (req.user) {
@@ -32,51 +41,67 @@ router.get('/getUser', function (req, res) {
 
 //SKILLS ROUTES
 router.get('/communication', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('communication', {title: 'Communication', user: req.user});
 });
 router.get('/equitable', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('equitable', {title: 'Equitable', user: req.user});
 });
 router.get('/equitable_intern', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('equitable_intern', {title: 'Equitable', user: req.user});
 });
 router.get('/engagement_intern', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('engagement_intern', {title: 'Engagement Intern', user: req.user});
 });
 router.get('/progress_monitoring_intern', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('progress_monitoring_intern', {title: 'Progress Monitoring Intern', user: req.user});
 });
 router.get('/supportive_learning_intern', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('supportive_learning_intern', {title: 'Supportive Learning Intern', user: req.user});
 });
 router.get('/responsibility_intern', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('responsibility_intern', {title: 'Responsibility Intern', user: req.user});
 });
 router.get('/progress_monitoring', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('progress_monitoring', {title: 'Progress Monitoring', user: req.user});
 });
 router.get('/enthusiasm', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('enthusiasm', {title: 'Enthusiasm', user: req.user});
 });
 router.get('/teamwork', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('teamwork', {title: 'Teamwork', user: req.user});
 });
 router.get('/problem_solving', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('problem_solving', {title: 'Problem Solving', user: req.user});
 });
 router.get('/professionalism', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('professionalism', {title: 'Professionalism', user: req.user});
 });
 router.get('/engagement', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('engagement', {title: 'Engagement', user: req.user});
 });
 router.get('/supportive_learning', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('supportive_learning', {title: 'Supportive Learning', user: req.user});
 });
 router.get('/responsibility', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('responsibility', {title: 'Responsibility', user: req.user});
 });
 router.get('/observation', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('observation', {title: 'Observation', user: req.user});
 });
 
@@ -84,15 +109,9 @@ router.get('/observation', function (req, res, next) {
 // SKILLS POST ROUTES
 
 router.post('/addObs', function (req, res) {
-    console.log(req.body);
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    //console.log(req.body);
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     for (var i = 0; i < req.body.length; i++) {
 
@@ -124,15 +143,9 @@ router.post('/addObs', function (req, res) {
 
 //post intern Obs data
 router.post('/addInternObs', function (req, res) {
-    console.log(req.body);
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    //console.log(req.body);
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     for (var i = 0; i < req.body.length; i++) {
 
@@ -165,13 +178,8 @@ router.post('/addInternObs', function (req, res) {
 // post slider data
 router.post('/addObsSlider', function (req, res) {
     //console.log(req.body);
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     for (property in req.body) {
 
@@ -221,13 +229,8 @@ router.post('/addObsSlider', function (req, res) {
 //POST INTERN SLIDER DATA
 router.post('/addInternObsSlider', function (req, res) {
     //console.log(req.body);
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     for (property in req.body) {
 
@@ -277,26 +280,24 @@ router.post('/addInternObsSlider', function (req, res) {
 // VIEW DATA ROUTES
 
 router.get('/admin_view_data', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('admin/admin_view_data', {title: 'View Data', user: req.user});
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('teacher/teacher_view_data', {title: 'View Data', user: req.user});
 });
 
 router.get('/intern_view_data', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('intern_view_data', {title: 'View Data', user: req.user});
 });
 
 
 router.get('/getStudentData/:StudentID', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM StudentObs WHERE StudentID = " + req.params.StudentID + " ORDER BY DateCreated";
     connection.query(selectQuery, function (err, results) {
@@ -306,13 +307,8 @@ router.get('/getStudentData/:StudentID', function (req, res) {
 });
 
 router.get('/getInternData/:UserID', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE BeingObservedID = " + req.params.UserID + " ORDER BY DateCreated";
     connection.query(selectQuery, function (err, results) {
@@ -325,15 +321,10 @@ router.get('/getInternData/:UserID', function (req, res) {
 
 //get classes route for teacher logged in
 router.get('/getClasses', function (req, res) {
-    console.log(req.user);
+    //console.log(req.user);
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0 || req.user.UserType == 1) {
-        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-            if (error) {
-                console.log("ERROR GETTING CLASSES = ", error);
-                return;
-            }
-            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-        });
+        connectionQuery();
 
         var selectQuery;
         if (req.user.UserType == 0) selectQuery = "SELECT Classes.ClassID, Classes.ClassName, Classes.DateStart, Users.FirstName, Users.LastName FROM Classes, Users WHERE Classes.UserID = Users.UserID ORDER BY Users.LastName;";
@@ -348,15 +339,10 @@ router.get('/getClasses', function (req, res) {
 
 //get classes route for teacher selected in view data
 router.get('/getClasses/:UserID', function (req, res) {
-    console.log(req.user);
+    //console.log(req.user);
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0 || req.user.UserType == 1) {
-        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-            if (error) {
-                console.log("ERROR GETTING CLASSES = ", error);
-                return;
-            }
-            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-        });
+        connectionQuery();
 
         var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.params.UserID;
         console.log("selectQuery = ", selectQuery);
@@ -370,17 +356,11 @@ router.get('/getClasses/:UserID', function (req, res) {
 
 //get students route
 router.get('/getStudents/:ClassID', function (req, res) {
-    console.log(req.user);
+    //console.log(req.user);
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0 || req.user.UserType == 1) {
 
-        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-
-            if (error) {
-                console.log("ERROR GETTING STUDENTS = ", error);
-                return;
-            }
-            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-        });
+        connectionQuery();
 
         var selectQuery = "SELECT StudentID, FirstName, LastName FROM Students WHERE ClassID = " + req.params.ClassID;
 
@@ -395,17 +375,11 @@ router.get('/getStudents/:ClassID', function (req, res) {
 
 //get interns route
 router.get('/getInterns', function (req, res) {
-    console.log(req.user);
+    //console.log(req.user);
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0 || req.user.UserType == 1 || req.user.UserType == 2) {
 
-        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-
-            if (error) {
-                console.log("ERROR GETTING interns = ", error);
-                return;
-            }
-            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-        });
+        connectionQuery();
 
         //var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
         var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserID = " + req.user.UserID + " UNION SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
@@ -421,13 +395,8 @@ router.get('/getInterns', function (req, res) {
 
 //get one intern route
 router.get('/getOneIntern', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
 
     var selectQuery = "SELECT ObsType, ObsValue, DateCreated FROM InternObs WHERE UserID = " + req.user.UserID + " AND BeingObservedID = " + req.user.UserID + " ORDER BY DateCreated";
 
@@ -439,13 +408,8 @@ router.get('/getOneIntern', function (req, res) {
 
 //POST students to database
 router.post('/addStudent', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
     //console.log(req.user);
 
     var newStudentMysql = {
@@ -476,14 +440,9 @@ router.post('/addStudent', function (req, res) {
 // get teachers
 router.get('/getTeachers', function (req, res) {
     //console.log(req.user);
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0 || req.user.UserType == 1) {
-        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-            if (error) {
-                console.log("ERROR GETTING TEACHERS = ", error);
-                return;
-            }
-            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-        });
+        connectionQuery();
 
         var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = 1";
 
@@ -495,23 +454,19 @@ router.get('/getTeachers', function (req, res) {
 });
 
 router.get('/add_student', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('teacher/add_student', {title: 'Add Student', user: req.user});
 });
 
 router.get('/add_class', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('teacher/add_class', {title: 'Add Class', user: req.user});
 });
 
 // add class to DB
 router.post('/add_class', function (req, res) {
-    connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-
-        if (error) {
-            console.log("ERROR = ", error);
-            return;
-        }
-        console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-    });
+    if (!req.user) res.redirect('/');
+    connectionQuery();
     //console.log(req.user);
 
     var newClassMysql = {
@@ -542,6 +497,7 @@ router.post('/add_class', function (req, res) {
 });
 
 router.get('/teacher_view_data', function (req, res, next) {
+    if (!req.user) res.redirect('/');
     res.render('teacher/teacher_view_data', {title: 'Teacher View Data', user: req.user});
 });
 
@@ -584,23 +540,9 @@ router.get('/logout', function (req, res) {
 });
 
 
-// get all data for specific teacher
-router.get('/getData/teacher/:userID', function(req, res) {
-
-});
-
-// get data for all students in specific class
-router.get('/getData/class/:classID', function(req, res) {
-
-});
-
-// get data for specific student
-router.get('/getData/student/:studentID', function(req, res) {
-
-});
-
 // get users for user view page
 router.get('/admin', function(req, res) {
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0) {
         res.render('admin/admin', {title: 'Administration', user: req.user});
     } else {
@@ -609,17 +551,11 @@ router.get('/admin', function(req, res) {
 });
 
 router.post('/deleteUser', function(req, res) {
+    if (!req.user) res.redirect('/');
     if (req.user.UserType == 0) {
 
         console.log(req.body.UserID);
-        connection.query('USE ' + dbconfig.database, function (error, results, fields) {
-
-            if (error) {
-                console.log("ERROR = ", error);
-                return;
-            }
-            console.log("[" + new Date() + '] Connected to MySQL as ' + connection.threadId);
-        });
+        connectionQuery();
 
         connection.query("DELETE FROM Users WHERE UserID = ?", [req.body.UserID], function (err, rows) {
 
@@ -635,5 +571,8 @@ router.post('/deleteUser', function(req, res) {
 
     res.sendStatus(200);
 });
+
+// redirect all unknown routes to home [age
+router.get('/*', function(req, res) { res.redirect('/'); });
 
 module.exports = router;
