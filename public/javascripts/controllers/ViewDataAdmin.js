@@ -92,28 +92,82 @@ app.controller('ViewDataAdminController', function($http) {
         });
     };
 
-    var StudentID;
-    viewdata.selectStudent = function(Student) {
-        $("#dataMessageAdmin").hide();
-        pageData = false;
-        clearCharts();
-        viewdata.studentSelected = true;
-        viewdata.showCharts = false;
-        StudentID = Student.StudentID;
-        viewdata.studentName = Student.FirstName + " " + Student.LastName;
-    };
+    //var StudentID;
+    //viewdata.selectStudent = function(Student) {
+    //    $("#dataMessageAdmin").hide();
+    //    pageData = false;
+    //    clearCharts();
+    //    viewdata.studentSelected = true;
+    //    viewdata.showCharts = false;
+    //    StudentID = Student.StudentID;
+    //    viewdata.studentName = Student.FirstName + " " + Student.LastName;
+    //};
+
+    //viewdata.getData = function() {
+    //    pageData = false;
+    //    clearCharts();
+    //    // remove existing charts before appending new charts
+    //    viewdata.showCharts = true;
+    //    if (viewdata.studentSelected) {
+    //        $http.get('/getStudentData/' + StudentID).then(function (data4) {
+    //            //console.log(data4.data);
+    //            viewdata.studentChart(data4.data);
+    //        });
+    //    }
+    //    if (viewdata.internSelected) {
+    //        $http.get('/getInternData/' + BeingObservedID).then(function (data4) {
+    //            //console.log(data4.data);
+    //            viewdata.studentChart(data4.data);
+    //        });
+    //    }
+    //};
 
     viewdata.getData = function() {
         pageData = false;
         clearCharts();
         // remove existing charts before appending new charts
         viewdata.showCharts = true;
-        if (viewdata.studentSelected) {
-            $http.get('/getStudentData/' + StudentID).then(function (data4) {
-                //console.log(data4.data);
-                viewdata.studentChart(data4.data);
-            });
+
+        // do class averages if class selected
+        if (viewdata.classSelected) {
+
+            viewdata.chartData = [];
+            if (viewdata.classSelected) {
+
+                function flatten(array) {
+                    i = 0;
+                    while (i < array.length) {
+                        viewdata.chartData.push(array[i]);
+                        i++;
+                    }
+                }
+
+                $http.get('/getClassAverages/' + ClassID + '/' + 'Communication').then(function (data) {
+                    flatten(data.data);
+                    $http.get('/getClassAverages/' + ClassID + '/' + 'Enthusiasm').then(function (data) {
+                        flatten(data.data);
+                        $http.get('/getClassAverages/' + ClassID + '/' + 'Teamwork').then(function (data) {
+                            flatten(data.data);
+                            $http.get('/getClassAverages/' + ClassID + '/' + 'Problem%20Solving').then(function (data) {
+                                flatten(data.data);
+                                $http.get('/getClassAverages/' + ClassID + '/' + 'Professionalism').then(function (data) {
+                                    flatten(data.data);
+                                    //console.log(viewdata.chartData);
+                                    viewdata.studentChart(viewdata.chartData);
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            }
+
         }
+
         if (viewdata.internSelected) {
             $http.get('/getInternData/' + BeingObservedID).then(function (data4) {
                 //console.log(data4.data);
@@ -160,8 +214,8 @@ app.controller('ViewDataAdminController', function($http) {
             if (!dataObject.labels) dataObject.labels = [];
 
             // push formatted observation date to object
-            dataObject.labels.push(moment.unix(dataToPush.DateCreated).format("M/DD/YYYY"));
-            //dataObject.labels.push(dataToPush.DateCreated);
+            if (viewdata.classSelected) dataObject.labels.push(dataToPush.Date);
+            if (viewdata.internSelected) dataObject.labels.push(moment.unix(dataToPush.DateCreated).format("M/DD/YYYY"));
 
             if (!dataObject.datasets) {
                 dataObject.datasets = [];
@@ -179,7 +233,9 @@ app.controller('ViewDataAdminController', function($http) {
 
             if (!dataObject.datasets[0].data) dataObject.datasets[0].data = [];
 
-            dataObject.datasets[0].data.push(dataToPush.ObsValue);
+            if (viewdata.classSelected) dataObject.datasets[0].data.push(dataToPush.Average);
+            if (viewdata.internSelected) dataObject.datasets[0].data.push(dataToPush.ObsValue);
+
 
         }
 

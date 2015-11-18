@@ -317,6 +317,18 @@ router.get('/getInternData/:UserID', function (req, res) {
     });
 });
 
+router.get('/getClassAverages/:ClassID/:ObsType', function(req, res) {
+    console.log("got here" + req.params);
+    if (!req.user) res.redirect('/');
+    connectionQuery();
+    var selectQuery = "SELECT ObsType, ROUND(AVG(ObsValue), 1) AS Average, FROM_UNIXTIME(StudentObs.DateCreated, '%m/%d/%Y') AS Date FROM Reve.StudentObs WHERE ObsType = '" + decodeURIComponent(req.params.ObsType) + "' AND StudentObs.StudentID IN (SELECT Students.StudentID FROM Students WHERE ClassID = " + req.params.ClassID + ") GROUP BY Date ORDER BY Date";
+    console.log("select query is: " + selectQuery);
+    connection.query(selectQuery, function (err, results) {
+        if (err) console.log("SELECT ERROR = ", err);
+        res.json(results);
+    });
+});
+
 //TEACHER'S ROUTES
 
 //get classes route for teacher logged in
