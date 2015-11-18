@@ -303,6 +303,10 @@ input[type=range] {
     margin-bottom: 60px;
 }
 
+#dataMessageAdmin {
+    background-color: #d14414;
+}
+
 h3 {
     color: #707372;
 }
@@ -427,6 +431,7 @@ p {
 
 #getDataInternBtn {
     margin-top: 30px;
+    background-color: #d14414;
 }
 
 .logintext {
