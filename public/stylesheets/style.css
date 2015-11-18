@@ -425,9 +425,9 @@ p {
     margin-top: 0;
 }
 
-/*#getDataInternBtn {*/
-    /*margin-top: 30px;*/
-/*}*/
+#getDataInternBtn {
+    margin-top: 30px;
+}
 
 .logintext {
     color: white;
