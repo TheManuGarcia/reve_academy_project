@@ -28,7 +28,7 @@
                     Interns
                 </th>
                 <tr ng-repeat="Intern in observation.internData track by $index">
-                    <td>
+                    <td ng-class="{'myInternClass':$index==0}">
                         {{Intern.FirstName}} {{Intern.LastName}}
                     </td>
                     <td>

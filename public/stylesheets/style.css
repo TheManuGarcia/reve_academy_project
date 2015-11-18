@@ -444,3 +444,8 @@ p {
 .selectHeader:hover {
     background-color: #FFF !important;
 }
+
+.myInternClass {
+    color: #d14414;
+    font-weight: bold;
+}
