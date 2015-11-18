@@ -351,7 +351,7 @@ td {
 #getDatabtn {
     width: 200px;
     background-color: #d14414;
-    margin: 30px 0 30px 0;
+    margin: 0 0 30px 0;
 }
 
 #selectTeacherBtn,
@@ -425,9 +425,9 @@ p {
     margin-top: 0;
 }
 
-#getDataInternBtn {
-    margin-top: 30px;
-}
+/*#getDataInternBtn {*/
+    /*margin-top: 30px;*/
+/*}*/
 
 .logintext {
     color: white;
