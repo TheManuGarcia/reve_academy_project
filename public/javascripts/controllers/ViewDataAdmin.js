@@ -130,32 +130,28 @@ app.controller('ViewDataAdminController', function($http) {
 
         // do class averages if class selected
         if (viewdata.classSelected) {
-
             viewdata.chartData = [];
-            if (viewdata.classSelected) {
 
-                function flatten(array) {
-                    i = 0;
-                    while (i < array.length) {
-                        viewdata.chartData.push(array[i]);
-                        i++;
-                    }
+            function flatten(array) {
+                i = 0;
+                while (i < array.length) {
+                    viewdata.chartData.push(array[i]);
+                    i++;
                 }
+            }
 
-                $http.get('/getClassAverages/' + ClassID + '/' + 'Communication').then(function (data) {
+            $http.get('/getClassAverages/' + ClassID + '/' + 'Communication').then(function (data) {
+                flatten(data.data);
+                $http.get('/getClassAverages/' + ClassID + '/' + 'Enthusiasm').then(function (data) {
                     flatten(data.data);
-                    $http.get('/getClassAverages/' + ClassID + '/' + 'Enthusiasm').then(function (data) {
+                    $http.get('/getClassAverages/' + ClassID + '/' + 'Teamwork').then(function (data) {
                         flatten(data.data);
-                        $http.get('/getClassAverages/' + ClassID + '/' + 'Teamwork').then(function (data) {
+                        $http.get('/getClassAverages/' + ClassID + '/' + 'Problem%20Solving').then(function (data) {
                             flatten(data.data);
-                            $http.get('/getClassAverages/' + ClassID + '/' + 'Problem%20Solving').then(function (data) {
+                            $http.get('/getClassAverages/' + ClassID + '/' + 'Professionalism').then(function (data) {
                                 flatten(data.data);
-                                $http.get('/getClassAverages/' + ClassID + '/' + 'Professionalism').then(function (data) {
-                                    flatten(data.data);
-                                    //console.log(viewdata.chartData);
-                                    viewdata.studentChart(viewdata.chartData);
-                                });
-
+                                //console.log(viewdata.chartData);
+                                viewdata.studentChart(viewdata.chartData);
                             });
 
                         });
@@ -164,9 +160,10 @@ app.controller('ViewDataAdminController', function($http) {
 
                 });
 
-            }
+            });
 
         }
+
 
         if (viewdata.internSelected) {
             $http.get('/getInternData/' + BeingObservedID).then(function (data4) {

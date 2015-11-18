@@ -30,6 +30,12 @@
         </ul>
 
         <ul id="studentList" class="dropdown-content">
+            <li>
+                <a href="#" ng-click="viewdata.getClassAverage()">
+                    Class Average Data
+                </a>
+            </li>
+            <li class="divider"></li>
             <li ng-repeat="student in viewdata.students track by $index">
                 <a ng-click="viewdata.selectStudent(student)" ng-model="student" href="#!">
                     {{student.FirstName }} {{ student.LastName }}
@@ -63,7 +69,7 @@
         <div class="row">
             <div class="col s12">
                 <button id="getDatabtn" class="btn waves-effect waves-light" type="submit"
-                        ng-if="viewdata.studentSelected" ng-click="viewdata.getData()" name="getdata">Get Data
+                        ng-if="viewdata.studentSelected || viewdata.classAverage" ng-click="viewdata.getData()" name="getdata">Get Data
                     <i class="material-icons right">view_list</i>
                 </button>
             </div>

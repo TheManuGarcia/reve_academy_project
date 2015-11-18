@@ -4,10 +4,18 @@ app.controller('ViewDataTeacherController', function($http) {
     viewdata.classSelected = false;
     viewdata.studentSelected = false;
     viewdata.showCharts = false;
+    viewdata.classAverage = false;
     var pageData = false;
     $("#dataMessage").hide();
 
-    //viewdata.studentName;
+    function clearCharts() {
+        console.log('clear charts');
+        $('#charts').empty();
+        $('.chart1Table').find("tr:gt(0)").remove();
+        $('.chart2Table').find("tr:gt(0)").remove();
+        $('.chart3Table').find("tr:gt(0)").remove();
+        $('.chart4Table').find("tr:gt(0)").remove();
+    }
 
     $http.get('/getClasses/').then(function(data2) {
         //console.log(data2.data);
@@ -21,6 +29,8 @@ app.controller('ViewDataTeacherController', function($http) {
         ClassID = Class.ClassID;
         viewdata.className = Class.ClassName;
         viewdata.dateStart = moment.unix(Class.DateStart).format("M/DD/YYYY");
+        viewdata.showCharts = false;
+        clearCharts();
         //console.log(ClassID);
         $http.get('/getStudents/' + ClassID).then(function(data3) {
             //console.log(data3.data);
@@ -29,31 +39,79 @@ app.controller('ViewDataTeacherController', function($http) {
     };
 
     viewdata.selectStudent = function(Student) {
+        clearCharts();
         $("#dataMessage").hide();
         pageData = false;
         viewdata.studentSelected = true;
+        viewdata.classAverage = false;
         viewdata.showCharts = false;
         StudentID = Student.StudentID;
         viewdata.studentName = Student.FirstName + " " + Student.LastName;
     };
 
-    viewdata.getData = function(){
+    viewdata.getClassAverage = function() {
+        clearCharts();
+        viewdata.showCharts = false;
+        viewdata.classAverage = true;
+        viewdata.studentSelected = false;
+    };
+
+    viewdata.getData = function() {
         pageData = false;
         // remove existing charts before appending new charts
-        $('#charts').empty();
-        $('.chart1Table').find("tr:gt(0)").remove();
-        $('.chart2Table').find("tr:gt(0)").remove();
-        $('.chart3Table').find("tr:gt(0)").remove();
-        $('.chart4Table').find("tr:gt(0)").remove();
+        clearCharts();
         viewdata.showCharts = true;
-        $http.get('/getStudentData/' + StudentID).then(function(data4) {
-            console.log(data4.data);
-            viewdata.studentData = data4.data;
-            viewdata.studentChart(data4.data);
-        });
+
+        if (viewdata.studentSelected) {
+            viewdata.classAverage = false;
+            console.log('StudentID = ', StudentID);
+            $http.get('/getStudentData/' + StudentID).then(function (data4) {
+                console.log(data4.data);
+                viewdata.studentChart(data4.data);
+            });
+        }
+
+        if (viewdata.classAverage) {
+            viewdata.chartData = [];
+
+            function flatten(array) {
+                i = 0;
+                while (i < array.length) {
+                    viewdata.chartData.push(array[i]);
+                    i++;
+                }
+            }
+
+            $http.get('/getClassAverages/' + ClassID + '/' + 'Communication').then(function (data) {
+                flatten(data.data);
+                $http.get('/getClassAverages/' + ClassID + '/' + 'Enthusiasm').then(function (data) {
+                    flatten(data.data);
+                    $http.get('/getClassAverages/' + ClassID + '/' + 'Teamwork').then(function (data) {
+                        flatten(data.data);
+                        $http.get('/getClassAverages/' + ClassID + '/' + 'Problem%20Solving').then(function (data) {
+                            flatten(data.data);
+                            $http.get('/getClassAverages/' + ClassID + '/' + 'Professionalism').then(function (data) {
+                                flatten(data.data);
+                                console.log(viewdata.chartData);
+                                viewdata.studentChart(viewdata.chartData);
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+        }
+
     };
 
     viewdata.studentChart = function(data) {
+
+        console.log("class = " + viewdata.classAverage);
+        console.log("student = " + viewdata.studentSelected);
 
         var dataEquitable = {};
         var dataCommunication = {};
@@ -91,8 +149,8 @@ app.controller('ViewDataTeacherController', function($http) {
             if (!dataObject.labels) dataObject.labels = [];
 
             // push formatted observation date to object
-            dataObject.labels.push(moment.unix(dataToPush.DateCreated).format("M/DD/YYYY"));
-            //dataObject.labels.push(dataToPush.DateCreated);
+            if (viewdata.classAverage) dataObject.labels.push(dataToPush.Date);
+            if (viewdata.studentSelected) dataObject.labels.push(moment.unix(dataToPush.DateCreated).format("M/DD/YYYY"));
 
             if (!dataObject.datasets) {
                 dataObject.datasets = [];
@@ -110,8 +168,8 @@ app.controller('ViewDataTeacherController', function($http) {
 
             if (!dataObject.datasets[0].data) dataObject.datasets[0].data = [];
 
-            dataObject.datasets[0].data.push(dataToPush.ObsValue);
-
+            if (viewdata.classAverage) dataObject.datasets[0].data.push(dataToPush.Average);
+            if (viewdata.studentSelected) dataObject.datasets[0].data.push(dataToPush.ObsValue);
         }
 
         var i = 0;
@@ -151,15 +209,14 @@ app.controller('ViewDataTeacherController', function($http) {
             i++;
         }
 
-        var chartDataArray = [dataCommunication, dataEnthusiasm, dataTeamwork, dataProblemSolving,
+        var chartDataArray = [];
+        chartDataArray = [dataCommunication, dataEnthusiasm, dataTeamwork, dataProblemSolving,
             dataProfessionalism, dataEquitable, dataEngagement, dataSupportiveLearning, dataResponsibility];
-
-        //var chartDataArray = [dataCommunication, dataEnthusiasm, dataTeamwork, dataProblemSolving, dataProfessionalism];
+        console.log(chartDataArray);
 
         var chartCtxArray = [];
 
-        var chartTitle;
-        //for (var x = 0; x < chartDataArray.length; x++) {
+        var chartTitle = "";
         for (var x = 0; x <= 4; x++) {
             if (Object.keys(chartDataArray[x]).length) {
                 chartTitle = chartDataArray[x].datasets[0].label;
@@ -234,46 +291,6 @@ app.controller('ViewDataTeacherController', function($http) {
 
         // show message if no data found for submitted user
         if (pageData == false) $("#dataMessage").show();
-
-        //if (Object.keys(chartDataArray[5]).length) {
-        //    i = 0;
-        //    while(chartDataArray[5].labels[i]) {
-        //        $(".chart1Table").append("<tr><td>" + chartDataArray[5].labels[i] + "</td><td>" + chartDataArray[5].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI5").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[6]).length) {
-        //    i = 0;
-        //    while(chartDataArray[6].labels[i]) {
-        //        $(".chart2Table").append("<tr><td>" + chartDataArray[6].labels[i] + "</td><td>" + chartDataArray[6].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI6").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[7]).length) {
-        //    i = 0;
-        //    while(chartDataArray[7].labels[i]) {
-        //        $(".chart3Table").append("<tr><td>" + chartDataArray[7].labels[i] + "</td><td>" + chartDataArray[7].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI7").remove();
-        //}
-        //
-        //if (Object.keys(chartDataArray[8]).length) {
-        //    i = 0;
-        //    while(chartDataArray[8].labels[i]) {
-        //        $(".chart4Table").append("<tr><td>" + chartDataArray[8].labels[i] + "</td><td>" + chartDataArray[8].datasets[0].data[i] + "</td></tr>")
-        //        i++;
-        //    }
-        //} else {
-        //    $("#ChartLI8").remove();
-        //}
 
     }
 
