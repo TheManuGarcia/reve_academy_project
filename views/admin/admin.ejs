@@ -114,7 +114,39 @@
             </table>
         </div>
 
-        <div id="codes" class="col s10">Login Codes</div>
+        <div id="codes" class="col s5">
+
+            <div class="row"></div>
+            <div class="row"></div>
+
+            <div class="row">
+                <div class="input-field col s4">
+                    <input ng-model="admin.InternCode" id="InternCode" type="text" class="validate" name="InternCode" maxlength="5" length="5" value=" " required>
+                    <label for="InternCode" class="active">Intern Auth Code</label>
+                </div>
+
+                <div class="input-field col s4">
+                    <input ng-model="admin.TeacherCode" id="TeacherCode" type="text" class="validate" name="TeacherCode" maxlength="5" length="5" value=" " required>
+                    <label for="TeacherCode" class="active">Teacher Auth Code</label>
+                </div>
+
+                <div class="input-field col s4">
+                    <input ng-model="admin.AdminCode" id="AdminCode" type="text" class="validate" name="AdminCode" maxlength="5" length="5" value=" " required>
+                    <label for="AdminCode" class="active">Admin Auth Code</label>
+                </div>
+            </div>
+
+            <div class="row"></div>
+            <div class="row">
+                <div class="input-field col s8">
+                    <button class="btn waves-effect waves-light" type="button" ng-click="admin.setAuthCodes()" name="action">Save</button>
+                    <span style='color:#070' ng-show="admin.saveMessage">{{ admin.saveMessage }}</span>
+                    <span style='color:#F00' ng-show="admin.errorMessage">{{ admin.errorMessage }}</span>
+                </div>
+            </div>
+
+
+        </div>
 
     </main>
 

@@ -132,7 +132,7 @@ router.post('/addObs', function (req, res) {
                 console.log("INSERT ERROR = ", err);
                 return;
             }
-            console.log("INSERTED NEW Observation = ", rows);
+            //console.log("INSERTED NEW Observation = ", rows);
 
         });
     }
@@ -166,7 +166,7 @@ router.post('/addInternObs', function (req, res) {
                 console.log("INSERT ERROR = ", err);
                 return;
             }
-            console.log("INSERTED NEW Observation = ", rows);
+            //console.log("INSERTED NEW Observation = ", rows);
 
         });
     }
@@ -217,7 +217,7 @@ router.post('/addObsSlider', function (req, res) {
                     console.log("INSERT ERROR = ", err);
                     return;
                 }
-                console.log("INSERTED NEW Observation = ", rows);
+                //console.log("INSERTED NEW Observation = ", rows);
             });
         }
 
@@ -268,7 +268,7 @@ router.post('/addInternObsSlider', function (req, res) {
                     console.log("INSERT ERROR = ", err);
                     return;
                 }
-                console.log("INSERTED NEW Observation = ", rows);
+                //console.log("INSERTED NEW Observation = ", rows);
             });
         }
 
@@ -318,11 +318,9 @@ router.get('/getInternData/:UserID', function (req, res) {
 });
 
 router.get('/getClassAverages/:ClassID/:ObsType', function(req, res) {
-    console.log("got here" + req.params);
     if (!req.user) res.redirect('/');
     connectionQuery();
     var selectQuery = "SELECT ObsType, ROUND(AVG(ObsValue), 1) AS Average, FROM_UNIXTIME(StudentObs.DateCreated, '%m/%d/%Y') AS Date FROM Reve.StudentObs WHERE ObsType = '" + decodeURIComponent(req.params.ObsType) + "' AND StudentObs.StudentID IN (SELECT Students.StudentID FROM Students WHERE ClassID = " + req.params.ClassID + ") GROUP BY Date ORDER BY Date";
-    console.log("select query is: " + selectQuery);
     connection.query(selectQuery, function (err, results) {
         if (err) console.log("SELECT ERROR = ", err);
         res.json(results);
@@ -357,7 +355,6 @@ router.get('/getClasses/:UserID', function (req, res) {
         connectionQuery();
 
         var selectQuery = "SELECT ClassID, ClassName, DateStart FROM Classes WHERE UserID = " + req.params.UserID;
-        console.log("selectQuery = ", selectQuery);
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
             res.json(results);
@@ -431,8 +428,6 @@ router.post('/addStudent', function (req, res) {
         DateCreated: getUnixTime()
     };
 
-    console.log(newStudentMysql);
-
     var insertQuery = "INSERT INTO Students ( ClassID, FirstName, LastName, DateCreated ) values (?,?,?,?)";
 
     connection.query(insertQuery, [newStudentMysql.ClassID, newStudentMysql.FirstName, newStudentMysql.LastName, newStudentMysql.DateCreated], function (err, rows) {
@@ -441,7 +436,7 @@ router.post('/addStudent', function (req, res) {
             console.log("INSERT ERROR = ", err);
             return;
         }
-        console.log("INSERTED NEW Student = ", rows);
+        //console.log("INSERTED NEW Student = ", rows);
 
     });
 
@@ -488,21 +483,15 @@ router.post('/add_class', function (req, res) {
         DateCreated: getUnixTime()
     };
 
-    console.log(newClassMysql);
-
     var insertQuery = "INSERT INTO Classes ( UserID, ClassName, DateStart, DateCreated ) values (?,?,?,?)";
 
     connection.query(insertQuery, [newClassMysql.UserID, newClassMysql.ClassName, newClassMysql.DateStart, newClassMysql.DateCreated], function (err, rows) {
-
         if (err) {
             console.log("INSERT ERROR = ", err);
             return;
         }
-        console.log("INSERTED NEW CLASS = ", rows);
-
-        //newClassMysql.UserID = rows.insertId;
+        //console.log("INSERTED NEW CLASS = ", rows);
     });
-
 
     res.sendStatus(200);
 
@@ -528,7 +517,7 @@ router.post('/login', passport.authenticate('local-login', {
     failureRedirect: '/login', // redirect back to the login page if there is an error
     failureFlash: true // allow flash messages
 }), function (req, res) {
-    console.log("logged in!");
+    //console.log("logged in!");
 
     if (req.body.remember) {
         req.session.cookie.maxAge = 1000 * 60 * 3;
@@ -566,25 +555,56 @@ router.post('/deleteUser', function(req, res) {
     if (!req.user) res.redirect('/');
     if (req.user.UserType == 0) {
 
-        console.log(req.body.UserID);
         connectionQuery();
-
         connection.query("DELETE FROM Users WHERE UserID = ?", [req.body.UserID], function (err, rows) {
 
             if (err) {
                 console.log("DELETE ERROR = ", err);
                 return;
             }
-            console.log("DELETE USER = ", rows);
+            //console.log("DELETE USER = ", rows);
 
-            //newClassMysql.UserID = rows.insertId;
         });
     }
 
     res.sendStatus(200);
 });
 
-// redirect all unknown routes to home [age
+router.get('/getAuthCodes', function(req, res) {
+    if (!req.user) res.redirect('/');
+    if (req.user.UserType == 0) {
+        connectionQuery();
+        connection.query("SELECT InternCode, TeacherCode, AdminCode FROM Settings", function (err, results) {
+            if (err) console.log("SELECT ERROR = ", err);
+            //console.log(results[0].InternCode);
+            res.json(results);
+        });
+    }
+});
+
+router.post('/setAuthCodes', function(req, res) {
+    if (!req.user) res.redirect('/');
+
+    if (req.user.UserType == 0) {
+        connectionQuery();
+        connection.query("DELETE FROM Settings");
+
+        var newCodesMysql = {
+            InternCode : req.body.InternCode,
+            TeacherCode : req.body.TeacherCode,
+            AdminCode : req.body.AdminCode
+        };
+
+        var insertQuery = "INSERT INTO Settings ( InternCode, TeacherCode, AdminCode ) VALUES (?,?,?)";
+
+        connection.query(insertQuery, [newCodesMysql.InternCode, newCodesMysql.TeacherCode, newCodesMysql.AdminCode], function (err, rows) {
+            if (err) return;
+            //console.log("INSERTED NEW CODES = ", rows);
+        });
+    }
+});
+
+// redirect all unknown routes to home page
 router.get('/*', function(req, res) { res.redirect('/'); });
 
 module.exports = router;

@@ -2,8 +2,6 @@ app.controller('AdminController', function($http) {
 
     var admin = this;
 
-    admin.message = "Admin controller";
-
     admin.getClasses = function() {
         $http.get('/getClasses').then(function(data) {
             //console.log(data.data);
@@ -27,6 +25,35 @@ app.controller('AdminController', function($http) {
         });
     };
 
+    admin.getAuthCodes = function() {
+        $http.get('/getAuthCodes').then(function(data) {
+            admin.InternCode = data.data[0].InternCode;
+            admin.TeacherCode = data.data[0].TeacherCode;
+            admin.AdminCode = data.data[0].AdminCode;
+        });
+    };
+
+    admin.setAuthCodes = function() {
+        if (!admin.InternCode || !admin.TeacherCode || !admin.AdminCode) {
+            admin.saveMessage = "";
+            admin.errorMessage = "ERROR: codes must be exactly five (5) characters in length.";
+        } else {
+            if (admin.InternCode.toString().length != 5 || admin.TeacherCode.toString().length != 5 || admin.AdminCode.toString().length != 5) {
+                admin.saveMessage = "";
+                admin.errorMessage = "ERROR: codes must be exactly five (5) characters in length.";
+            } else {
+                admin.errorMessage = "";
+                admin.saveMessage = "Login codes saved.";
+                var codes = {
+                    InternCode: parseInt(admin.InternCode),
+                    TeacherCode: parseInt(admin.TeacherCode),
+                    AdminCode: parseInt(admin.AdminCode)
+                };
+                return $http.post('/setAuthCodes', codes);
+            }
+        }
+    };
+
     admin.initModals = function() {
         $('.modal-trigger').leanModal({
                 dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -37,14 +64,11 @@ app.controller('AdminController', function($http) {
             }
         );
     };
-    console.log(navigator.userAgent);
 
     admin.deleteUser = function(Type, UserID) {
         var userToDelete = { UserID : UserID };
         return $http.post('/deleteUser', userToDelete).then(function() {
-            // remove backdrop from modal after deletion
-            //if (Type == "Teacher") $('#modalTeacher' + UserID).modal('hide');
-            //if (Type == "Intern") $('#modalIntern' + UserID).modal('hide');
+            // attempt to remove modal backdrop after deletion
             $('.modal-backdrop').remove();
             $('body').removeClass('modal-open');
             if (Type == "Teacher") {
@@ -54,6 +78,7 @@ app.controller('AdminController', function($http) {
                 admin.getInterns();
             }
 
+            // reload window if Firefox - unable to remove modal
             var pattern = /Firefox/g;
             var result = pattern.test(navigator.userAgent);
             if (result) {
@@ -66,6 +91,7 @@ app.controller('AdminController', function($http) {
     admin.getClasses();
     admin.getTeachers();
     admin.getInterns();
+    admin.getAuthCodes();
 
 });
 
