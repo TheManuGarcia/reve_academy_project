@@ -30,7 +30,7 @@
 
                     <input class="with-gap" ng-model="observation.UserID" type="radio" name="InternGroup"
                            value="{{ Intern.UserID }}" id="{{ Intern.UserID }}"/>
-                    <label for="{{ Intern.UserID }}" ng-click="observation.selectIntern(Intern)" ng-class="{'myInternClass':$index==0}">
+                    <label for="{{ Intern.UserID }}" ng-click="observation.selectIntern(Intern)" <% if (user.UserType == 2) { %> ng-class="{'myInternClass':$index==0}"<% } %>>
                         {{ Intern.FirstName }} {{ Intern.LastName }}
                     </label>
 

@@ -386,13 +386,15 @@ router.get('/getStudents/:ClassID', function (req, res) {
 router.get('/getInterns', function (req, res) {
     //console.log(req.user);
     if (!req.user) res.redirect('/');
-    if (req.user.UserType == 0 || req.user.UserType == 1 || req.user.UserType == 2) {
+    if (req.user.UserType == 0 || req.user.UserType == 2) {
 
         connectionQuery();
-
-        //var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
-        var selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserID = " + req.user.UserID + " UNION SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
-
+        var selectQuery;
+        if (req.user.UserType == 0) {
+            selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
+        } else {
+            selectQuery = "SELECT UserID, FirstName, LastName FROM Users WHERE UserID = " + req.user.UserID + " UNION SELECT UserID, FirstName, LastName FROM Users WHERE UserType = " + 2;
+        }
         connection.query(selectQuery, function (err, results) {
             if (err) console.log("SELECT ERROR = ", err);
             res.json(results);
