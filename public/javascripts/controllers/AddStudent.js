@@ -40,6 +40,5 @@ app.controller('AddStudentController', function ($http) {
         $(".FirstName").focus();
         return $http.post('/addStudent', newStudent).then(student.getStudents(classID));
     };
-//TODO figure out how to empty form
 
 });
