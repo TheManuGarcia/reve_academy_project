@@ -24,6 +24,11 @@ main {
     display: block;
 }
 
+.obsImage {
+    margin: 50px auto 0 auto;
+    display: block;
+}
+
 .sliderImage {
     padding-top: 10px;
 }
