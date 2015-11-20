@@ -79,11 +79,11 @@ app.controller('AdminController', function($http) {
             }
 
             // reload window if Firefox - unable to remove modal
-            var pattern = /Firefox/g;
-            var result = pattern.test(navigator.userAgent);
-            if (result) {
+            //var pattern = /Firefox/g;
+            //var result = pattern.test(navigator.userAgent);
+            //if (result) {
                 window.location="/admin";
-            }
+            //}
         });
     };
 
