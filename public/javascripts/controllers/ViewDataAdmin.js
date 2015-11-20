@@ -55,6 +55,7 @@ app.controller('ViewDataAdminController', function($http) {
 
     var BeingObservedID;
     viewdata.selectIntern = function(Intern) {
+        $("#dataMessageAdmin").hide();
         viewdata.internSelected = true;
         viewdata.teacherSelected = true;
         viewdata.classSelected = false;

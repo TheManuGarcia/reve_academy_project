@@ -50,6 +50,7 @@ app.controller('ViewDataTeacherController', function($http) {
     };
 
     viewdata.getClassAverage = function() {
+        $("#dataMessage").hide();
         clearCharts();
         viewdata.showCharts = false;
         viewdata.classAverage = true;
