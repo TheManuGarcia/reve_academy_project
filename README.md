@@ -1,6 +1,6 @@
 #Group Capstone Project: Rêve Academy
 
-Led a team serving the nonprofit Rêve Academy. Created a mobile-responsive web application enabling teachers to collect student competency data on the fly. Rêve Academy gives underserved students in North Minneapolis the technical and soft skills to succeed in the new digital age.
+Led a team serving the nonprofit [Rêve Academy](http://reveacademy.org). Created a mobile-responsive web application enabling teachers to collect student competency data on the fly. Rêve Academy gives underserved students in North Minneapolis the technical and soft skills to succeed in the new digital age.
 
 ##Technologies used:
 
