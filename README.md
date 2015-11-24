@@ -14,5 +14,5 @@ Led a team serving the nonprofit [Rêve Academy](http://reveacademy.org). Create
 
 ##You can [visit the site](http://107.170.165.106:3000/)
 
-- log in as teacher
+- log in as manut
 - password is 555555
