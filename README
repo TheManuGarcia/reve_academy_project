@@ -1,17 +1,18 @@
-Group Capstone Project for Rêve Academy
+#Group Capstone Project for Rêve Academy
 
-Led a team serving the nonprofit * Rêve Academy *. Created a mobile-responsive web application enabling teachers to collect student competency data on the fly. Rêve Academy gives underserved students in North Minneapolis the technical and soft skills to succeed in the new digital age 
+Led a team serving the nonprofit Rêve Academy. Created a mobile-responsive web application enabling teachers to collect student competency data on the fly. Rêve Academy gives underserved students in North Minneapolis the technical and soft skills to succeed in the new digital age.
 
-Technologies used: 
+##Technologies used:
 
-* MEAN stack
-* jQuery
-* EJS templates
-* MaterializeCSS
-* MySQL 
-* Chart.js
+- MEAN stack
+- Angular JS
+- jQuery
+- EJS templates
+- MaterializeCSS
+- MySQL
+- Chart.js
 
-You can [visit the site](http://107.170.165.106:3000/). 
+##You can [visit the site](http://107.170.165.106:3000/)
 
-* log in as Manut
-* password is 555555.
+- log in as teacher
+- password is 555555
