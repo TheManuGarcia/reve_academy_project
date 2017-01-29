@@ -5,6 +5,7 @@ Led a team serving the nonprofit [Rêve Academy](http://reveacademy.org). Create
 ##Technologies used:
 
 - MEAN stack
+- Node.js
 - Angular JS
 - jQuery
 - EJS templates
