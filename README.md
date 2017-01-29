@@ -16,3 +16,5 @@ Led a team serving the nonprofit [Rêve Academy](http://reveacademy.org). Create
 
 - username : ManuT
 - password : 555555
+
+<img src="https://github.com/TheManuGarcia/reve_academy_project/blob/master/ReveAcademy.gif"/>
